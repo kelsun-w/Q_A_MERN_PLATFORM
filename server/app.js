@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(expressValidator());
+
 app.use(morgan('common'));
 app.use(passport.initialize());
 

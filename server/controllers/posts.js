@@ -14,6 +14,9 @@ exports.load = async (req, res, next, id) => {
   next();
 };
 
+/**
+ * @description Returns `req.post` set by `posts.load` funtion, incrementing the `views` field of the Post object by 1.
+ */
 exports.show = async (req, res) => {
   const post = await Post.findByIdAndUpdate(
     req.post.id,

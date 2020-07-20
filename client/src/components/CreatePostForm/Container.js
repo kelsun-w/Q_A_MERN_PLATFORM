@@ -12,8 +12,10 @@ import categories from '../../categories';
 import withAuth from '../../util/withAuth';
 import CreatePostForm from './Component';
 
+//passing the validate function which takes in an object of the form values and returns an object of errors
 const validate = fields => {
   const errors = {};
+  //making sure that field values are not undefined
   const title = fields.title ? fields.title : '';
   const url = fields.url ? fields.url : '';
   const type = fields.type ? fields.type : '';

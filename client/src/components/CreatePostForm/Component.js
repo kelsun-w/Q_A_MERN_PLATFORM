@@ -56,7 +56,12 @@ class CreatePostForm extends React.Component {
         </Field>
         <Field name='title' label='title' type='text' component={renderField} />
         {this.props.form.values.type === 'link' && (
-          <Field name='url' label='url' type='url' component={renderField} />
+          <Field 
+            name='url' 
+            label='url' 
+            type='url' 
+            component={renderField} 
+          />
         )}
         {this.props.form.values.type === 'text' && (
           <Field

@@ -1,6 +1,4 @@
-# asperitas
-
-Asperitas is a full stack reddit clone that I wrote to learn more about Node.js, React, and NoSQL databases. The name asperitas comes from a type of [cloud](https://en.wikipedia.org/wiki/Asperitas_(cloud)).
+# mfu-life
 
 ## Installation
 
@@ -39,10 +37,10 @@ Asperitas is a full stack reddit clone that I wrote to learn more about Node.js,
     $ cd client
     $ npm start
     ```
-4. Browse to `http://localhost:3000/`
-
+4. Browse to `http://localhost:3000/`  
+ 
 ## Testing
-
+ 
 ### Server
 Make sure mongodb is running before testing the server.
 ```bash
@@ -55,7 +53,27 @@ $ npm test
 $ cd client
 $ npm test
 ```
+ 
+### Routes
+|          Route          |    Method   | Return on success | HTTP status on `error` |
+|:------------------------|:-----------:|:-----------------:|:----------------------:|
+|/login                   |     POST    |    jwt token      | `401`                  |
+|/register                |     POST    |    jwt token      | `422`                  |
+| post                    |     PARAM   |    -              | `404` OR `400`         |
+|/posts                   |     POST    |    `Post`         | `401` OR `422`         |
+|/posts                   |     GET     |    `Array<Post>`  |  -                     |
+|/posts/`:category`       |     GET     |    `Array<Post>`  |  -                     |
+|/post/`:post`            |     GET     |    `Post`         |  -                     |
+|/post/`:post`/upvote     |     GET     |    `Post`         | `401`                  |
+|/post/`:post`/downvote   |     GET     |    `Post`         | `401`                  |
+|/post/`:post`/unvote     |     GET     |    `Post`         | `401`                  |
+|/post/`:post`            |     DELETE  |    success        | `401`                  |         
+|/post/`:post`            |     POST    |    `Post`         | `401` OR `422`         |
+| comment                 |     PARAM   |    -              | `404` OR `400`         |
+|/post/`:post`/`:comment` |     DELETE  |    `Post`         | `401`                  |
+|/user/`:user`            |     GET     |    `Array<Post>`  |                        |
 
+ 
 ## License
 
 This project is made available under the **MIT License**.
