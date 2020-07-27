@@ -21,6 +21,19 @@ describe('auth endpoints', () => {
     short: 'aaa',
     long: 'a'.repeat(73)
   };
+  const email = {
+    nonExisting: 'new@test.com',
+    nonTrimmed: ' user@test.com ',
+    invalid: 'user@.com'
+  }
+  const studentNo = {
+    nonTrimmed: ' xxxxxxxx ',
+    incorrectLength: '12345',
+    invalid: 'n2a45X-sdf'
+  }
+  const major = {
+    nonTrimmed: ' xxxxxxxx '
+  }
 
   beforeEach(async () => {
     user = validUser();
@@ -40,7 +53,7 @@ describe('auth endpoints', () => {
         .expect(422, done);
     });
 
-    test('reject requests with incorrect name', done => {
+    test('rejects requests with incorrect name', done => {
       request(app)
         .post('/api/login')
         .send({ ...user, username: username.nonExisting })
@@ -50,7 +63,7 @@ describe('auth endpoints', () => {
         .expect(401, done);
     });
 
-    test('reject requests with incorrect pass', done => {
+    test('reject requests with incorrect password', done => {
       request(app)
         .post('/api/login')
         .send({ ...user, password: password.wrong })
@@ -109,13 +122,48 @@ describe('auth endpoints', () => {
         .expect(422, done);
     });
 
-    test('rejects requests with non-trimmed name', done => {
+    test('rejects requests with a blank email', done => {
       request(app)
         .post('/api/register')
-        .send({ ...user, username: username.nonTrimmed })
+        .send({ ...user, email: '', username: username.nonExisting })
         .expect(res => {
           expect(res.body.errors).toBeDefined();
-          expect(res.body.errors[0].msg).toContain('whitespace');
+          expect(res.body.errors[0].msg).toContain('blank');
+        })
+        .expect(422, done);
+    })
+
+    test('rejects requests with a blank studentNo', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, studentNo: '', username: username.nonExisting, email: email.nonExisting })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          expect(res.body.errors[0].msg).toContain('blank');
+        })
+        .expect(422, done);
+    })
+
+    test('rejects requests with a blank major', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, major: '', username: username.nonExisting, email: email.nonExisting })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          expect(res.body.errors[0].msg).toContain('blank');
+        })
+        .expect(422, done);
+    })
+
+    test('rejects requests with non-trimmed values', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, username: username.nonTrimmed, email: email.nonTrimmed })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          res.body.errors.forEach(err => {
+            expect(err.msg).toContain('whitespace');
+          });
         })
         .expect(422, done);
     });
@@ -130,6 +178,28 @@ describe('auth endpoints', () => {
         })
         .expect(422, done);
     });
+
+    test('rejects requests with invalid email', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, email: email.invalid, username: username.nonExisting })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          expect(res.body.errors[0].msg).toContain('invalid');
+        })
+        .expect(422, done);
+    })
+
+    test('rejects requests with invalid studentNo', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, studentNo: studentNo.invalid, username: username.nonExisting, email: email.nonExisting })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          expect(res.body.errors[0].msg).toContain('invalid');
+        })
+        .expect(422, done);
+    })
 
     test('rejects requests with name that is too long', done => {
       request(app)
@@ -164,13 +234,27 @@ describe('auth endpoints', () => {
         .expect(422, done);
     });
 
-    test('rejects requests with existing name', done => {
+    test('rejects requests with studentNo that is not 10 digits', done => {
+      request(app)
+        .post('/api/register')
+        .send({ ...user, studentNo: studentNo.incorrectLength, username: username.nonExisting, email: email.nonExisting })
+        .expect(res => {
+          expect(res.body.errors).toBeDefined();
+          expect(res.body.errors[0].msg).toContain('must be 10 characters long');
+        })
+        .expect(422, done);
+    });
+
+    test('rejects requests with existing name and email', done => {
       request(app)
         .post('/api/register')
         .send(user)
         .expect(res => {
           expect(res.body.errors).toBeDefined();
-          expect(res.body.errors[0].msg).toContain('already exists');
+          expect(res.body.errors).toHaveLength(2);
+          res.body.errors.forEach(err => {
+            expect(err.msg).toContain('already exists');
+          });
         })
         .expect(422, done);
     });
@@ -178,8 +262,7 @@ describe('auth endpoints', () => {
     test('creates a new user and returns a valid auth token', done => {
       request(app)
         .post('/api/register')
-        .send({ ...user, username: username.nonExisting })
-        .expect('Content-Type', /json/)
+        .send({ ...user, username: username.nonExisting, email: email.nonExisting })
         .expect(res => {
           const { token } = res.body;
           const payload = jwt.verify(token, config.jwt.secret);
@@ -188,4 +271,5 @@ describe('auth endpoints', () => {
         .expect(201, done);
     });
   });
+
 });

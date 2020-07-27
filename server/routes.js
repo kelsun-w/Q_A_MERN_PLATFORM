@@ -1,10 +1,14 @@
 const users = require('./controllers/users');
 const posts = require('./controllers/posts');
 const comments = require('./controllers/comments');
-const { jwtAuth, postAuth, commentAuth } = require('./auth');
+const { jwtAuth, postAuth, commentAuth, googleAuth } = require('./auth');
 const router = require('express').Router();
+const passport = require('passport');
 
-router.post('/login', users.validate(), users.login);         
+router.get('/auth/google', googleAuth);
+router.get('/auth/google/callback', passport.authenticate('google', { session: false }), users.restrictEmail);
+
+router.post('/login', users.validate(), users.login);
 router.post('/register', users.validate('register'), users.register);
 
 router.param('post', posts.load);
@@ -12,7 +16,7 @@ router.get('/posts', posts.list);
 router.get('/posts/:category', posts.listByCategory);
 router.get('/post/:post', posts.show);
 router.post('/posts', [jwtAuth, posts.validate], posts.create);
-router.delete('/post/:post',[jwtAuth, postAuth], posts.destroy);
+router.delete('/post/:post', [jwtAuth, postAuth], posts.destroy);
 router.get('/post/:post/upvote', jwtAuth, posts.upvote);
 router.get('/post/:post/downvote', jwtAuth, posts.downvote);
 router.get('/post/:post/unvote', jwtAuth, posts.unvote);

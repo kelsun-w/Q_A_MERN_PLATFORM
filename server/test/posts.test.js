@@ -7,6 +7,9 @@ const Post = mongoose.model('Post');
 
 process.env.TEST_SUITE = 'posts';
 
+//Post return all fails if timeout < 10 secs
+jest.setTimeout(10000);
+
 describe('post endpoints', () => {
   let userData, user;
   let userData2, user2;
@@ -23,9 +26,10 @@ describe('post endpoints', () => {
 
     postData = validPost(user.id, 'category1');
     post = await new Post(postData).save();
-
+    // console.log(post);
     postData2 = validPost(user2.id, 'category2');
     post2 = await new Post(postData2).save();
+    // console.log(post2);
   });
 
   describe('/posts', () => {
