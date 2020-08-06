@@ -12,6 +12,7 @@ module.exports = {
     }
   },
   domain: process.env.RESTRICTED_DOMAIN,
+  client_url: process.env.CLIENT_BASE_URL,
   jwt: {
     secret: process.env.JWT_SECRET || 'development_secret',
     expiry: '7d'
@@ -20,5 +21,8 @@ module.exports = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback'
+  },
+  corsOptions : {
+    origin: 'http://localhost:3000'
   }
 };

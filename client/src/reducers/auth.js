@@ -29,9 +29,9 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         token: action.token,
-        user
+        user,
+        authenticated: null
       };
-
     case SIGNUP_ERROR:
     case LOGIN_ERROR:
       return { ...state, loading: false };

@@ -5,6 +5,7 @@ import withAuth from '../../util/withAuth';
 import { attemptSignup } from '../../actions/auth';
 import validate from './validate';
 import SignupForm from './Component';
+import { withCookies } from 'react-cookie';
 
 const mapStateToProps = state => ({
   loading: state.auth.loading
@@ -21,6 +22,6 @@ const enhance = compose(
   )
 );
 
-const SignupFormContainer = enhance(SignupForm);
+const SignupFormContainer = withCookies(enhance(SignupForm));
 
 export default SignupFormContainer;

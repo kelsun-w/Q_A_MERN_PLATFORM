@@ -4,7 +4,7 @@ const baseUrl =
     : `https://${window.location.hostname}/api`;
 
 const methods = {
-  get: async function(endpoint, token = null) {
+  get: async function (endpoint, token = null) {
     const options = {
       method: 'GET',
       headers: {
@@ -20,7 +20,7 @@ const methods = {
     return json;
   },
 
-  post: async function(endpoint, body, token = null) {
+  post: async function (endpoint, body, token = null) {
     const options = {
       method: 'POST',
       headers: {
@@ -46,7 +46,7 @@ const methods = {
     return json;
   },
 
-  delete: async function(endpoint, token = null) {
+  delete: async function (endpoint, token = null) {
     const options = {
       method: 'DELETE',
       headers: {
@@ -72,8 +72,8 @@ export async function login(username, password) {
   return json.token;
 }
 
-export async function signup(username, password) {
-  const json = await methods.post('register', { username, password });
+export async function signup(username, password, email, studentNo, major) {
+  const json = await methods.post('register', { username, password, email, studentNo, major });
   return json.token;
 }
 

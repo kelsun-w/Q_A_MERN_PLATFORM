@@ -1,15 +1,18 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const localStrategy = require('./auth/local');
 const jwtStrategy = require('./auth/jwt');
 const googleStrategy = require('./auth/google');
+const config = require('./config');
 const app = express();
 
-app.use(cors());
+app.use(cors(config.corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 app.use(expressValidator());
 
 app.use(morgan('common'));

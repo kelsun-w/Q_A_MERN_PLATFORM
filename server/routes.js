@@ -4,9 +4,10 @@ const comments = require('./controllers/comments');
 const { jwtAuth, postAuth, commentAuth, googleAuth } = require('./auth');
 const router = require('express').Router();
 const passport = require('passport');
+const config = require('./config');
 
 router.get('/auth/google', googleAuth);
-router.get('/auth/google/callback', passport.authenticate('google', { session: false }), users.restrictEmail);
+router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
 
 router.post('/login', users.validate(), users.login);
 router.post('/register', users.validate('register'), users.register);

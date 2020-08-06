@@ -13,12 +13,27 @@ exports.login = (req, res, next) => {
   login(req, res, next);
 };
 
-exports.restrictEmail = (req, res, next) => {
-  const user = req.user;
-  if (req.user.hd && req.user.hd === config.domain) {
-    return res.json(user);
+exports.restrictEmail = async (req, res, next) => {
+  const profile = req.user;
+  if (profile.hd && profile.hd === config.domain) {
+    if (profile.email_verified) {
+      await User.findOne({ email: profile.email }, (err, doc) => {
+        if (err) res.json({ err })
+        if (!doc) {
+          return res
+            .status(200)
+            .cookie(
+              'google_jwt',
+              createAuthToken(profile)
+            )
+            .redirect(config.client_url + '/signup')
+        }
+        //user already have an account registered
+        return res.redirect(config.client_url + '/login')
+      })
+    }
   }
-  res.status(403).json({ message: 'restricted access' })
+  res.status(403).redirect(config.client_url + '/unauthorised')
 }
 
 exports.register = async (req, res, next) => {

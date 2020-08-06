@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
-import withAuth from '../../util/withAuth';
 import { attemptLogin } from '../../actions/auth';
 import LoginForm from './Component';
+import withAuth from '../../util/withAuth';
 
 const mapStateToProps = state => ({
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  authenticated: state.auth.authenticated
 });
 
 const mapDispatchToProps = { attemptLogin };

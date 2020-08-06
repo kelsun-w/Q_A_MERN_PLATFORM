@@ -1,21 +1,35 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { Field } from 'redux-form';
-import Form from '../shared/form/Form';
-import renderField from '../shared/form/renderField';
 import { usernameValidator, passwordValidator } from '../../util/validators';
+import Form from '../shared/form/Form';
+import GoogleLoginButton from '../shared/GoogleLoginButton';
 import SubmitButton from '../shared/form/SubmitButton';
+import renderField from '../shared/form/renderField';
+import Header from '../shared/form/Header';
+import Label from '../shared/form/Label';
+
+const GoogleSignup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 class LoginForm extends React.Component {
   componentDidMount() {
-    this.redirectIfLoggedIn();
+    this.redirectOnChange();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.redirectIfLoggedIn();
+    this.redirectOnChange();
   }
 
-  redirectIfLoggedIn() {
-    if (this.props.token) this.props.history.push('/');
+  redirectOnChange() {
+    if (this.props.token) { this.props.history.push('/') }
+  }
+
+  getGoogleAuthentication = () => {
+    this.props.attemptGoogleAuth();
   }
 
   onSubmit = ({ username, password }) => {
@@ -28,6 +42,7 @@ class LoginForm extends React.Component {
         loading={this.props.loading}
         onSubmit={this.props.handleSubmit(this.onSubmit)}
       >
+        <Header>Sign in</Header>
         <Field
           name='username'
           label='username'
@@ -43,6 +58,9 @@ class LoginForm extends React.Component {
           validate={passwordValidator}
         />
         <SubmitButton type='submit'>log in</SubmitButton>
+        <br />
+        <Label>Don't have an account?</Label>
+        <GoogleLoginButton>Login with Google</GoogleLoginButton>
       </Form>
     );
   }

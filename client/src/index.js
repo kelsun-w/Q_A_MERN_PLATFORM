@@ -3,14 +3,17 @@ import './config/moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import store from './store';
 import AppContainer from './components/App/Container';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );
 
