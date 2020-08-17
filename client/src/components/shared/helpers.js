@@ -8,7 +8,6 @@ export const smallFont = css`
 
 export const wideFont = css`
   ${smallFont};
-  font-weight: 700;
   letter-spacing: 0.05em;
 `;
 
@@ -49,9 +48,17 @@ export const link = props => css`
   text-decoration: none;
   color: ${props => props.theme.normalText};
 
-  :hover {
+  &:hover * {
     ${props.underline && 'text-decoration: underline'};
     color: ${props => props.theme.accent};
+  }
+  
+  &:hover svg {
+    fill: ${props => props.theme.accent}
+  }
+
+  &.active svg {
+    fill: ${props => props.theme.accent}
   }
 `;
 

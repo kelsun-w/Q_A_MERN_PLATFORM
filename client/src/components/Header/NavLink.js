@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import NavLink from '../shared/NavLink';
 import { headerItem, wideFont, link, transition } from '../shared/helpers';
+import React from 'react';
 
 const HeaderNavLink = styled(NavLink)`
   ${headerItem};
@@ -22,7 +23,7 @@ const HeaderNavLink = styled(NavLink)`
     opacity: 0;
     border-bottom: 1px solid ${props => props.theme.accent};
   }
-  
+
   :hover::after {
     opacity: 1;
   }
