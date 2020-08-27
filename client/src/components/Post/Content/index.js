@@ -3,7 +3,9 @@ import styled from 'styled-components/macro';
 import PostContentTitle from './Title';
 import PostContentPreview from './Preview';
 import PostContentFullText from './FullText';
-import PostContentDetail from './Detail';
+import PostContentHeaderDetail from './HeaderDetail';
+import PostContentFooterDetail from './FooterDetail';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,17 +41,18 @@ const PostContent = ({
   showFullPost,
   ...details
 }) => (
-  <Wrapper>
-    <PostContentTitle
-      url={url}
-      title={title}
-      type={type}
-      full={showFullPost}
-      {...details}
-    />
-    {renderContent({ type, url, text, showFullPost })}
-    <PostContentDetail commentCount={commentCount} {...details} />
-  </Wrapper>
-);
+    <Wrapper>
+      <PostContentHeaderDetail commentCount={commentCount} {...details} />
+      <PostContentTitle
+        url={url}
+        title={title}
+        type={type}
+        full={showFullPost}
+        {...details}
+      />
+      {renderContent({ type, url, text, showFullPost })}
+      <PostContentFooterDetail commentCount={commentCount} {...details} />
+    </Wrapper>
+  );
 
 export default PostContent;

@@ -7,8 +7,18 @@ import validate from './validate';
 import SignupForm from './Component';
 import { withCookies } from 'react-cookie';
 
+const majors = [
+  'Software Engineering',
+  'International Development',
+  'Information Communication Engineering',
+  'Computer Engineering',
+  'Information Technology',
+  'Computer Science'
+];
+
 const mapStateToProps = state => ({
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  majors: majors
 });
 
 const mapDispatchToProps = { attemptSignup };

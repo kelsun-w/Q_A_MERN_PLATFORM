@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { transition } from './helpers';
 
@@ -57,10 +57,11 @@ const Switch = styled.label`
 
 const ToggleButton = ({ defaultState }) => {
     const [isChecked, setChecked] = useState(defaultState);
+    //Super buggy code -> Updated value is rendered late and cannot click twice to change value
 
     return (
         <Switch>
-            <input type="checkbox" isChecked={isChecked} onChange={()=> setChecked(!isChecked)} />
+            <input type="checkbox" checked={isChecked} onChange={e => setChecked(e.currentTarget.checked)}/>
         </Switch>
     );
 }

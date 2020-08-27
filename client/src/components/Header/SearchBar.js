@@ -12,6 +12,7 @@ const SearchBar = styled.input`
   padding: 0 16px 0 10px;
   margin-right: 8px;
   align-self: center;
+  
 
   &:hover , &:focus{
     border: 1px solid ${props => props.theme.accent};

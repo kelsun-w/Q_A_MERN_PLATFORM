@@ -12,7 +12,7 @@ const RadioGroupWrapper = styled.div`
   }
 `;
 
-function handleClick (e, value, fn) {
+function handleClick(e, value, fn) {
   e.preventDefault();
   fn(value);
 }

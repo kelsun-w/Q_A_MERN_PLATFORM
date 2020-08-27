@@ -15,12 +15,10 @@ const Dropdown = ({ user }) => {
   const menu = useRef(null);
 
   const toggleMenu = event => {
-    event.preventDefault();
     isOpen ? closeMenu(event) : setOpen(true);
   };
 
   const closeMenu = event => {
-    event.preventDefault();
     if (!menu.current.contains(event.target)) {
       setOpen(false);
       document.removeEventListener('click', closeMenu)

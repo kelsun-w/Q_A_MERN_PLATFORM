@@ -68,11 +68,11 @@ const DropdownContent = ({ user, logout, toggleDarkTheme }) => (
         </MenuOption>
 
         <Header>View Setting</Header>
-        <MenuOption destination='#' onClick={toggleDarkTheme}>
+        <MenuOption destination='#' onClick={toggleDarkTheme} >
             <DarkModeIcon />
             <span>Darkmode</span>
         </MenuOption>
-        <MenuOption destination='#' onClick={toggleDarkTheme}>
+        <MenuOption destination='#' onClick={toggleDarkTheme} >
             <LanguageIcon />
             <span>Language</span>
         </MenuOption>

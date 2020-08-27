@@ -18,7 +18,7 @@ exports.restrictEmail = async (req, res, next) => {
   if (profile.hd && profile.hd === config.domain) {
     if (profile.email_verified) {
       await User.findOne({ email: profile.email }, (err, doc) => {
-        if (err) res.json({ err })
+        if (err) return res.json({ err })
         if (!doc) {
           return res
             .status(200)
@@ -26,14 +26,14 @@ exports.restrictEmail = async (req, res, next) => {
               'google_jwt',
               createAuthToken(profile)
             )
-            .redirect(config.client_url + '/signup')
+            .redirect(config.client_url + '/signup');
         }
         //user already have an account registered
-        return res.redirect(config.client_url + '/login')
+        return res.redirect(config.client_url + '/login');
       })
     }
   }
-  res.status(403).redirect(config.client_url + '/unauthorised')
+  res.status(403).redirect(config.client_url + '/unauthorised');
 }
 
 exports.register = async (req, res, next) => {

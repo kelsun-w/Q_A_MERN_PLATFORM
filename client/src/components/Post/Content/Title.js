@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     line-height: 21px;
     font-weight: 500;
     text-decoration: none;
+    padding-top: 10px;  
     color: ${props => props.theme.normalText};
     ${props => props.full && 'white-space: unset'};
   }

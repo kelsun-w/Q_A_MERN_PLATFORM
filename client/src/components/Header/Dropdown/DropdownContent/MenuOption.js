@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import React from 'react';
 import { NormalText } from '../Text';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ToggleButton from '../../../shared/ToggleButton';
 
-const Wrapper = styled(NavLink)` 
+const Wrapper = styled(Link)` 
     display: flex;
     position: relative;
     align-items: center;
@@ -21,16 +21,20 @@ const Wrapper = styled(NavLink)`
         }
     };
 
-    &:hover, &:focus {
+    &:hover{
         background: ${props => props.theme.accent};
         
         * { color: #ffffff; }
         svg { fill: #ffffff; }
     };
 
-    &:focus { 
-        outline: none; 
-    }
+    &:focus{
+        outline: none;
+        background: ${props => props.theme.accent};
+        
+        * { color: #ffffff; }
+        svg { fill: #ffffff; }
+    };
 
     ${({ overflow }) => overflow && css`
         display: none;
@@ -46,7 +50,8 @@ const Text = styled(NormalText)`
 `;
 
 const MenuOption = ({ children, destination, overflow, toggle, onClick, defaultState }) => (
-    <Wrapper to={destination} overflow={overflow} onClick={onClick}>
+    // preventing `onMouseDown` makes the NavLink not get the :focus on mouse click
+    <Wrapper to={destination} overflow={overflow} onClick={onClick} onMouseDown={(e) => e.preventDefault()}>
         {children[0]}
         <Text>{children[1]}</Text>
         {toggle ? <ToggleButton defaultState={defaultState} /> : ""}

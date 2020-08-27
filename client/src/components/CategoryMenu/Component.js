@@ -2,21 +2,18 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { Route } from 'react-router-dom';
 import CategoryMenuDropdown from './Dropdown';
-import CategoryMenuCreatePostButton from './CreatePostButton';
+import CategoryMenuCreatePost from './CreatePost';
 
 const Menu = styled.nav`
-  display: none;
-  border: 1px solid ${props => props.theme.border};
+  display: block;
   border-left: none;
   border-right: none;
-
-  @media (max-width: 768px) {
-    display: flex;
-  }
+  margin-bottom: 16px;
 `;
 
 const CategoryMenu = props => (
   <Menu>
+    {props.token && <CategoryMenuCreatePost />}
     <Route
       path='/a/:category'
       children={({ match, history }) => (
@@ -26,7 +23,6 @@ const CategoryMenu = props => (
         />
       )}
     />
-    {props.token && <CategoryMenuCreatePostButton />}
   </Menu>
 );
 

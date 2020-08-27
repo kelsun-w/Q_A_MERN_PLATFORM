@@ -12,6 +12,10 @@ const Dropdown = styled.select`
   font-size: 15px;
   color: ${props => props.theme.normalText};
   appearance: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
 class CategoryMenuDropdown extends React.Component {

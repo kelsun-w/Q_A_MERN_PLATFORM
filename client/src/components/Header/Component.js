@@ -28,7 +28,6 @@ const Wrapper = styled.header`
 
   @media (max-width: 425px) {
     margin-bottom: 16px;
-    height: 40px;
   }
 
   @media (max-width: 768px) {
@@ -41,21 +40,37 @@ const Wrapper = styled.header`
   }
 `;
 
+const MainGroup = styled.div`
+  display: inline-flex;
+  flex-grow:1;
+  align-items: stretch;
+  padding-right: 1vw;
+`;
+
+const OptionGroup = styled.div`
+  display: inline-flex;
+  flex-grow:0;
+  align-items: stretch;
+`;
+
 const Header = ({ user, logout }) => (
   <Wrapper>
-    <HeaderLogo />
-    <SearchBar placeholder='🔎 Search something' />
-    {user ? (
-      <>
-        <OverflowMenu />
-        <Dropdown user={user} />
-      </>
-    ) : (
+    <MainGroup>
+      <HeaderLogo />
+      <SearchBar placeholder='🔎 Search something' />
+    </MainGroup>
+    <OptionGroup>
+      {user ? (
         <>
-          <HeaderNavLink to='/login'>log in</HeaderNavLink>
-          <HeaderNavLink to='/signup'>sign up</HeaderNavLink>
+          <OverflowMenu />
+          <Dropdown user={user} />
         </>
-      )}
+      ) : (
+          <>
+            <HeaderNavLink to='/login'>Join Us</HeaderNavLink>
+          </>
+        )}
+    </OptionGroup>
   </Wrapper>
 );
 

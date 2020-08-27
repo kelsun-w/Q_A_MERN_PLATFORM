@@ -7,7 +7,8 @@ import NotificationIcon from '../../shared/icons/notification';
 
 const Wrapper = styled.div`
     display: flex;
-
+    padding-right: 1vw;
+    
     @media (max-width:600px) {
         display: none;
     }
