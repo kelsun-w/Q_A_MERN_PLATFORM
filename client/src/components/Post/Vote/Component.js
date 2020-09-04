@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import PostVoteUpvote from './Upvote';
 import PostVoteDownvote from './Downvote';
 
@@ -7,14 +7,34 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30px;
+  width: auto;
   padding: 4px;
   font-size: 12px;
   line-height: 25px;
   font-weight: 500;
   text-align: center;
   color: ${props => props.theme.normalText};
-`;
+
+  @media(max-width: 768px){
+          display: none;
+  }
+
+  ${({ row }) => row && css`
+        display: none;
+        flex-direction: row;
+        padding: 0 4px;
+        border : 1.5px solid ${props => props.theme.border};
+        border-radius: 20px;
+
+        & > span {
+          padding: 0 5px;
+        }
+
+        @media(max-width: 768px){
+          display: flex;
+        }
+    `}
+  `;
 
 class PostVote extends React.Component {
   constructor(props) {
@@ -71,17 +91,19 @@ class PostVote extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper row={this.props.row}>
         <PostVoteUpvote
           canVote={!!this.props.token}
           didVote={this.state.didUpvote}
           onClick={this.upvote}
+          row={this.props.row}
         />
         <span>{this.state.score}</span>
         <PostVoteDownvote
           canVote={!!this.props.token}
           didVote={this.state.didDownvote}
           onClick={this.downvote}
+          row={this.props.row}
         />
       </Wrapper>
     );

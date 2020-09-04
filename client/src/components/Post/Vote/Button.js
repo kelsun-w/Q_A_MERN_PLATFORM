@@ -16,7 +16,7 @@ const PostVoteButton = styled.button`
   }
   
   :hover {
-    background-color: ${props => props.theme.voteButtonHover};
+    background-color: ${props => props.row ? 'none' : props.theme.voteButtonHover};
   }
 
   ::after {
