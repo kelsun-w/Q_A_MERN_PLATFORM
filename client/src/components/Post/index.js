@@ -16,6 +16,9 @@ const Post = ({ id, votes, score, comments, full, ...content }) => (
       showFullPost={full}
       id={id}
       commentCount={comments ? comments.length : 0}
+      id={id} 
+      votes={votes} 
+      score={score}
       {...content}
     />
   </Wrapper>

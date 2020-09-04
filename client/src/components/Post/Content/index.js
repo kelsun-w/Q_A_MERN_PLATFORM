@@ -4,8 +4,7 @@ import PostContentTitle from './Title';
 import PostContentPreview from './Preview';
 import PostContentFullText from './FullText';
 import PostContentHeaderDetail from './HeaderDetail';
-import PostContentFooterDetail from './FooterDetail';
-
+import PostContentFooterDetail from './Footer/Component';
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,6 +38,9 @@ const PostContent = ({
   text,
   commentCount,
   showFullPost,
+  id,
+  votes,
+  score,
   ...details
 }) => (
     <Wrapper>
@@ -51,7 +53,7 @@ const PostContent = ({
         {...details}
       />
       {renderContent({ type, url, text, showFullPost })}
-      <PostContentFooterDetail commentCount={commentCount} {...details} />
+      <PostContentFooterDetail id={id} votes={votes} score={score} commentCount={commentCount} {...details} />
     </Wrapper>
   );
 
