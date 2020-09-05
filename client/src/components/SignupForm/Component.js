@@ -29,7 +29,8 @@ const HiddenTitle = styled.div`
   text-align: center;
   margin-bottom: 16px;
   min-width: 260px;
-
+  color: ${props => props.theme.normalText};
+  
   @media (max-width: 800px){
     display: block;
   }

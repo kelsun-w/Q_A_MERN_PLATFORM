@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import PostVoteContainer from '../../Vote/Container';
-import CommentIcon from '../../../shared/icons/comments';
-import ReportIcon from '../../../shared/icons/report';
 import { overflow } from '../../../shared/helpers';
 import FooterButton from './Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //Be careful when editing this code. The order of the child elements of the Wrapper MATTERS!
 const Wrapper = styled.div`
@@ -49,20 +48,20 @@ const PostContentDetail = ({ id, votes, score, category, commentCount }) => (
   <Wrapper>
     <PostVoteContainer row id={id} votes={votes} score={score} />
     <FooterButton to={`/a/${category}/${id}`} >
-      <CommentIcon />
+      <FontAwesomeIcon icon='comment-alt' />
       <span>{commentCount}</span>
       <span>comment{commentCount !== 1 ? 's' : null}</span>
     </FooterButton>
     <FooterButton className="share" to={`/a/${category}/${id}`} >
-      <CommentIcon />
+      <FontAwesomeIcon icon='share' />
       <span>Share</span>
     </FooterButton>
     <FooterButton to={`/a/${category}/${id}`} >
-      <CommentIcon />
+      <FontAwesomeIcon icon='bookmark' />
       <span>Save</span>
     </FooterButton>
     <FooterButton to={`/a/${category}/${id}`} >
-      <ReportIcon />
+      <FontAwesomeIcon icon='flag' />
       <span>Report</span>
     </FooterButton>
   </Wrapper>

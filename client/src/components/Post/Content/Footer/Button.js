@@ -11,6 +11,7 @@ const FooterButton = styled(Link)`
   padding: 2px;
   background-color: transparent;
   cursor: pointer;
+  color: ${props => props.theme.icon};
   
   * {
     margin-right: 3px;

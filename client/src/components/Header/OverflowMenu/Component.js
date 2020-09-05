@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import React from 'react'
 import NavLink from '../NavLink';
-import PostIcon from '../../shared/icons/create_post';
-import MessageIcon from '../../shared/icons/message';
-import NotificationIcon from '../../shared/icons/notification';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Wrapper = styled.div`
     display: flex;
     padding-right: 1vw;
+
+    a {
+        color: ${props => props.theme.headerIcon};
+    }
     
     @media (max-width:600px) {
         display: none;
@@ -17,13 +19,13 @@ const Wrapper = styled.div`
 const OverflowMenu = () => (
     <Wrapper>
         <NavLink to='/createpost'>
-            <PostIcon />
+            <FontAwesomeIcon icon='pencil-alt' size='lg' />
         </NavLink>
         <NavLink to='#'>
-            <MessageIcon />
+            <FontAwesomeIcon icon='comments' size='lg' />
         </NavLink>
         <NavLink to='#'>
-            <NotificationIcon />
+            <FontAwesomeIcon icon='bullhorn' size='lg' />
         </NavLink>
     </Wrapper>
 )

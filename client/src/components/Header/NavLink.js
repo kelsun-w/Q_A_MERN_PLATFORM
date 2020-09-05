@@ -9,7 +9,7 @@ const HeaderNavLink = styled(NavLink)`
   
   position: relative;
   cursor: pointer;
-  color: ${props => props.theme.mutedText};
+  color: ${props => props.theme.icon};
   
   ::after {
     ${transition('opacity', 'border-bottom-width')};
@@ -27,6 +27,10 @@ const HeaderNavLink = styled(NavLink)`
     opacity: 1;
   }
   
+  &.active * {
+    color: ${props => props.theme.accent};
+  };
+
   &.active::after {
     left: 0;
     right: 0;

@@ -3,14 +3,7 @@ import React from 'react';
 import MenuOption from './MenuOption';
 import Divider from "../../../shared/Divider";
 import { MutedText } from '../Text';
-import ProfileIcon from "../../../shared/icons/profile";
-import SettingIcon from "../../../shared/icons/setting";
-import DarkModeIcon from "../../../shared/icons/darkmode";
-import LanguageIcon from "../../../shared/icons/language";
-import LoginIcon from "../../../shared/icons/login";
-import CreatePostIcon from "../../../shared/icons/create_post";
-import MessageIcon from "../../../shared/icons/message";
-import NotificationIcon from "../../../shared/icons/notification";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Wrapper = styled.div`
     display: flex;
@@ -47,38 +40,38 @@ const DropdownContent = ({ user, logout, toggleDarkTheme }) => (
     <Wrapper>
         <Header>Personal</Header>
         <MenuOption destination='/createpost' overflow>
-            <CreatePostIcon />
+            <FontAwesomeIcon icon='pencil-alt' />
             <span>Create Post</span>
         </MenuOption>
         <MenuOption destination={`/u/${user.username}`} >
-            <ProfileIcon />
+            <FontAwesomeIcon icon='address-book' />
             <span>My Profile</span>
         </MenuOption>
         <MenuOption destination='/message/inbox' overflow>
-            <MessageIcon />
+            <FontAwesomeIcon icon='comments' />
             <span>Messages</span>
         </MenuOption>
         <MenuOption destination='#' overflow>
-            <NotificationIcon />
+            <FontAwesomeIcon icon='bullhorn' />
             <span>Notifications</span>
         </MenuOption>
         <MenuOption destination='/settings' >
-            <SettingIcon />
+            <FontAwesomeIcon icon='cog' />
             <span>Account Settings</span>
         </MenuOption>
 
         <Header>View Setting</Header>
         <MenuOption destination='#' onClick={toggleDarkTheme} >
-            <DarkModeIcon />
+            <FontAwesomeIcon icon='moon' />
             <span>Darkmode</span>
         </MenuOption>
         <MenuOption destination='#' onClick={toggleDarkTheme} >
-            <LanguageIcon />
+            <FontAwesomeIcon icon='globe' />
             <span>Language</span>
         </MenuOption>
         <Divider />
         <MenuOption destination='#' onClick={logout}>
-            <LoginIcon />
+            <FontAwesomeIcon icon='sign-out-alt' />
             <span>Log out</span>
         </MenuOption>
     </Wrapper>

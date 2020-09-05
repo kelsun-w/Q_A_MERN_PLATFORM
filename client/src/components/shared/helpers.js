@@ -52,14 +52,6 @@ export const link = props => css`
     ${props.underline && 'text-decoration: underline'};
     color: ${props => props.theme.accent};
   }
-  
-  &:hover svg {
-    fill: ${props => props.theme.accent}
-  }
-
-  &.active svg {
-    fill: ${props => props.theme.accent}
-  }
 `;
 
 export const overflow = css`
