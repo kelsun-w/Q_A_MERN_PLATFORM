@@ -1,8 +1,9 @@
+import React from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import { transition } from '../../../shared/helpers';
 
-const FooterButton = styled(Link)`
+const Wrapper = styled(Link)`
   ${transition('background-color')};
   display: flex;
   align-items: center;
@@ -37,5 +38,10 @@ const FooterButton = styled(Link)`
       }
   } 
 `
+const FooterButton = (props) => (
+  <Wrapper to={props.to} onMouseDown={e => e.preventDefault()}>
+    {props.children}
+  </Wrapper>
+);
 
 export default FooterButton;

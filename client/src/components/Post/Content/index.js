@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import PostContentTitle from './Title';
 import PostContentPreview from './Preview';
 import PostContentFullText from './FullText';
-import PostContentHeaderDetail from './HeaderDetail';
+import PostContentHeaderDetail from './Header/Container';
 import PostContentFooterDetail from './Footer/Component';
 
 const Wrapper = styled.div`
@@ -44,7 +44,7 @@ const PostContent = ({
   ...details
 }) => (
     <Wrapper>
-      <PostContentHeaderDetail commentCount={commentCount} {...details} />
+      <PostContentHeaderDetail postid={id} {...details} />
       <PostContentTitle
         url={url}
         title={title}
