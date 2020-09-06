@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  border-left: 1px solid ${props => props.theme.border};
   padding: 8px;
   min-width: 0;
 `;

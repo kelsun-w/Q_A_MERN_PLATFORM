@@ -6,7 +6,7 @@ import renderers from './renderers';
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
   color: ${props => props.theme.normalText};
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.5;
 
   p,

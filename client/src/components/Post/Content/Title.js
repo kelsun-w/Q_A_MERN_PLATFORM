@@ -10,11 +10,12 @@ const Wrapper = styled.div`
     ${overflow};
 
     display: block;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 21px;
     font-weight: 500;
     text-decoration: none;
     padding-top: 10px;  
+    word-break: break-word;
     color: ${props => props.theme.normalText};
     ${props => props.full && 'white-space: unset'};
   }
