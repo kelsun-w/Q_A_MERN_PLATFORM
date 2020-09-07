@@ -78,7 +78,7 @@ class PostHeaderDetail extends Component {
         {this.state.isOpen &&
           <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
             <ModalItem to={`/a/${category}`}><FontAwesomeIcon icon='users' />&nbsp;&nbsp;More post from <strong>{category}</strong></ModalItem>
-            {this.props.author && <ModalItem to={`/u/${author.username}`}><FontAwesomeIcon icon='address-book' />&nbsp;&nbsp;{author.username}'s profile</ModalItem>}
+            {author && <ModalItem to={`/u/${author.username}`}><FontAwesomeIcon icon='address-book' />&nbsp;&nbsp;{author.username}'s profile</ModalItem>}
             {
               token &&
                 ((author && (user.id === author.id)) ||

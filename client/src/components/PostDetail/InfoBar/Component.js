@@ -28,7 +28,7 @@ class PostDetailInfoBar extends React.Component {
         <span>&nbsp;|&nbsp;</span>
         <span>{this.props.upvotePercentage}% upvoted</span>
         {this.props.token &&
-          (this.props.user.id === this.props.author.id ||
+          this.props.author && (this.props.user.id === this.props.author.id ||
             this.props.user.admin) && (
             <DeleteButton onClick={this.deletePost} />
           )}

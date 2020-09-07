@@ -19,6 +19,7 @@ class PostDetail extends React.Component {
 
   render() {
     const { post } = this.props;
+    console.log(post);
     if (this.props.isFetching) return <LoadingIndicatorBox />;
     if (!post) return <Empty />;
     return (
