@@ -82,7 +82,7 @@ const deletePostRequest = { type: DELETE_POST_REQUEST };
 const deletePostSuccess = post => ({ type: DELETE_POST_SUCCESS, post });
 const deletePostError = error => ({ type: DELETE_POST_ERROR, error });
 
-export const attemptDeletePost = (postid) => async (dispatch, getState) => {
+export const attemptDeletePost = postid => async (dispatch, getState) => {
 
   dispatch(deletePostRequest);
   try {

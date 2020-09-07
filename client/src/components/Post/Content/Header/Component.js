@@ -58,6 +58,7 @@ class PostHeaderDetail extends Component {
   deletePost = (event) => {
     event.preventDefault();
     this.props.attemptDeletePost(this.props.postid);
+    this.toggleMenu(event);
   }
 
   render() {

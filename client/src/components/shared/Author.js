@@ -16,7 +16,6 @@ const Text = styled.span`
 `;
 
 const Author = ({ username }) => {
-  console.log(username ? 'true' : 'false');
   return (
     username ?
       <StyledLink to={`/u/${username}`}> {username}</StyledLink> :
