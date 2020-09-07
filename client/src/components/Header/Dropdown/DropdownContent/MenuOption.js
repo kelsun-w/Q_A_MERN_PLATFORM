@@ -11,11 +11,9 @@ const Wrapper = styled(Link)`
     padding: 8px 10px 8px 12px;
     cursor: pointer;
     text-decoration: none;
-
+    color: ${props => props.theme.icon};
+    
     & svg {
-        width: 20px;
-        height: 20px;
-      
         &:first-child{
             margin-right: 10px;
         }
@@ -25,7 +23,6 @@ const Wrapper = styled(Link)`
         background: ${props => props.theme.accent};
         
         * { color: #ffffff; }
-        svg { fill: #ffffff; }
     };
 
     &:focus{
@@ -33,7 +30,6 @@ const Wrapper = styled(Link)`
         background: ${props => props.theme.accent};
         
         * { color: #ffffff; }
-        svg { fill: #ffffff; }
     };
 
     ${({ overflow }) => overflow && css`
@@ -55,7 +51,7 @@ const MenuOption = ({ children, destination, overflow, toggle, onClick, defaultS
         {children[0]}
         <Text>{children[1]}</Text>
         {toggle ? <ToggleButton defaultState={defaultState} /> : ""}
-    </Wrapper >
+    </Wrapper>
 );
 
 export default MenuOption;

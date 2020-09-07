@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StyledSVG from '../StyledSVG';
+import StyledSVG from './StyledSVG';
 
 const Wrapper = styled(StyledSVG)`
     width: 38px;

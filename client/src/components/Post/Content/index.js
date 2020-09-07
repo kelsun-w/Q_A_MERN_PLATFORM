@@ -3,15 +3,13 @@ import styled from 'styled-components/macro';
 import PostContentTitle from './Title';
 import PostContentPreview from './Preview';
 import PostContentFullText from './FullText';
-import PostContentHeaderDetail from './HeaderDetail';
-import PostContentFooterDetail from './FooterDetail';
-
+import PostContentHeaderDetail from './Header/Container';
+import PostContentFooterDetail from './Footer/Component';
 
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  border-left: 1px solid ${props => props.theme.border};
   padding: 8px;
   min-width: 0;
 `;
@@ -39,10 +37,13 @@ const PostContent = ({
   text,
   commentCount,
   showFullPost,
+  id,
+  votes,
+  score,
   ...details
 }) => (
     <Wrapper>
-      <PostContentHeaderDetail commentCount={commentCount} {...details} />
+      <PostContentHeaderDetail postid={id} {...details} />
       <PostContentTitle
         url={url}
         title={title}
@@ -51,7 +52,7 @@ const PostContent = ({
         {...details}
       />
       {renderContent({ type, url, text, showFullPost })}
-      <PostContentFooterDetail commentCount={commentCount} {...details} />
+      <PostContentFooterDetail id={id} votes={votes} score={score} commentCount={commentCount} {...details} />
     </Wrapper>
   );
 

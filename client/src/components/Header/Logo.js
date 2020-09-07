@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import { headerItem } from '../shared/helpers';
-import LogoSymbol from '../shared/icons/logo';
+import LogoSymbol from '../shared/logo';
 
 const Wrapper = styled.div`
   ${headerItem};

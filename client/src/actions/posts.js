@@ -82,10 +82,11 @@ const deletePostRequest = { type: DELETE_POST_REQUEST };
 const deletePostSuccess = post => ({ type: DELETE_POST_SUCCESS, post });
 const deletePostError = error => ({ type: DELETE_POST_ERROR, error });
 
-export const attemptDeletePost = () => async (dispatch, getState) => {
+export const attemptDeletePost = postid => async (dispatch, getState) => {
+
   dispatch(deletePostRequest);
   try {
-    const { id } = getState().posts.post;
+    const id = postid || getState().posts.post.id;
     const { token } = getState().auth;
     await deletePost(id, token);
     dispatch(deletePostSuccess(id));
