@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import SidebarCreatePostButton from './CreatePostButton';
 import SidebarCategoryList from './CategoryList';
 
 const Wrapper = styled.aside`
@@ -19,7 +18,6 @@ const Wrapper = styled.aside`
 
 const Sidebar = ({ token }) => (
   <Wrapper>
-    {token && <SidebarCreatePostButton />}
     <SidebarCategoryList />
   </Wrapper>
 );
