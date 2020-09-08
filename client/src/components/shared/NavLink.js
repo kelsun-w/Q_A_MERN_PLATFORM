@@ -19,7 +19,6 @@ const NavLink = styled(RouterNavLink).attrs({ activeClassName })`
   
   &.${activeClassName} {
     background-color: ${props => props.theme.activeBackground};
-    
     ::after {
       opacity: 1;
     }

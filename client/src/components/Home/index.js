@@ -48,6 +48,17 @@ const Home = () => (
           <PostDetailContainer id={match.params.post} history={history} />
         )}
       />
+      <Route
+        exact
+        path='/circles/discover'
+        render={({ match, history }) => (
+          <>
+            <h1>Discover new circles!</h1>
+            <h2>{match.path}</h2>
+            <h3>Circles will be shown here!</h3>
+          </>
+        )}
+      />
     </HomeMainSection>
     <Route component={SidebarContainer} />
   </Wrapper>
