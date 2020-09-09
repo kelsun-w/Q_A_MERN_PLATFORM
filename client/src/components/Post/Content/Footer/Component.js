@@ -47,20 +47,20 @@ const Wrapper = styled.div`
 const PostContentDetail = ({ id, votes, score, category, commentCount }) => (
   <Wrapper>
     <PostVoteContainer row id={id} votes={votes} score={score} />
-    <FooterButton to={`/a/${category}/${id}`} >
+    <FooterButton to={`/c/${category}/${id}`} >
       <FontAwesomeIcon icon='comment-alt' />
       <span>{commentCount}</span>
       <span>comment{commentCount !== 1 ? 's' : null}</span>
     </FooterButton>
-    <FooterButton className="share" to={`/a/${category}/${id}`} >
+    <FooterButton className="share" to={`/c/${category}/${id}`} >
       <FontAwesomeIcon icon='share' />
       <span>Share</span>
     </FooterButton>
-    <FooterButton to={`/a/${category}/${id}`} >
+    <FooterButton to={`/c/${category}/${id}`} >
       <FontAwesomeIcon icon='bookmark' />
       <span>Save</span>
     </FooterButton>
-    <FooterButton to={`/a/${category}/${id}`} >
+    <FooterButton to={`/c/${category}/${id}`} >
       <FontAwesomeIcon icon='flag' />
       <span>Report</span>
     </FooterButton>

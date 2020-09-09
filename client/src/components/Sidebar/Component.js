@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import SidebarCategoryList from './CategoryList';
+import { Route } from 'react-router-dom';
 
 const Wrapper = styled.aside`
   display: flex;
@@ -15,7 +16,7 @@ const Wrapper = styled.aside`
 
 const Sidebar = ({ token }) => (
   <Wrapper>
-    <SidebarCategoryList />
+    <Route exact path='/' component={SidebarCategoryList} />
   </Wrapper>
 );
 

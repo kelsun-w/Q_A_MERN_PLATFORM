@@ -67,7 +67,7 @@ class PostHeaderDetail extends Component {
       <>
 
         <Wrapper>
-          <Link to={`/a/${category}`}>/a/{category}</Link>
+          <Link to={`/c/${category}`}>/a/{category}</Link>
           <span>Posted by</span>
           <Author username={author && author.username} />
           <span>{moment(created).fromNow()}</span>
@@ -78,7 +78,7 @@ class PostHeaderDetail extends Component {
 
         {this.state.isOpen &&
           <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
-            <ModalItem to={`/a/${category}`}><FontAwesomeIcon icon='users' />&nbsp;&nbsp;More post from <strong>{category}</strong></ModalItem>
+            <ModalItem to={`/c/${category}`}><FontAwesomeIcon icon='users' />&nbsp;&nbsp;More post from <strong>{category}</strong></ModalItem>
             {author && <ModalItem to={`/u/${author.username}`}><FontAwesomeIcon icon='address-book' />&nbsp;&nbsp;{author.username}'s profile</ModalItem>}
             {
               token &&
@@ -92,7 +92,7 @@ class PostHeaderDetail extends Component {
                   <ModalItem to='/login'><FontAwesomeIcon icon='flag' />&nbsp;&nbsp;Report</ModalItem>
                 </>
             }
-            <ModalItem to={`/a/${category}/${postid}`}><FontAwesomeIcon icon='comment-alt' />&nbsp;&nbsp;Comments</ModalItem>
+            <ModalItem to={`/circles/${category}/${postid}`}><FontAwesomeIcon icon='comment-alt' />&nbsp;&nbsp;Comments</ModalItem>
           </Modal>
         }
 

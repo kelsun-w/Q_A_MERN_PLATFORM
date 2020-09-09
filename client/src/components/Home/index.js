@@ -26,13 +26,21 @@ const Home = () => (
   <Wrapper>
     <Route component={SidebarContainer} />
     <HomeMainSection>
-      <Route component={CategoryMenuContainer} />
-      <Route exact path='/' component={PostListContainer} />
+      <Route exact path='/' render={() => (
+        <>
+          <CategoryMenuContainer />
+          <PostListContainer />
+        </>
+      )}
+      />
       <Route
         exact
-        path='/a/:category'
+        path='/c/:category'
         render={({ match }) => (
-          <PostListContainer category={match.params.category} />
+          <>
+            <CategoryMenuContainer />
+            <PostListContainer category={match.params.category} />
+          </>
         )}
       />
       <Route
@@ -44,7 +52,7 @@ const Home = () => (
       />
       <Route
         exact
-        path='/a/:category/:post'
+        path='/c/:category/:post'
         render={({ match, history }) => (
           <PostDetailContainer id={match.params.post} history={history} />
         )}
