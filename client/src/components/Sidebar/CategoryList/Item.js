@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import NavLink from '../../shared/NavLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import categories from '../../../categories';
+<<<<<<< HEAD
 
 const Item = styled(NavLink)`
   padding: 8px 14px;
@@ -13,6 +14,20 @@ const Item = styled(NavLink)`
   color: ${props => props.theme.normalText};
   border: 1.5px solid ${props => props.theme.border};
   border-radius: 20px;
+=======
+import { overflow } from '../../shared/helpers';
+
+const Item = styled(NavLink)`
+  ${overflow};
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 240px;
+  text-decoration: none;
+  color: ${props => props.theme.normalText};
+  border: 1.5px solid ${props => props.theme.border};
+  border-radius: 8px;
+>>>>>>> 696d6e2f3982b5d95eecc0e5502de185f519028e
   margin-bottom: 4px;
   background-color: ${props => props.theme.foreground};
 

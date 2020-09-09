@@ -10,10 +10,10 @@ import SidebarContainer from '../Sidebar/Container';
 const Wrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  margin: 0 10vw;
+  margin: 0 10vw 0 5vw;
   
   @media (max-width: 1024px) {
-    margin: 0 5vw;
+    margin: 0 5vw 0 2.5vw;
   }
 
   @media (max-width: 768px) {
@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 
 const Home = () => (
   <Wrapper>
+    <Route component={SidebarContainer} />
     <HomeMainSection>
       <Route component={CategoryMenuContainer} />
       <Route exact path='/' component={PostListContainer} />
@@ -60,7 +61,6 @@ const Home = () => (
         )}
       />
     </HomeMainSection>
-    <Route component={SidebarContainer} />
   </Wrapper>
 );
 

@@ -5,9 +5,9 @@ import SidebarCategoryList from './CategoryList';
 const Wrapper = styled.aside`
   display: flex;
   flex-direction: column;
-  flex-basis: 240px;
-  margin-left: 24px;
-  
+  align-items: flex-end;
+  flex-basis: 260px;
+  margin-right: 16px;
   @media (max-width: 768px) {
     display: none;
   }
