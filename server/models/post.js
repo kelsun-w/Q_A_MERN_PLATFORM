@@ -8,10 +8,10 @@ const commentSchema = new Schema({
 });
 
 commentSchema.set('toJSON', { getters: true });
+//mongoose allows function to transform the returned object.
 commentSchema.options.toJSON.transform = (doc, ret) => {
-  const obj = { ...ret };
-  delete obj._id;
-  return obj;
+  delete ret._id;
+  return ret;
 };
 
 const postSchema = new Schema({
@@ -27,13 +27,12 @@ const postSchema = new Schema({
   type: { type: String, default: 'link', required: true },
   text: { type: String },
 });
-
+//return virtuals in toJSON calls  
 postSchema.set('toJSON', { getters: true, virtuals: true });
 postSchema.options.toJSON.transform = (doc, ret) => {
-  const obj = { ...ret };
-  delete obj._id;
-  delete obj.__v;
-  return obj;
+  delete ret._id;
+  delete ret.__v;
+  return ret;
 };
 
 postSchema.virtual('upvotePercentage').get(function () {
@@ -71,6 +70,7 @@ postSchema.methods.addComment = function (author, body) {
 };
 
 postSchema.methods.removeComment = function (id) {
+  //For an array document, we can find sub-documents based on _id field with the .id() method
   const comment = this.comments.id(id);
   if (!comment) throw new Error('Comment not found');
   comment.remove();
@@ -85,7 +85,8 @@ postSchema.pre('save', function (next) {
   this.wasNew = this.isNew;
   next();
 });
-
+//Populating here means the user gets the all fields on every save.
+//For example, when creating the document, on success, they'll get a populated object BUT not when they GET.
 postSchema.post('save', function (doc, next) {
   if (this.wasNew) this.vote(this.author._id, 1);
   doc

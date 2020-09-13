@@ -12,11 +12,10 @@ const userSchema = new mongoose.Schema({
 
 userSchema.set('toJSON', { getters: true });
 userSchema.options.toJSON.transform = (doc, ret) => {
-  const obj = { ...ret };
-  delete obj._id;
-  delete obj.__v;
-  delete obj.password;
-  return obj;
+  delete ret._id;
+  delete ret.__v;
+  delete ret.password;
+  return ret;
 };
 
 userSchema.pre('save', async function (next) {

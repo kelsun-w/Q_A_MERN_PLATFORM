@@ -1,6 +1,7 @@
 const users = require('./controllers/users');
 const posts = require('./controllers/posts');
 const comments = require('./controllers/comments');
+const communities = require('./controllers/communities');
 const { jwtAuth, postAuth, commentAuth, googleAuth } = require('./auth');
 const router = require('express').Router();
 const passport = require('passport');
@@ -23,9 +24,20 @@ router.get('/post/:post/downvote', jwtAuth, posts.downvote);
 router.get('/post/:post/unvote', jwtAuth, posts.unvote);
 router.get('/user/:user', posts.listByUser);
 
+
 router.param('comment', comments.load);
 router.post('/post/:post', [jwtAuth, comments.validate], comments.create);
 router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
+
+router.param('community', communities.load);
+router.post('/community', jwtAuth, communities.create);
+router.get('/community/:community', communities.show);
+router.get('/community', communities.showAll);
+router.post('/community/:community/rule', jwtAuth, communities.addRule);
+router.get('/community/:community/rule/:rule', communities.removeRule);
+router.get('/community/:community/ban/:user', jwtAuth, communities.banUser);
+router.get('/community/:community/mod/:user', jwtAuth, communities.modUser);
+router.delete('/community/:community', jwtAuth, communities.destroy);
 
 module.exports = app => {
   app.use('/api', router);
