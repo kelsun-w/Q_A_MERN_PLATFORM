@@ -4,11 +4,32 @@ import {
     FETCH_COMMUNITY_ERROR,
     FETCH_COMMUNITIES_REQUEST,
     FETCH_COMMUNITIES_SUCCESS,
-    FETCH_COMMUNITIES_ERROR
+    FETCH_COMMUNITIES_ERROR,
+    MEMBER_COMMUNITY_REQUEST,
+    MEMBER_COMMUNITY_SUCCESS,
+    MEMBER_COMMUNITY_ERROR
+
 } from '../actions/community';
 
 const initialState = { isFetching: false, items: [] };
 
+const updateItems = (joined, community, items) => {
+    if (!joined) return items.filter(c => c.id !== community.id);
+
+    let isNew = true;
+    items.map(i => {
+        if (i.id === community.id) {
+            isNew = false;
+            return community;
+        } else {
+            return i;
+        }
+    });
+    if (isNew) items.push(community);
+    return items;
+}
+
+let items;
 export default (state = initialState, action) => {
     switch (action.type) {
         case FETCH_COMMUNITIES_REQUEST:
@@ -25,6 +46,18 @@ export default (state = initialState, action) => {
         case FETCH_COMMUNITY_ERROR:
             return { ...state, isFetching: false };
 
+        case MEMBER_COMMUNITY_REQUEST:
+            return { ...state, isFetching: true };
+        case MEMBER_COMMUNITY_SUCCESS:
+            items = updateItems(action.joined, action.community, state.items);
+            return {
+                ...state,
+                isFetching: false,
+                community: action.community,
+                items
+            };
+        case MEMBER_COMMUNITY_ERROR:
+            return { ...state, isFetching: false }
         default:
             return state;
     }

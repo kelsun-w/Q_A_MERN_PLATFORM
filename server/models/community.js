@@ -12,7 +12,7 @@ ruleSchema.options.toJSON.transform = function (doc, ret) {
 };
 
 const communitySchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     description: String,
     rules: [ruleSchema],
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -74,12 +74,12 @@ communitySchema.methods.banUser = function (id) {
     return this.save();
 };
 
-communitySchema.methods.addUser = function(){
+communitySchema.methods.addUser = function () {
     this.members++;
     return this.save();
 };
 
-communitySchema.methods.removeUser = function(){
+communitySchema.methods.removeUser = function () {
     this.members--;
     return this.save();
 };

@@ -35,7 +35,6 @@ class SidebarCategoryList extends React.Component {
   render() {
     if (!this.props.communities)
       return null;
-    console.log(this.props.communities)
     return (
       <CategoryList>
         <SidebarCategoryListItem category='all' icon='hand-holding-heart' />

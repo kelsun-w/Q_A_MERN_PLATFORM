@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 exports.load = async (req, res, next, id) => {
     try {
-        req.community = await Community.findById(id);
+        req.community = await Community.findOne({ name: id });
         if (!req.community) return res.status(404).json({ message: 'community not found' });
     } catch (err) {
         if (err.name === 'CastError')

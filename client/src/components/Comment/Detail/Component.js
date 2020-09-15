@@ -11,16 +11,17 @@ const Wrapper = styled.div`
   font-size: 13px;
 `;
 
-class CommentDetail extends React.Component { 
+class CommentDetail extends React.Component {
   deleteComment = () => this.props.attemptDeleteComment(this.props.id);
 
   render() {
+    console.log(this.props)
     return (
       <Wrapper>
         <Author username={this.props.author && this.props.author.username} />
         <CommentDetailTimestamp created={this.props.created} />
         {this.props.token &&
-          (this.props.user.id === this.props.author.id ||
+          this.props.author && (this.props.user.id === this.props.author.id ||
             this.props.user.admin) && (
             <DeleteButton onClick={this.deleteComment} />
           )}

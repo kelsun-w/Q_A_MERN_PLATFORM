@@ -38,6 +38,11 @@ userSchema.post('save', function (doc, next) {
     then(() => next());
 });
 
+/**
+ * @description Adds a user to the community and returns back the updated community 
+ * @returns updated community
+ * @param {*} community 
+ */
 userSchema.methods.community = async function (community) {
   const doc = this.communities.find(c => c.equals(community._id));
   if (!doc) {
