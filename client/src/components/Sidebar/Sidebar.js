@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import SidebarCategoryList from './CategoryList';
+import SidebarCategoryList from './CategoryList/Container';
+import CommunityDetail from './CommunityDetail';
 import { Route } from 'react-router-dom';
 
 const Wrapper = styled.aside`
@@ -14,9 +15,10 @@ const Wrapper = styled.aside`
   }
 `;
 
-const Sidebar = ({ token }) => (
+const Sidebar = (props) => (
   <Wrapper>
     <Route exact path='/' component={SidebarCategoryList} />
+    <Route path='/c' component={CommunityDetail} />
   </Wrapper>
 );
 

@@ -20,7 +20,7 @@ const communitySchema = new mongoose.Schema({
     members: { type: Number, default: 0 },
     mods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     banned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    logo: String,
+    picture: String,
 });
 
 communitySchema.set('toJSON', { getters: true });
@@ -71,6 +71,16 @@ communitySchema.methods.banUser = function (id) {
     } else {
         this.banned.pull(user);
     }
+    return this.save();
+};
+
+communitySchema.methods.addUser = function(){
+    this.members++;
+    return this.save();
+};
+
+communitySchema.methods.removeUser = function(){
+    this.members--;
     return this.save();
 };
 

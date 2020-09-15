@@ -1,4 +1,5 @@
 const Community = require('../models/community');
+const User = require('../models/user');
 
 exports.load = async (req, res, next, id) => {
     try {
@@ -16,10 +17,20 @@ exports.show = async (req, res) => {
     res.json(req.community);
 };
 
-exports.showAll = async (req, res, next) => {
+exports.listAll = async (req, res, next) => {
     try {
-        const communities = await Community.find().sort('-members');
+        const communities = await Community.find({}).sort('-members');
         res.json(communities);
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.ListByUser = async (req, res, next) => {
+    try {
+        const id = req.params.user;
+        const user = await User.findById(id);
+        res.json(user.communities);
     } catch (err) {
         next(err);
     }
@@ -55,6 +66,17 @@ exports.removeRule = async (req, res, next) => {
         const rule = req.params.rule;
         const community = await req.community.removeRule(rule);
         res.status(200).json(community);
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.addMember = async (req, res, next) => {
+    try {
+        const id = req.params.user;
+        const user = await User.findById(id);
+        const result = await user.community(req.community);
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }
