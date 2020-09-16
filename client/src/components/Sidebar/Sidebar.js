@@ -10,8 +10,13 @@ const Wrapper = styled.aside`
   align-items: flex-end;
   flex-basis: 260px;
   margin-right: 16px;
+  
   @media (max-width: 768px) {
     display: none;
+  }
+
+  & > * {
+    margin-bottom: 16px;
   }
 `;
 

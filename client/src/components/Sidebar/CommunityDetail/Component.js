@@ -14,8 +14,12 @@ class CommunityDetail extends React.Component {
     }
 
     render() {
+        if (!this.props.community) return null;
         return (
-            <MainDetail {...this.props} />
+            <>
+                <MainDetail {...this.props} />
+                <RuleDetail rules={this.props.community.rules} />
+            </>
         );
     }
 }

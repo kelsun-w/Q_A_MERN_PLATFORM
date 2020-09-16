@@ -3,8 +3,8 @@ import CommunityDetail from '../../shared/CommunityDetail';
 
 class MainDetail extends React.Component {
     join = event => {
-        const { community, user, joinCommunity } = this.props;
         event.preventDefault();
+        const { community, user, joinCommunity } = this.props;
         joinCommunity(community.name, user.id);
     }
 
