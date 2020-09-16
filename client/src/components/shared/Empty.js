@@ -21,9 +21,16 @@ const Wrapper = styled.div`
   }
 `;
 
-const Empty = ({ comments }) => {
-  const message = comments ? 'no comments' : "there's nothing here...";
-  return <Wrapper comments={comments}>{message}</Wrapper>;
+const Empty = ({ comments, message }) => {
+  let msg;
+  if (comments) {
+    msg = 'no comments';
+  } else if (message) {
+    msg = message;
+  } else {
+    msg = "there's nothing here...";
+  }
+  return <Wrapper comments={comments}>{msg}</Wrapper>;
 };
 
 export default Empty;

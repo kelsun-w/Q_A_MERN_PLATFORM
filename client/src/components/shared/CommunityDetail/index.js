@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import Divider from '../Divider';
-import Header from './Header';
+import Title from './Header';
 import MemberNumber from './Member';
 import CreatedDate from './Date';
 import JoinButton from './Button';
@@ -34,10 +34,10 @@ const MainDetail = (props) => {
 
     return (
         <Wrapper>
-            <Header>
+            <Title>
                 <FontAwesomeIcon icon='hand-holding-heart' />
                 <span>{props.name}</span>
-            </Header>
+            </Title>
             <Description>
                 {props.description}
             </Description>
