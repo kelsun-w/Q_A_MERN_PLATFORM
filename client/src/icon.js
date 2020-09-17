@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+    faHome,
     faSignInAlt,
     faSignOutAlt,
     faAddressBook,
@@ -22,10 +23,11 @@ import {
     faHandHoldingHeart,
     faEllipsisH,
     faTimes,
-    faPlus
+    faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+    faHome,
     faSignInAlt,
     faSignOutAlt,
     faUsers,

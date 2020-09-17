@@ -37,9 +37,9 @@ class SidebarCategoryList extends React.Component {
       return null;
     return (
       <CategoryList>
-        <SidebarCategoryListItem category='all' icon='hand-holding-heart' />
+        <SidebarCategoryListItem category='all' icon='home' />
         {this.mapCategories(this.props.communities)}
-        <SidebarCategoryListItem category='discover more' icon='plus' />
+        {this.props.user && <SidebarCategoryListItem category='discover more' icon='plus' />}
       </CategoryList>
     )
   };

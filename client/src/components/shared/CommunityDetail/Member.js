@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { smallFont } from '../helpers';
 
 const Wrapper = styled.span`
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
+    ${smallFont}; 
+    font-size: 13px;
 `
 
 const Member = ({ number }) => {

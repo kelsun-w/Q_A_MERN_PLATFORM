@@ -6,6 +6,7 @@ import CategoryMenuContainer from '../CategoryMenu/Container';
 import PostListContainer from '../PostList/Container';
 import PostDetailContainer from '../PostDetail/Container';
 import Sidebar from '../Sidebar/Sidebar';
+import DiscoverMenu from '../discoverMenu/Container';
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +25,21 @@ const Wrapper = styled.div`
 
 const Home = () => (
   <Wrapper>
-    <Route component={Sidebar} />
+    <Route render={({ location }) => {
+      switch (location.pathname) {
+        case ('/community/discover'):
+        case ('/settings'):
+          return null;
+        default:
+          return (<Sidebar />)
+      }
+    }}
+    />
+    <Route
+      exact
+      path='/community/discover'
+      component={DiscoverMenu}
+    />
     <HomeMainSection>
       <Route exact path='/' render={() => (
         <>
@@ -55,17 +70,6 @@ const Home = () => (
         path='/c/:category/:post'
         render={({ match, history }) => (
           <PostDetailContainer id={match.params.post} history={history} />
-        )}
-      />
-      <Route
-        exact
-        path='/community/discover'
-        render={({ match, history }) => (
-          <>
-            <h1>Discover new circles!</h1>
-            <h2>{match.path}</h2>
-            <h3>Circles will be shown here!</h3>
-          </>
         )}
       />
     </HomeMainSection>
