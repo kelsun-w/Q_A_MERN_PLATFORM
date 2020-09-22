@@ -5,6 +5,7 @@ module.exports = {
     test: 'mongodb://localhost/reddit_test',
     options: {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
       reconnectTries: Number.MAX_VALUE,

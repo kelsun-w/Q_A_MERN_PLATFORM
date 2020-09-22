@@ -6,6 +6,7 @@ const { jwtAuth, postAuth, commentAuth, googleAuth } = require('./auth');
 const router = require('express').Router();
 const passport = require('passport');
 const config = require('./config');
+const { upload } = require('./storage');
 
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
@@ -40,6 +41,10 @@ router.get('/community/:community/ban/:user', jwtAuth, communities.banUser);
 router.get('/community/:community/mod/:user', jwtAuth, communities.modUser);
 router.delete('/community/:community', jwtAuth, communities.destroy);
 router.get('/communities/:user', communities.ListByUser);
+
+router.post('/img/ua', upload.single('u_avatar'));
+router.post('/img/ca', upload.single('c_avatar'), communities.addAvatar);
+router.post('/img/bg', upload.single('bg_cover'));
 
 module.exports = app => {
   app.use('/api', router);

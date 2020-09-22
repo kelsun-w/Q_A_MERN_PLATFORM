@@ -102,6 +102,24 @@ exports.banUser = async (req, res, next) => {
     }
 };
 
+exports.addAvatar = (req, res, next) => {
+    const community = Community.findOneAndUpdate(
+        { _id: req.body.id },
+        { picture: req.file.path },
+        { new: true }
+    )
+        .exec()
+        .then(doc => {
+            res.status(200).json({
+                message: 'Updated',
+                doc
+            });
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
 exports.destroy = async (req, res) => {
     await req.community.remove();
     res.json({ message: 'success' });
