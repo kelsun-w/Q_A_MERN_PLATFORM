@@ -59,7 +59,6 @@ $ npm test
 |:------------------------|:-----------:|:-----------------:|:----------------------:|
 |/login                   |     POST    |    jwt token      | `401`                  |
 |/register                |     POST    |    jwt token      | `422`                  |
-| post                    |     PARAM   |    -              | `404` OR `400`         |
 |/posts                   |     POST    |    `Post`         | `401` OR `422`         |
 |/posts                   |     GET     |    `Array<Post>`  |  -                     |
 |/posts/`:category`       |     GET     |    `Array<Post>`  |  -                     |
@@ -69,7 +68,6 @@ $ npm test
 |/post/`:post`/unvote     |     GET     |    `Post`         | `401`                  |
 |/post/`:post`            |     DELETE  |    success        | `401`                  |         
 |/post/`:post`            |     POST    |    `Post`         | `401` OR `422`         |
-| comment                 |     PARAM   |    -              | `404` OR `400`         |
 |/post/`:post`/`:comment` |     DELETE  |    `Post`         | `401`                  |
 |/user/`:user`            |     GET     |    `Array<Post>`  |                        |
 
