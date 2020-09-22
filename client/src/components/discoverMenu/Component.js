@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import JoinButton from '../shared/JoinButton';
 import Empty from '../shared/Empty';
 import LoadingIndicatorSpinner from '../shared/LoadingIndicator/Spinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Wrapper = styled.div`
     width: 100%;
     padding: 5px 16px;
@@ -40,30 +40,30 @@ const Item = styled.div`
     margin: 16px;
     background: ${props => props.theme.foreground};
     border: 1.5px solid ${props => props.theme.border};
-    border-radius: 3px;
+    border-radius: 18px;
     color: ${props => props.theme.normalText};
     
     display: flex;
     flex-direction: column;
     align-items:center;
-    padding: 0 0 5px;
+    padding: 0 0 10px;
 `
 
 const BGCover = styled.div`
     background-color: royalblue;
     padding: 18px 0;
-    border-radius: 3px 3px 0 0;
+    border-radius: 18px 18px 0 0;
     width: 100%;
 `
 
-const Profile = styled(FontAwesomeIcon)`
-    margin: -18px 0 0;
-    font-size: 36px;
-    color: black;
-    background-color: #fff;
+const Profile = styled.img`
+    margin: -30px 0 0;
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
     border: 1.5px solid #ddd;
-    border-radius: 180px;
-    padding: 5px;
+    border-radius: 100%;
+    background-color: #fff;
 `
 
 const Title = styled.a`
@@ -91,7 +91,7 @@ class DiscoverMenu extends React.Component {
         list.map(item =>
             <Item>
                 <BGCover />
-                <Profile icon='medal' />
+                <Profile src={`http://localhost:8080/api/img/ca/${item.name}`} />
                 <Title href={'/c/' + item.name}>{item.name}</Title>
                 <Description>{item.description}</Description>
                 <JoinButton onClick={null} joined={false} />
