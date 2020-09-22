@@ -1,5 +1,6 @@
 const Community = require('../models/community');
 const User = require('../models/user');
+const path = require('path');
 
 exports.load = async (req, res, next, id) => {
     try {
@@ -103,12 +104,9 @@ exports.banUser = async (req, res, next) => {
 };
 
 exports.addAvatar = (req, res, next) => {
-    const community = Community.findOneAndUpdate(
-        { _id: req.body.id },
-        { picture: req.file.path },
-        { new: true }
-    )
-        .exec()
+    req.community.picture = req.file.path;
+    req.community
+        .save()
         .then(doc => {
             res.status(200).json({
                 message: 'Updated',
@@ -118,9 +116,13 @@ exports.addAvatar = (req, res, next) => {
         .catch(err => {
             next(err);
         })
-}
+};
+
+exports.getAvatar = (req, res, next) => {
+    res.sendFile(path.join(__dirname, '\\..\\', req.community.picture));
+};
 
 exports.destroy = async (req, res) => {
     await req.community.remove();
     res.json({ message: 'success' });
-}
+};

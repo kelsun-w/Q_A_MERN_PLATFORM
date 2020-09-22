@@ -43,7 +43,8 @@ router.delete('/community/:community', jwtAuth, communities.destroy);
 router.get('/communities/:user', communities.ListByUser);
 
 router.post('/img/ua', upload.single('u_avatar'));
-router.post('/img/ca', upload.single('c_avatar'), communities.addAvatar);
+router.post('/img/ca/:community', upload.single('c_avatar'), communities.addAvatar);
+router.get('/img/ca/:community', communities.getAvatar);
 router.post('/img/bg', upload.single('bg_cover'));
 
 module.exports = app => {

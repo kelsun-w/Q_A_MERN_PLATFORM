@@ -16,6 +16,9 @@ node_modules/
 
 # misc
 .env
+server/assets/bg_cover
+server/assets/c_avatar
+server/assets/a_avatar
 
 npm-debug.log*
 yarn-debug.log*
