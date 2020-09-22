@@ -12,9 +12,7 @@ const Wrapper = styled(Button)`
 `;
 
 const DeleteButton = ({ joined, onClick }) => (
-  !(joined) ?
-    < Wrapper onClick={onClick} > Join</Wrapper> :
-    < Wrapper disabled> Joined</Wrapper>
+  < Wrapper onClick={onClick} > {joined ? 'Joined' : 'Join'}</Wrapper>
 );
 
 export default DeleteButton;

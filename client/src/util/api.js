@@ -116,3 +116,15 @@ export async function castVote(id, vote, token) {
 
   return await methods.get(`post/${id}/${voteType}`, token);
 }
+
+export async function getCommunities(id) {
+  return await methods.get(`communities/${id}`);
+};
+
+export async function getCommunity(name) {
+  return await methods.get(`community/${name}`);
+};
+
+export async function sendJoinRequest(name, userid, token) {
+  return await methods.get(`community/${name}/member/${userid}`, token);
+}

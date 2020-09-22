@@ -5,7 +5,7 @@ import HomeMainSection from './MainSection';
 import CategoryMenuContainer from '../CategoryMenu/Container';
 import PostListContainer from '../PostList/Container';
 import PostDetailContainer from '../PostDetail/Container';
-import SidebarContainer from '../Sidebar/Container';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 
 const Home = () => (
   <Wrapper>
-    <Route component={SidebarContainer} />
+    <Route component={Sidebar} />
     <HomeMainSection>
       <Route exact path='/' render={() => (
         <>
@@ -59,7 +59,7 @@ const Home = () => (
       />
       <Route
         exact
-        path='/circles/discover'
+        path='/community/discover'
         render={({ match, history }) => (
           <>
             <h1>Discover new circles!</h1>

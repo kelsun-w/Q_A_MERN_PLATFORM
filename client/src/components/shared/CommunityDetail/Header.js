@@ -7,6 +7,7 @@ const Header = styled.div`
     & :first-child {
         margin-right: 6px;
     }
+    cursor: pointer;
 `
 
 export default Header;

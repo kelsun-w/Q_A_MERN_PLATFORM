@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import Divider from '../../../shared/Divider';
-import Header from './Header';
+import Divider from '../Divider';
+import Title from './Header';
 import MemberNumber from './Member';
 import CreatedDate from './Date';
 import JoinButton from './Button';
@@ -28,20 +28,24 @@ const Description = styled.div`
     font-size: 14px;
 `
 
-const MainDetail = () => (
-    <Wrapper>
-        <Header>
-            <FontAwesomeIcon icon='hand-holding-heart' />
-            <span>Music</span>
-        </Header>
-        <Description>
-            Lorem Ipsum Doler toleeee Lorem Ipsum Doler toleeee Lorem Ipsum Doler toleeee Lorem Ipsum Doler toleeee Lorem Ipsum Doler 
-        </Description>
-        <MemberNumber number='20' />
-        <Divider />
-        <CreatedDate date='Dec 10 1999' />
-        <JoinButton />
-    </Wrapper>
-);
+const MainDetail = (props) => {
+    const alreadyJoined = props.communities
+        && (props.communities.find(c => c.name === props.name)) != null;
 
+    return (
+        <Wrapper>
+            <Title>
+                <FontAwesomeIcon icon='hand-holding-heart' />
+                <span>{props.name}</span>
+            </Title>
+            <Description>
+                {props.description}
+            </Description>
+            <MemberNumber number={props.members} />
+            <Divider />
+            <CreatedDate date={props.created} />
+            {props.user && <JoinButton onClick={props.onClick} joined={alreadyJoined} />}
+        </Wrapper>
+    );
+}
 export default MainDetail;

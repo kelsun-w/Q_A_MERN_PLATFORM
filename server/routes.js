@@ -24,7 +24,6 @@ router.get('/post/:post/downvote', jwtAuth, posts.downvote);
 router.get('/post/:post/unvote', jwtAuth, posts.unvote);
 router.get('/user/:user', posts.listByUser);
 
-
 router.param('comment', comments.load);
 router.post('/post/:post', [jwtAuth, comments.validate], comments.create);
 router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
@@ -32,12 +31,15 @@ router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
 router.param('community', communities.load);
 router.post('/community', jwtAuth, communities.create);
 router.get('/community/:community', communities.show);
-router.get('/community', communities.showAll);
+router.get('/communities', communities.listAll);
 router.post('/community/:community/rule', jwtAuth, communities.addRule);
-router.get('/community/:community/rule/:rule', communities.removeRule);
+router.get('/community/:community/rule/:rule', jwtAuth, communities.removeRule);
+router.get('/community/:community/member/:user', jwtAuth, communities.addMember);
+
 router.get('/community/:community/ban/:user', jwtAuth, communities.banUser);
 router.get('/community/:community/mod/:user', jwtAuth, communities.modUser);
 router.delete('/community/:community', jwtAuth, communities.destroy);
+router.get('/communities/:user', communities.ListByUser);
 
 module.exports = app => {
   app.use('/api', router);

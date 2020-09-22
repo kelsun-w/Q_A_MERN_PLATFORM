@@ -33,7 +33,7 @@ const ItemIcon = styled(FontAwesomeIcon)`
 const SidebarCategoryListItem = ({ category, icon }) => {
   const isAll = category === 'all';
   const isDiscover = category === 'discover more';
-  const route = isAll ? '/' : isDiscover ? '/circles/discover' : `/c/${category}`;
+  const route = isAll ? '/' : isDiscover ? '/community/discover' : `/c/${category}`;
 
   return (
     <Item exact={isAll} to={route}>
