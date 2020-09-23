@@ -2,7 +2,6 @@ const path = require('path');
 const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
 const User = require('../models/user');
-const { json } = require('express');
 const config = require('../config');
 
 exports.login = (req, res, next) => {
@@ -142,6 +141,11 @@ exports.validate = method => {
   }
 
   return errors;
+};
+
+exports.getToken = async (req, res, next) => {
+  const token = createAuthToken(req.user);
+  res.json(token);
 };
 
 exports.addAvatar = async (req, res, next) => {

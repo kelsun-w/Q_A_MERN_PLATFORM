@@ -77,6 +77,10 @@ export async function signup(username, password, email, studentNo, major) {
   return json.token;
 }
 
+export async function fetchToken(oldToken) {
+  return await methods.get('getToken', oldToken);
+};
+
 export async function getPosts(category) {
   return await methods.get(`posts/${category}`);
 }

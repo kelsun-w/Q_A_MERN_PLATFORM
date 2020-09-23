@@ -5,9 +5,9 @@ import ProfilePicture from './ProfilePicture';
 
 const active = () => css`
     padding: 3px 3px;
-    border: 1.5px solid ${ props => props.theme.border};
+    border: 1.5px solid ${props => props.theme.border};
     border-radius: 4px;
-    box-shadow: 0 4px 12px ${ props => props.theme.shadow};
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
     
     ::after {
         border-bottom: 2px solid ${props => props.theme.accent};
@@ -47,7 +47,7 @@ const Wrapper = styled.div`
 
 const Card = ({ user, onClick, active }) => (
     <Wrapper onClick={onClick} active={active}>
-        <ProfilePicture image='#' />
+        <ProfilePicture imageUrl={`http://localhost:8080/api/img/ua/${user.id}`} />
         <ProfileDetail user={user} />
     </Wrapper>
 );

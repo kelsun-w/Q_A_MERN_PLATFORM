@@ -34,7 +34,7 @@ userSchema.pre(/^find/, function () {
 
 userSchema.post('save', function (doc, next) {
   doc.
-    populate('communities').
+    populate('communities', 'name').
     execPopulate().
     then(() => next());
 });

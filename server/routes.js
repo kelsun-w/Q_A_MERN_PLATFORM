@@ -14,6 +14,8 @@ router.get(config.google.callbackURL, passport.authenticate('google', { session:
 router.post('/login', users.validate(), users.login);
 router.post('/register', users.validate('register'), users.register);
 
+router.get('/getToken', jwtAuth, users.getToken);
+
 router.param('post', posts.load);
 router.get('/posts', posts.list);
 router.get('/posts/:category', posts.listByCategory);

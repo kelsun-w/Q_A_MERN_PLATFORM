@@ -1,4 +1,4 @@
-import { login, signup} from '../util/api';
+import { login, signup, fetchToken } from '../util/api';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -38,3 +38,23 @@ export const attemptSignup = (user) => async dispatch => {
 
 export const LOGOUT = 'LOGOUT';
 export const logout = () => ({ type: LOGOUT });
+
+export const TOKENUPDATE_REQUEST = 'TOKENUPDATE_REQUEST';
+export const TOKENUPDATE_SUCCESS = 'TOKENUPDATE_SUCCESS';
+export const TOKENUPDATE_ERROR = 'TOKENUPDATE_ERROR';
+
+const tokenUpdateRequest = { type: TOKENUPDATE_REQUEST };
+const tokenUpdateSuccess = token => ({ type: TOKENUPDATE_SUCCESS, token });
+const tokenUpdateError = error => ({ type: TOKENUPDATE_ERROR, error });
+
+export const getNewToken = () => async (dispatch, getState) => {
+  dispatch(tokenUpdateRequest);
+  try {
+    const { token } = getState().auth;
+    const updatedToken = await fetchToken(token);
+    dispatch(tokenUpdateSuccess(updatedToken));
+  } catch (error) {
+    dispatch(tokenUpdateError(error));
+  }
+};
+
