@@ -1,3 +1,4 @@
+const path = require('path');
 const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
 const User = require('../models/user');
@@ -142,3 +143,23 @@ exports.validate = method => {
 
   return errors;
 };
+
+exports.addAvatar = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+  user.picture = req.file.path;
+  user
+    .save()
+    .then(doc => {
+      res.json({ message: 'Avatar updated successfully', doc });
+    })
+};
+
+exports.getAvatar = async (req, res, next) => {
+  const id = req.params.user;
+  const user = await User.findById(id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+
+  res.sendFile(path.join(__dirname, '\\..\\', user.picture));
+};
+

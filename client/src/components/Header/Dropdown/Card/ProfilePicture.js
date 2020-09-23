@@ -10,6 +10,6 @@ const DP = styled.img`
 
 const Picture = (props) => (
     <DP src={process.env.PUBLIC_URL + '/images/default_dp.jpg'} />
-)
+);
 
 export default Picture;
