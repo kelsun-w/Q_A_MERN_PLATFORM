@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import categories from '../../categories';
 import Form from '../shared/form/Form';
 import renderField from '../shared/form/renderField';
 import SubmitButton from '../shared/form/SubmitButton';
@@ -26,9 +25,9 @@ class CreatePostForm extends React.Component {
   onSubmit = post => this.props.attemptCreatePost(post);
 
   mapCategories = () =>
-    categories.map((category, index) => (
-      <option key={index} value={category}>
-        {category}
+    this.props.communities.map((category, index) => (
+      <option key={index} value={category.name}>
+        {category.name}
       </option>
     ));
 

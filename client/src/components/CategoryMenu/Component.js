@@ -1,7 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { Route } from 'react-router-dom';
-import CategoryMenuDropdown from './Dropdown';
+import styled from 'styled-components/macro';
 import CategoryMenuCreatePost from './CreatePost';
 
 const Menu = styled.nav`

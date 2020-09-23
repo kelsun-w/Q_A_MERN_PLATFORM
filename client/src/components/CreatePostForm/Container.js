@@ -8,7 +8,6 @@ import {
   typeValidator
 } from '../../util/validators';
 import { attemptCreatePost } from '../../actions/posts';
-import categories from '../../categories';
 import withAuth from '../../util/withAuth';
 import CreatePostForm from './Component';
 
@@ -32,7 +31,8 @@ const validate = fields => {
 const mapStateToProps = state => ({
   isFetching: state.posts.isFetching,
   post: state.posts.newPost,
-  form: state.form.createPost
+  form: state.form.createPost,
+  communities: state.community.items
 });
 
 const mapDispatchToProps = { attemptCreatePost };
@@ -40,7 +40,7 @@ const mapDispatchToProps = { attemptCreatePost };
 const enhance = compose(
   reduxForm({
     form: 'createPost',
-    initialValues: { category: categories[0], type: 'link' },
+    initialValues: { category: null, type: 'link' },
     validate
   }),
   withAuth,
