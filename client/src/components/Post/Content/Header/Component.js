@@ -65,10 +65,10 @@ class PostHeaderDetail extends Component {
     const { postid, category, created, author, token, user } = this.props;
     return (
       <>
-
         <Wrapper>
-          <Link to={`/c/${category}`}>/a/{category}</Link>
-          <span>Posted by</span>
+          <span>Posted on</span>
+          <Link to={`/c/${category}`}>{category}</Link>
+          <span>by</span>
           <Author username={author && author.username} />
           <span>{moment(created).fromNow()}</span>
           <ModalToggle onClick={this.toggleMenu} >
@@ -92,7 +92,7 @@ class PostHeaderDetail extends Component {
                   <ModalItem to='/login'><FontAwesomeIcon icon='flag' />&nbsp;&nbsp;Report</ModalItem>
                 </>
             }
-            <ModalItem to={`/circles/${category}/${postid}`}><FontAwesomeIcon icon='comment-alt' />&nbsp;&nbsp;Comments</ModalItem>
+            <ModalItem to={`/c/${category}/${postid}`}><FontAwesomeIcon icon='comment-alt' />&nbsp;&nbsp;Comments</ModalItem>
           </Modal>
         }
 

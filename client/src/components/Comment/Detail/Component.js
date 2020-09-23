@@ -15,7 +15,6 @@ class CommentDetail extends React.Component {
   deleteComment = () => this.props.attemptDeleteComment(this.props.id);
 
   render() {
-    console.log(this.props)
     return (
       <Wrapper>
         <Author username={this.props.author && this.props.author.username} />

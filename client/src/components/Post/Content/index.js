@@ -50,6 +50,7 @@ const PostContent = ({
         type={type}
         full={showFullPost}
         {...details}
+        id={id}
       />
       {renderContent({ type, url, text, showFullPost })}
       <PostContentFooterDetail id={id} votes={votes} score={score} commentCount={commentCount} {...details} />

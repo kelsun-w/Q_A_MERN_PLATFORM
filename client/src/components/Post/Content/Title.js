@@ -32,7 +32,7 @@ const renderTitle = props => {
 
     case 'text':
       if (props.full) return <span>{props.title}</span>;
-      return <Link to={`/a/${props.category}/${props.id}`}>{props.title}</Link>;
+      return <Link to={`/c/${props.category}/${props.id}`}>{props.title}</Link>;
 
     default:
       break;
@@ -40,7 +40,7 @@ const renderTitle = props => {
 };
 
 const PostContentTitle = props => (
-  <Wrapper full={props.full}>{renderTitle(props)}</Wrapper>
+  <Wrapper id={props.id} full={props.full}>{renderTitle(props)}</Wrapper>
 );
 
 export default PostContentTitle;
