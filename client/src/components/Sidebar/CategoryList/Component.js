@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import SidebarCategoryListItem from './Item';
-// import categories from '../../../categories';
 
 const CategoryList = styled.nav`
   display: flex;
@@ -29,7 +28,7 @@ class SidebarCategoryList extends React.Component {
 
   mapCategories = categories =>
     categories.map((category, index) => (
-      <SidebarCategoryListItem key={index} category={category.name} icon='hand-holding-heart' />
+      <SidebarCategoryListItem key={index} category={category.name} logo={`http://localhost:8080/api/img/ca/${category.name}`} />
     ));
 
   render() {
@@ -37,9 +36,9 @@ class SidebarCategoryList extends React.Component {
       return null;
     return (
       <CategoryList>
-        <SidebarCategoryListItem category='all' icon='hand-holding-heart' />
+        <SidebarCategoryListItem category='all' logo='home' />
         {this.mapCategories(this.props.communities)}
-        <SidebarCategoryListItem category='discover more' icon='plus' />
+        {this.props.user && <SidebarCategoryListItem category='discover more' logo='plus' />}
       </CategoryList>
     )
   };

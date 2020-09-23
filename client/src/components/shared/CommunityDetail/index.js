@@ -5,7 +5,6 @@ import Title from './Header';
 import MemberNumber from './Member';
 import CreatedDate from './Date';
 import JoinButton from './Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Wrapper = styled.div`
     overflow-x: hidden;
@@ -28,6 +27,16 @@ const Description = styled.div`
     font-size: 14px;
 `
 
+const Logo = styled.img`
+    border-radius: 100%;
+    border: 0.5px solid #ddd;
+    margin-right: 5px;
+    height: 38px;
+    width: 38px;
+    object-fit: cover;
+    background-color: #fff;
+`
+
 const MainDetail = (props) => {
     const alreadyJoined = props.communities
         && (props.communities.find(c => c.name === props.name)) != null;
@@ -35,7 +44,7 @@ const MainDetail = (props) => {
     return (
         <Wrapper>
             <Title>
-                <FontAwesomeIcon icon='hand-holding-heart' />
+                <Logo src={`http://localhost:8080/api/img/ca/${props.name}`} />
                 <span>{props.name}</span>
             </Title>
             <Description>

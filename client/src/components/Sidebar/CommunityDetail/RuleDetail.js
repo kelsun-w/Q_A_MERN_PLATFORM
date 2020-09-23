@@ -25,7 +25,6 @@ const Header = styled.div`
     ${wideFont};
     font-weight: 700;
     border-radius: 3px 3px 0 0;
-    padding: 0 10px;
     background-color: ${props => props.theme.primary};
     color: #fff;
     padding: 8px 12px 8px;

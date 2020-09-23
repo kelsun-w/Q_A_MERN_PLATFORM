@@ -1,5 +1,6 @@
 const Community = require('../models/community');
 const User = require('../models/user');
+const path = require('path');
 
 exports.load = async (req, res, next, id) => {
     try {
@@ -102,7 +103,26 @@ exports.banUser = async (req, res, next) => {
     }
 };
 
+exports.addAvatar = (req, res, next) => {
+    req.community.picture = req.file.path;
+    req.community
+        .save()
+        .then(doc => {
+            res.status(200).json({
+                message: 'Updated',
+                doc
+            });
+        })
+        .catch(err => {
+            next(err);
+        })
+};
+
+exports.getAvatar = (req, res, next) => {
+    res.sendFile(path.join(__dirname, '\\..\\', req.community.picture));
+};
+
 exports.destroy = async (req, res) => {
     await req.community.remove();
     res.json({ message: 'success' });
-}
+};

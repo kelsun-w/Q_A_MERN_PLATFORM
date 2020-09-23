@@ -4,12 +4,14 @@ import React from 'react';
 const DP = styled.img`
     border-radius: 4px;
     margin-right: 5px;
-    max-height: 24px;
-    max-width: 24px;
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+    background-color: #fff;
 `
 
-const Picture = (props) => (
-    <DP src={process.env.PUBLIC_URL + '/images/default_dp.jpg'} />
-)
+const Picture = ({ imageUrl }) => (
+    <DP src={imageUrl} />
+);
 
 export default Picture;
