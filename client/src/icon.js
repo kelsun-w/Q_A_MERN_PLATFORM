@@ -24,6 +24,8 @@ import {
     faEllipsisH,
     faTimes,
     faPlus,
+    faBirthdayCake,
+    faUserEdit
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -50,5 +52,7 @@ library.add(
     faHandHoldingHeart,
     faEllipsisH,
     faTimes,
-    faPlus
+    faPlus,
+    faBirthdayCake,
+    faUserEdit
 );

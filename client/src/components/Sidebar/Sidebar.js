@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import SidebarCategoryListContainer from './CategoryList/Container';
 import CommunityDetailContainer from './CommunityDetail/Container';
 import { Route } from 'react-router-dom';
+import Profile from './Profile/Container';
 
 const Wrapper = styled.aside`
   display: flex;
@@ -21,15 +22,16 @@ const Wrapper = styled.aside`
 `;
 
 const Sidebar = (props) => (
-    <Wrapper>
-        <Route exact path='/' component={SidebarCategoryListContainer} />
-        <Route
-            path='/c/:category'
-            render={({ match }) => (
-                <CommunityDetailContainer category={match.params.category} />
-            )}
-        />
-    </Wrapper>
+  <Wrapper>
+    <Route exact path='/' component={SidebarCategoryListContainer} />
+    <Route
+      path='/c/:category'
+      render={({ match }) => (
+        <CommunityDetailContainer category={match.params.category} />
+      )}
+    />
+    <Route path='/u/' component={Profile} />
+  </Wrapper>
 );
 
 export default Sidebar;
