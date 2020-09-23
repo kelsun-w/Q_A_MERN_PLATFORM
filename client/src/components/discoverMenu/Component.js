@@ -56,7 +56,7 @@ const BGCover = styled.div`
     width: 100%;
 `
 
-const Profile = styled.img`
+const Logo = styled.img`
     margin: -30px 0 0;
     width: 62px;
     height: 62px;
@@ -91,7 +91,7 @@ class DiscoverMenu extends React.Component {
         list.map(item =>
             <Item>
                 <BGCover />
-                <Profile src={`http://localhost:8080/api/img/ca/${item.name}`} />
+                <Logo src={`http://localhost:8080/api/img/ca/${item.name}`} />
                 <Title href={'/c/' + item.name}>{item.name}</Title>
                 <Description>{item.description}</Description>
                 <JoinButton onClick={null} joined={false} />

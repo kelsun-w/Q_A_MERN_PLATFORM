@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import NavLink from '../../shared/NavLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import categories from '../../../categories';
 import { overflow } from '../../shared/helpers';
 
 const Item = styled(NavLink)`
+  display: flex;
+  align-items: center;
   ${overflow};
   padding: 6px 10px;
   font-size: 14px;
@@ -25,19 +26,29 @@ const Item = styled(NavLink)`
   }
 `;
 
-const ItemIcon = styled(FontAwesomeIcon)`
+const ItemIcon = styled.img`
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    object-fit: cover;
+    border: 0.1px solid #ddd;
+    border-radius: 20%;
+    background-color: #fff;
+`
+
+const DefaultIcon = styled(FontAwesomeIcon)`
   margin-right: 8px;
   color : ${props => props.theme.icon};
 `;
 
-const SidebarCategoryListItem = ({ category, icon }) => {
+const SidebarCategoryListItem = ({ category, logo }) => {
   const isAll = category === 'all';
   const isDiscover = category === 'discover more';
   const route = isAll ? '/' : isDiscover ? '/community/discover' : `/c/${category}`;
 
   return (
     <Item exact={isAll} to={route}>
-      <ItemIcon icon={icon} />
+      {isAll || isDiscover ? <DefaultIcon icon={logo} /> : <ItemIcon src={logo} />}
       {category}
     </Item>
   );
