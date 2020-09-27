@@ -41,7 +41,7 @@ const BoldText = styled.span`
 
 const NormalText = styled.span`
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     color: ${props => props.theme.mutedText};
     margin-left: 5px;
 `;
@@ -91,7 +91,7 @@ const Profile = (props) => {
             <BGCover />
             <HeadFlex>
                 <DP src={`http://localhost:8080/api/img/ua/${props.user.id}`} />
-                <SettingLink to='/setting'><FontAwesomeIcon icon='user-edit' /></SettingLink>
+                <SettingLink to='/settings'><FontAwesomeIcon icon='user-edit' /></SettingLink>
             </HeadFlex>
             <Content>
                 <ContentItem>
