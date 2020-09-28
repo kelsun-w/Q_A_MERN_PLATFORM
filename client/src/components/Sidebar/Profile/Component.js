@@ -95,18 +95,21 @@ const Profile = (props) => {
             </HeadFlex>
             <Content>
                 <ContentItem>
-                    <BoldText>DisplayName
+                    <BoldText>{props.user.display_name}
                         <NormalText>
                             @{props.user.username}
                         </NormalText>
                     </BoldText>
                 </ContentItem>
-                <ContentItem>
-                    <BoldText>About me</BoldText>
-                    <RowFlex>
-                        <NormalText>I am very bad good boy. I am very bad good boy.I am very bad good boy.I am very bad good boy.I am very bad good boy.</NormalText>
-                    </RowFlex>
-                </ContentItem>
+                {
+                    props.user.display_about &&
+                    <ContentItem>
+                        <BoldText>About me</BoldText>
+                        <RowFlex>
+                            <NormalText>{props.user.display_about}</NormalText>
+                        </RowFlex>
+                    </ContentItem>
+                }
                 <ContentItem>
                     <DetailInfo>
                         <ColumnFlex>
