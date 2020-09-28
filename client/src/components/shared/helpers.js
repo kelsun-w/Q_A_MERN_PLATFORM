@@ -1,9 +1,23 @@
 import { css, keyframes } from 'styled-components';
 
+export const font = css`
+  font-weight: ${props => props.light ? 400 : 600};
+  text-transform: ${props => props.allcaps ? 'uppercase' : ''};
+`;
+
 export const smallFont = css`
+  ${font};
   font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
+`;
+
+export const normalFont = css`
+  ${font};
+  font-size: 14px;
+`;
+
+export const bigFont = css`
+  ${font};
+  font-size: 22px;
 `;
 
 export const wideFont = css`

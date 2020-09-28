@@ -7,6 +7,7 @@ import PostListContainer from '../PostList/Container';
 import PostDetailContainer from '../PostDetail/Container';
 import Sidebar from '../Sidebar/Sidebar';
 import DiscoverMenu from '../discoverMenu/Container';
+import UserSetting from '../UserSetting/Container';
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,6 +71,11 @@ const Home = () => (
         path='/c/:category/:post'
         render={({ match, history }) => (
           <PostDetailContainer id={match.params.post} history={history} />
+        )}
+      />
+      <Route path='/settings'
+        render={({ match, history }) => (
+          <UserSetting />
         )}
       />
     </HomeMainSection>

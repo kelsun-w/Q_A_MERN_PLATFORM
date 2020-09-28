@@ -1,7 +1,10 @@
 import styled from 'styled-components/macro';
 import { transition, wideFont } from './helpers';
 
-const Button = styled.button`
+const Button = styled.button.attrs({
+  allcaps: true,
+  bold: true
+})`
   ${transition('filter', 'box-shadow')};
   ${wideFont};
   
