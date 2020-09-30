@@ -4,6 +4,50 @@ const { login, createAuthToken } = require('../auth');
 const User = require('../models/user');
 const config = require('../config');
 
+exports.getToken = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  const token = createAuthToken(user);
+  res.json(token);
+};
+
+exports.updateUser = async (req, res, next) => {
+  let user = await User.findById(req.user.id);
+
+  let update = {};
+  Object
+    .entries(req.body)
+    .forEach(([key, value]) => update = {
+      ...update,
+      [key]: value
+    });
+
+  user.set(update);
+  user
+    .save()
+    .then(() => res.json(user))
+    .catch(err => next(err));
+};
+
+exports.addAvatar = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+  user.picture = req.file.path;
+  user
+    .save()
+    .then(doc => {
+      res.json({ message: 'Avatar updated successfully', doc });
+    })
+};
+
+exports.getAvatar = async (req, res, next) => {
+  const id = req.params.user;
+  const user = await User.findById(id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+
+  res.sendFile(path.join(__dirname, '\\..\\', user.picture));
+};
+
 exports.login = (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
@@ -48,7 +92,7 @@ exports.register = async (req, res, next) => {
     const user = await User.create({ username, password, email, studentNo, major });
     const token = createAuthToken(user.toJSON());
 
-    res.status(201).json({ token });
+    return res.status(201).json({ token });
   } catch (err) {
     next(err);
   }
@@ -143,27 +187,4 @@ exports.validate = method => {
   return errors;
 };
 
-exports.getToken = async (req, res, next) => {
-  const token = createAuthToken(req.user);
-  res.json(token);
-};
-
-exports.addAvatar = async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-  if (!user) res.status(404).json({ message: 'No user found' });
-  user.picture = req.file.path;
-  user
-    .save()
-    .then(doc => {
-      res.json({ message: 'Avatar updated successfully', doc });
-    })
-};
-
-exports.getAvatar = async (req, res, next) => {
-  const id = req.params.user;
-  const user = await User.findById(id);
-  if (!user) res.status(404).json({ message: 'No user found' });
-
-  res.sendFile(path.join(__dirname, '\\..\\', user.picture));
-};
 

@@ -1,9 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Field } from 'redux-form';
-import Form from '../shared/form/Form';
-import renderField from '../shared/form/renderField';
-import SubmitButton from '../shared/form/SubmitButton';
 import { bigFont, normalFont, smallFont } from '../shared/helpers';
 import Button from '../shared/Button';
 import ProfileForm from './ProfileForm/Container';
@@ -19,12 +15,6 @@ const Header = styled.div`
     ${bigFont};
     border-bottom: 1.5px solid ${props => props.theme.border};
 `
-
-const StyledForm = styled(Form)`
-    max-width: 100%;
-    padding: 8px;
-    border: none;
-`;
 
 const MenuOption = styled.div`
     display: flex;
@@ -56,7 +46,7 @@ class UserSetting extends React.Component {
                 <MenuOption style={{ display: 'flex' }}>
                     <MenuDetail>
                         <div>Email</div>
-                        <div>Email@email.com</div>
+                        <div>{user.email}</div>
                     </MenuDetail>
                     <Button>Change</Button>
                 </MenuOption>

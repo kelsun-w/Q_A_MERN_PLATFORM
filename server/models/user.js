@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   admin: Boolean,
   communities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
   score: { type: Number, default: 0 },
+  display_name: String,
+  display_about: String,
   picture: String,
   joined: { type: Date, default: Date.now },
 }, { collation: { locale: 'en', strength: 1 } });
@@ -29,7 +31,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre(/^find/, function () {
-  this.populate('communities');
+  this.populate('communities', 'name');
 });
 
 userSchema.post('save', function (doc, next) {

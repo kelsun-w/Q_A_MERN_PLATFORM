@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import React from 'react';
-import Input from './Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingIndicator from '../../shared/LoadingIndicator/Spinner';
+
+const StyledSpinner = styled(LoadingIndicator)`
+    border: 0.8rem solid ${props => props.theme.accent + '4d'};
+    border-top-color: ${props => props.theme.accent};
+    width: 60px;
+    height: 60px;
+`
 
 const Wrapper = styled.div`
     width: 120px;
 `
 const WithoutProfile = styled.label`
+    position: relative;
     height: 120px;
     display: flex;
     flex-direction: column;
@@ -71,24 +79,27 @@ const StyledEnd = styled.div`
 `
 
 const ImageInput = ({ field }) => {
-
-    const onChange = event => {
-        const { input: { onChange } } = field;
-        onChange(event.target.files[0]);
-    };
-
+    const { input: { loading, name, onChange } } = field;
     return (
         <Wrapper>
-            {console.log(field)}
             {field.defaultURL ?
                 <WithProfile>
+                    {loading && <StyledSpinner />}
                     <StyledImage src={field.defaultURL} />
                     <StyledEnd>
                         <FontAwesomeIcon icon='pen' />
                     </StyledEnd>
+                    <StyledInput
+                        name={name}
+                        onChange={onChange}
+                        type='file'
+                        accept='image/png,image/jpeg'
+                        alt={field.alt}
+                    />
                 </WithProfile>
                 :
                 <WithoutProfile>
+                    {loading && <StyledSpinner />}
                     <StyledTop>
                         <FontAwesomeIcon icon='plus' />
                     </StyledTop>
@@ -96,8 +107,9 @@ const ImageInput = ({ field }) => {
                         <FontAwesomeIcon icon='user' />
                     </StyledCenter>
                     <StyledInput
+                        name={name}
                         onChange={onChange}
-                        type={field.type}
+                        type='file'
                         accept='image/png,image/jpeg'
                         alt={field.alt}
                     />

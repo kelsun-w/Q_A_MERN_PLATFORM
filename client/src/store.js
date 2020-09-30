@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import form from './reducers/form';
+import user from './reducers/user';
 import error from './reducers/error';
 import auth from './reducers/auth';
 import posts from './reducers/posts';
@@ -13,7 +14,7 @@ import themeMiddleware from './middleware/theme';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
-  combineReducers({ form, error, auth, posts, community, theme }),
+  combineReducers({ form, error, auth, user, posts, community, theme }),
   composeEnhancers(
     applyMiddleware(thunk, authMiddleware, errorMiddleware, themeMiddleware)
   )

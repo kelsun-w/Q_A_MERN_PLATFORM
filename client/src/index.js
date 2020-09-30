@@ -9,8 +9,6 @@ import store from './store';
 import AppContainer from './components/App/Container';
 import * as serviceWorker from './serviceWorker';
 
-
-
 ReactDOM.render(
   <CookiesProvider>
     <Provider store={store}>

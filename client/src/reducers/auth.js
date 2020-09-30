@@ -17,7 +17,8 @@ const user = token && jwtDecode(token).user;
 
 const initialState = {
   ...(token && { token }),
-  ...(user && { user })
+  ...(user && { user }),
+  loading: false
 };
 
 export default (state = initialState, action) => {

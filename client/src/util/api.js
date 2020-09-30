@@ -20,9 +20,52 @@ const methods = {
     return json;
   },
 
-  post: async function (endpoint, body, token = null) {
+  post: async function (endpoint, body, token = null, file = false) {
     const options = {
       method: 'POST',
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` })
+      }
+    };
+    const { headers } = options;
+
+    //Don't manually set content-type for multi-part forms. 
+    //Let the browser handle it.
+    if (file) {
+      options = {
+        ...options,
+        body: body
+      }
+    } else {
+      options = {
+        ...options,
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+    }
+
+    const response = await fetch(`${baseUrl}/${endpoint}`, options);
+    const json = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 422) {
+        json.errors.forEach(error => {
+          throw Error(`${error.param} ${error.msg}`);
+        });
+      }
+
+      throw Error(json.message);
+    }
+
+    return json;
+  },
+
+  put: async function (endpoint, body, token = null) {
+    const options = {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         ...(token && { Authorization: `Bearer ${token}` })
@@ -80,6 +123,14 @@ export async function signup(username, password, email, studentNo, major) {
 export async function fetchToken(oldToken) {
   return await methods.get('getToken', oldToken);
 };
+
+export async function updateUser(update, token) {
+  return await methods.put('user', update, token);
+}
+
+export async function user_UploadImage(image, token) {
+  return await methods.post('img/ua', image, token, true);
+}
 
 export async function getPosts(category) {
   return await methods.get(`posts/${category}`);
