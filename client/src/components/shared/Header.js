@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { bigFont } from './helpers';
+import styled, { css } from 'styled-components';
+import { normalFont, bigFont } from './helpers';
 
 const Header = styled.div`
-    ${bigFont};
-    border-bottom: 1.5px solid ${props => props.theme.border};
+    ${({ small }) =>
+        small ? css`${normalFont}` : css`${bigFont}`
+    };
+    border-bottom: ${({ noBorder }) => noBorder ? `` : css`1.5px solid ${ props => props.theme.border}`};
 `
 
 export default Header;

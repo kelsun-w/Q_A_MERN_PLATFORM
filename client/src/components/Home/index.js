@@ -74,7 +74,7 @@ const Home = () => (
       />
       <Route path='/settings'
         render={({ match, history }) => (
-          <UserSetting />
+          <UserSetting history={history} />
         )}
       />
     </HomeMainSection>

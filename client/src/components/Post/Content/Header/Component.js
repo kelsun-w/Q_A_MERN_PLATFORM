@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { link, overflow } from '../../../shared/helpers';
 import Author from '../../../shared/Author';
-import { Modal, ModalItem } from '../../../shared/Modal';
+import { Modal, ModalItem } from '../../../shared/ModalBottom';
 
 const Wrapper = styled.div`
   ${overflow};

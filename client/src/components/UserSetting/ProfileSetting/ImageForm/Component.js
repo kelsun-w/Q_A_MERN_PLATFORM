@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
-import Form from '../../shared/form/Form';
-import renderField from '../../shared/form/renderField';
+import Form from '../../../shared/form/Form';
+import renderField from '../../../shared/form/renderField';
 
 const StyledForm = styled(Form)`
     max-width: 100%;

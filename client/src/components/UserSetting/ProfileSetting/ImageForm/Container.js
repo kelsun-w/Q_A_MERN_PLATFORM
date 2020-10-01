@@ -1,20 +1,20 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { userUpdate } from '../../../actions/user';
-import withAuth from '../../../util/withAuth';
+import { imageUpload } from '../../../../actions/user';
+import withAuth from '../../../../util/withAuth';
 import Component from './Component.js';
 
 const mapStateToProps = state => ({
-    isUpdating: state.user.updating
+    isUploading: state.user.uploading
 });
 
 const mapDispatchToProps = {
-    userUpdate
+    imageUpload
 };
 
 export default compose(
     withAuth,
-    reduxForm({ form: 'usersetting_profile' }),
+    reduxForm({ form: 'usersetting_image' }),
     connect(mapStateToProps, mapDispatchToProps)
 )(Component);

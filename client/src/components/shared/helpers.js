@@ -1,7 +1,7 @@
 import { css, keyframes } from 'styled-components';
 
 export const font = css`
-  font-weight: ${props => props.light ? 400 : 600};
+  font-weight: ${props => props.light ? 300 : 500};
   text-transform: ${props => props.allcaps ? 'uppercase' : ''};
 `;
 

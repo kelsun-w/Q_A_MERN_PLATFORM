@@ -8,6 +8,7 @@ const passport = require('passport');
 const config = require('./config');
 const { upload } = require('./storage');
 const { handleUpload } = require('./controllers/file');
+
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
 

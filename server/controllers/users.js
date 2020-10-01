@@ -1,6 +1,7 @@
 const path = require('path');
 const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const config = require('../config');
 
@@ -14,14 +15,25 @@ exports.getToken = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   let user = await User.findById(req.user.id);
 
+  let list = Object.entries(req.body);
   let update = {};
-  Object
-    .entries(req.body)
-    .forEach(([key, value]) => update = {
-      ...update,
-      [key]: value
-    });
-
+  for (var i = 0; i < list.length; i++) {
+    const [key, value] = list[i];
+    if (key === 'current_password') continue; //Skip. Don't add current_password to doc
+    else if (key === 'password') {
+      //It's a password update request. Authenticate password before adding to doc.
+      try {
+        const result = await bcrypt.compare(req.body.current_password, user.password)
+        //Password did not match. Exit without updating doc
+        if (!result)
+          return res.status(401).json({ message: 'Incorrect password. Try again.' });
+      } catch (err) {
+        return res.status(500).json({ message: 'Something went wrong' })
+      }
+    };
+    update[key] = value;
+  };
+  
   user.set(update);
   user
     .save()

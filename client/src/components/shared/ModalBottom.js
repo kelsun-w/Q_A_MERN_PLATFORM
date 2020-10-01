@@ -6,31 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const ModalOverlay = styled.div`
     position: fixed;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
     z-index: 90;
-    background-color: rgba(28,28,28,0.9);
-    width: 100%;
-    height:100%;
-`
-
-const PositionWrapper = styled.div`
-    position: absolute;
-    display: flex;
-    align-items: center;
-    width:100%;
-    height: 100%;
+    background-color: rgba(0,0,0,0.4);
 `
 
 const ModalWrapper = styled.div`
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
-    margin: auto;
-    padding: 20px 26px;
-    border: 1px solid #343536;
-    border-radius: 4px;
+    padding: 5px 10px;
     background-color: ${props => props.theme.foreground};
-    box-shadow: 0 4px 12px ${props => props.theme.shadow};
+    border-radius: 12px 12px 0 0;
 `
 
 const ModalClose = styled.div`
@@ -39,9 +30,9 @@ const ModalClose = styled.div`
     right: 0;
     z-index: 1;
     padding: 5px 10px;
-    font-size: 18px;
+    font-size: 22px;
     color: ${props => props.theme.icon}; 
-    cursor: pointer;    
+    cursor: pointer;
 `
 
 export const ModalItem = styled(Link)`
@@ -79,12 +70,10 @@ export const Modal = ({ isOpen, onClose, children }) => {
 
     return (
         <ModalOverlay>
-            <PositionWrapper >
-                <ModalWrapper ref={modal} >
-                    <ModalClose ref={closeBtn} onClick={closeModal}><FontAwesomeIcon icon='times' /></ModalClose>
-                    {children}
-                </ModalWrapper>
-            </PositionWrapper>
+            <ModalWrapper ref={modal}>
+                <ModalClose ref={closeBtn} onClick={closeModal}><FontAwesomeIcon icon='times' /></ModalClose>
+                {children}
+            </ModalWrapper>
         </ModalOverlay>
     );
 }
