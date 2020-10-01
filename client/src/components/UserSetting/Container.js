@@ -8,12 +8,9 @@ const mapStateToProps = state => ({
     form: state.form.userSetting_image
 });
 
-//   const mapDispatchToProps = { attemptCreatePost };
-
 const enhance = compose(
     connect(
         mapStateToProps
-        //   mapDispatchToProps
     ),
     withAuth
 );

@@ -29,7 +29,6 @@ const Home = () => (
     <Route render={({ location }) => {
       switch (location.pathname) {
         case ('/community/discover'):
-        case ('/settings'):
           return null;
         default:
           return (<Sidebar />)

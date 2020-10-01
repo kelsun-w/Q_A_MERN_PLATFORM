@@ -4,6 +4,7 @@ import SidebarCategoryListContainer from './CategoryList/Container';
 import CommunityDetailContainer from './CommunityDetail/Container';
 import { Route } from 'react-router-dom';
 import Profile from './Profile/Container';
+import SettingNav from './SettingSidebar';
 
 const Wrapper = styled.aside`
   display: flex;
@@ -31,6 +32,7 @@ const Sidebar = (props) => (
       )}
     />
     <Route path='/u/' component={Profile} />
+    <Route path='/settings/' component={SettingNav} />
   </Wrapper>
 );
 

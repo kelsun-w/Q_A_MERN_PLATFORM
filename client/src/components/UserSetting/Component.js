@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { bigFont, normalFont, smallFont } from '../shared/helpers';
+import { normalFont, smallFont } from '../shared/helpers';
 import Button from '../shared/Button';
 import ProfileForm from './ProfileForm/Container';
 import ImageForm from './ImageForm/Container';
+import Header from '../shared/Header';
 
 const Wrapper = styled.div`
     background-color: ${props => props.theme.foreground};
     color: ${props => props.theme.normalText};
     padding: 8px;
-`
-
-const Header = styled.div`
-    ${bigFont};
-    border-bottom: 1.5px solid ${props => props.theme.border};
 `
 
 const MenuOption = styled.div`
