@@ -1,4 +1,13 @@
 import {
+  FETCH_COMMUNITIES_SUCCESS,
+  FETCH_COMMUNITIES_ERROR,
+  FETCH_COMMUNITY_SUCCESS,
+  FETCH_COMMUNITY_ERROR,
+  MEMBER_COMMUNITY_SUCCESS,
+  MEMBER_COMMUNITY_ERROR
+} from '../actions/community';
+
+import {
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_ERROR,
   FETCH_POST_SUCCESS,
@@ -14,18 +23,34 @@ import {
   VOTE_SUCCESS,
   VOTE_ERROR
 } from '../actions/posts';
+
 import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   SIGNUP_ERROR,
   SIGNUP_SUCCESS,
+  TOKENUPDATE_SUCCESS,
+  TOKENUPDATE_ERROR,
   LOGOUT
 } from '../actions/auth';
+
+import {
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_ERROR,
+  IMAGE_UPLOAD_SUCCESS,
+  IMAGE_UPLOAD_ERROR,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_ERROR
+} from '../actions/user';
+
 import { hideErrorClearTimeout, showErrorWithTimeout } from '../actions/error';
 
 export default store => next => action => {
   next(action);
   switch (action.type) {
+    case FETCH_COMMUNITIES_SUCCESS:
+    case FETCH_COMMUNITY_SUCCESS:
+    case MEMBER_COMMUNITY_SUCCESS:
     case FETCH_POSTS_SUCCESS:
     case FETCH_POST_SUCCESS:
     case CREATE_POST_SUCCESS:
@@ -35,10 +60,17 @@ export default store => next => action => {
     case VOTE_SUCCESS:
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
+    case TOKENUPDATE_SUCCESS:
+    case USER_UPDATE_SUCCESS:
+    case IMAGE_UPLOAD_SUCCESS:
+    case USER_DELETE_SUCCESS:
     case LOGOUT:
       if (store.getState().error) store.dispatch(hideErrorClearTimeout());
       break;
 
+    case FETCH_COMMUNITIES_ERROR:
+    case FETCH_COMMUNITY_ERROR:
+    case MEMBER_COMMUNITY_ERROR:
     case FETCH_POSTS_ERROR:
     case FETCH_POST_ERROR:
     case CREATE_POST_ERROR:
@@ -48,6 +80,10 @@ export default store => next => action => {
     case VOTE_ERROR:
     case LOGIN_ERROR:
     case SIGNUP_ERROR:
+    case TOKENUPDATE_ERROR:
+    case USER_UPDATE_ERROR:
+    case IMAGE_UPLOAD_ERROR:
+    case USER_DELETE_ERROR:
       store.dispatch(showErrorWithTimeout(action.error));
       break;
 

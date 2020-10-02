@@ -1,13 +1,13 @@
 import styled from 'styled-components/macro';
-import { normalFont } from '../helpers';
+import { smallFont } from '../helpers';
 
 const Label = styled.label.attrs({
-  allcaps: true
+  light: true
 })`
-  ${normalFont};
-  
+  ${smallFont};
+
   display: block;
-  color: ${props => props.theme.normalText};
+  color: ${props => props.theme.mutedText};
 `;
 
 export default Label;

@@ -43,7 +43,7 @@ const Text = styled.p`
 const GoogleLoginButton = () => {
 
   return (
-    <Button as='a' href={`http://localhost:8080/api/auth/google`}>
+    <Button as='a' href={`${process.env.REACT_APP_BASE_SERVER}/auth/google/type=register`}>
       <Wrapper>
         <Icon
           xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,4 @@
+const { request } = require('express');
 var passport = require('passport');
 var Strategy = require('passport-google-oauth20').Strategy;
 const config = require('../config');
@@ -13,11 +14,10 @@ const config = require('../config');
 const googleStrategy = new Strategy({
   clientID: config.google.clientID,
   clientSecret: config.google.clientSecret,
-  callbackURL: '/api'+config.google.callbackURL
+  callbackURL: '/api' + config.google.callbackURL,
 },
   function (accessToken, refreshToken, profile, done) {
-   
-    const user = { 
+    const object = {
       'firstName': profile.name.givenName,
       'lastName': profile.name.familyName,
       'userName': profile.displayName,
@@ -25,7 +25,7 @@ const googleStrategy = new Strategy({
       'email_verified': profile._json.email_verified,
       'hd': profile._json.hd
     }
-    return done(null, user);
+    return done(null, object);
   });
 
 module.exports = googleStrategy;

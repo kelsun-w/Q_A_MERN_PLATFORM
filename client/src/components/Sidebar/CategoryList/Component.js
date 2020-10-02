@@ -28,7 +28,7 @@ class SidebarCategoryList extends React.Component {
 
   mapCategories = categories =>
     categories.map((category, index) => (
-      <SidebarCategoryListItem key={index} category={category.name} logo={`http://localhost:8080/api/img/ca/${category.name}`} />
+      <SidebarCategoryListItem key={index} category={category.name} logo={`${process.env.REACT_APP_IMG_URL_CA}/${category.name}`} />
     ));
 
   render() {

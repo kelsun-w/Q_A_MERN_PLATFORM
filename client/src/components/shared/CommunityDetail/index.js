@@ -44,7 +44,7 @@ const MainDetail = (props) => {
     return (
         <Wrapper>
             <Title>
-                <Logo src={`http://localhost:8080/api/img/ca/${props.name}`} />
+                <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${props.name}`} />
                 <span>{props.name}</span>
             </Title>
             <Description>

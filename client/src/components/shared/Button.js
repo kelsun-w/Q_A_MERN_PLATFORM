@@ -1,14 +1,16 @@
 import styled from 'styled-components/macro';
 import { transition, wideFont } from './helpers';
 
-const Button = styled.button`
+const Button = styled.button.attrs({
+  allcaps: true
+})`
   ${transition('filter', 'box-shadow')};
   ${wideFont};
   
   border: none;
   border-radius: 3px;
   padding: 8px 24px;
-  background-color: ${props => props.theme.accent};
+  background-color: ${props => props.danger ? props.theme.danger : props.theme.accent};
   cursor: pointer;
   color: #ffffff;
   outline: none;

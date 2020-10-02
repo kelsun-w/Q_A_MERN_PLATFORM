@@ -24,8 +24,9 @@ const DP = styled.img`
     border-radius: 20%;
     margin-top: -30px;
     margin-left: 10px;
-    max-height: 60px;
-    max-width: 60px;
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
 `
 
 const Content = styled.div`
@@ -45,11 +46,6 @@ const NormalText = styled.span`
     color: ${props => props.theme.mutedText};
     margin-left: 5px;
 `;
-
-const StudentNo = styled.div`
-    font-size: 14px;
-    font-weight: 400;
-`
 
 const Email = styled.div`
     border-top: 1px solid ${props => props.theme.border};
@@ -90,23 +86,26 @@ const Profile = (props) => {
         <Wrapper>
             <BGCover />
             <HeadFlex>
-                <DP src={`http://localhost:8080/api/img/ua/${props.user.id}`} />
+                <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}`} />
                 <SettingLink to='/setting'><FontAwesomeIcon icon='user-edit' /></SettingLink>
             </HeadFlex>
             <Content>
                 <ContentItem>
-                    <BoldText>DisplayName
+                    <BoldText>{props.user.display_name}
                         <NormalText>
                             @{props.user.username}
                         </NormalText>
                     </BoldText>
                 </ContentItem>
-                <ContentItem>
-                    <BoldText>About me</BoldText>
-                    <RowFlex>
-                        <NormalText>I am very bad good boy. I am very bad good boy.I am very bad good boy.I am very bad good boy.I am very bad good boy.</NormalText>
-                    </RowFlex>
-                </ContentItem>
+                {
+                    props.user.display_about &&
+                    <ContentItem>
+                        <BoldText>About me</BoldText>
+                        <RowFlex>
+                            <NormalText>{props.user.display_about}</NormalText>
+                        </RowFlex>
+                    </ContentItem>
+                }
                 <ContentItem>
                     <DetailInfo>
                         <ColumnFlex>

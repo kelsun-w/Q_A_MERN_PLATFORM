@@ -1,8 +1,89 @@
 const path = require('path');
 const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const config = require('../config');
+
+exports.getToken = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  const token = createAuthToken(user);
+  res.json(token);
+};
+
+exports.updateUser = async (req, res, next) => {
+  let user = await User.findById(req.user.id);
+
+  let list = Object.entries(req.body);
+  let update = {};
+  for (var i = 0; i < list.length; i++) {
+    const [key, value] = list[i];
+    if (key === 'current_password') continue; //Skip. Don't add current_password to doc
+    else if (key === 'password') {
+      //It's a password update request. Authenticate password before adding to doc.
+      try {
+        const result = await bcrypt.compare(req.body.current_password, user.password)
+        //Password did not match. Exit without updating doc
+        if (!result)
+          return res.status(401).json({ message: 'Incorrect password. Try again.' });
+      } catch (err) {
+        return res.status(500).json({ message: 'Something went wrong' })
+      }
+    };
+    update[key] = value;
+  };
+
+  user.set(update);
+  user
+    .save()
+    .then(() => res.json(user))
+    .catch(err => next(err));
+};
+
+exports.passwordCheck = async (req, res, next) => {
+  const doer = await User.findById(req.body.id);
+  if (!doer) return res.status(404).json({ message: 'Doer No user found' });
+  if (!doer.admin) {
+    //Requestor is not admin. Password check required
+    const check = await bcrypt.compare(req.body.password, doer.password);
+    if (!check) return res.status(401).json({ message: 'Incorrect password. Try again' })
+  }
+  next()
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const object = await User.findById(req.params.user);
+  if (!object) return res.status(404).json({ message: 'No user found' });
+
+  User
+    .deleteOne({ _id: object.id })
+    .then(doc => {
+      return res.json(doc)
+    })
+    .catch(err => {
+      return res.status(500).json({ message: 'Something went wrong' })
+    })
+};
+
+exports.addAvatar = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+  user.picture = req.file.path;
+  user
+    .save()
+    .then(doc => {
+      res.json({ message: 'Avatar updated successfully', doc });
+    })
+};
+
+exports.getAvatar = async (req, res, next) => {
+  const id = req.params.user;
+  const user = await User.findById(id);
+  if (!user) res.status(404).json({ message: 'No user found' });
+
+  res.sendFile(path.join(__dirname, '\\..\\', user.picture));
+};
 
 exports.login = (req, res, next) => {
   const result = validationResult(req);
@@ -48,7 +129,7 @@ exports.register = async (req, res, next) => {
     const user = await User.create({ username, password, email, studentNo, major });
     const token = createAuthToken(user.toJSON());
 
-    res.status(201).json({ token });
+    return res.status(201).json({ token });
   } catch (err) {
     next(err);
   }
@@ -143,27 +224,4 @@ exports.validate = method => {
   return errors;
 };
 
-exports.getToken = async (req, res, next) => {
-  const token = createAuthToken(req.user);
-  res.json(token);
-};
-
-exports.addAvatar = async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-  if (!user) res.status(404).json({ message: 'No user found' });
-  user.picture = req.file.path;
-  user
-    .save()
-    .then(doc => {
-      res.json({ message: 'Avatar updated successfully', doc });
-    })
-};
-
-exports.getAvatar = async (req, res, next) => {
-  const id = req.params.user;
-  const user = await User.findById(id);
-  if (!user) res.status(404).json({ message: 'No user found' });
-
-  res.sendFile(path.join(__dirname, '\\..\\', user.picture));
-};
 

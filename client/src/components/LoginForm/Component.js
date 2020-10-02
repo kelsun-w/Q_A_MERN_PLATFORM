@@ -9,12 +9,6 @@ import renderField from '../shared/form/renderField';
 import Header from '../shared/form/Header';
 import Label from '../shared/form/Label';
 
-const GoogleSignup = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
 class LoginForm extends React.Component {
   componentDidMount() {
     this.redirectOnChange();

@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 
 const InputWrapper = styled.div`
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   width: 100%;
 `;
 
