@@ -24,7 +24,6 @@ const StyledSpinner = styled(LoadingIndicator)`
 
 const StyledButton = styled(SubmitButton)`
     position: relative;
- 
     &:disabled {
         background: #ddd;
         
@@ -38,15 +37,14 @@ const StyledButton = styled(SubmitButton)`
     }
 `
 
-const header = 'Create a new password';
-const subHeader = 'Update your current password with a new one';
-const cpw_Label = 'Current password';
-const npw_Label = 'New password';
+const header = 'ARE YOU SURE? ';
+const subHeader = 'Once you delete your account, you will not get it back.';
+const pw_Label = 'Enter password';
 
-class ProfileForm extends React.Component {
+class DeleteForm extends React.Component {
 
     onSubmit = values => {
-        this.props.userUpdate(values);
+        this.props.userDelete(values);
     }
 
     render() {
@@ -59,18 +57,13 @@ class ProfileForm extends React.Component {
                     <Header noBorder>{header}</Header>
                     <SubHeading>{subHeader}</SubHeading>
                     <Field
-                        name='current_password'
-                        label={cpw_Label}
-                        type='password'
-                        component={renderField} />
-                    <Field
                         name='password'
-                        label={npw_Label}
+                        label={pw_Label}
                         type='password'
                         component={renderField} />
-                    <StyledButton type='submit' disabled={isUpdating}>
+                    <StyledButton type='submit' disabled={isUpdating} danger>
                         {isUpdating && <StyledSpinner />}
-                        <span>SAVE CHANGES</span>
+                        <span>DELETE ACCOUNT</span>
                     </StyledButton>
                 </StyledForm>
             </wrapper>
@@ -78,4 +71,4 @@ class ProfileForm extends React.Component {
     }
 };
 
-export default ProfileForm;
+export default DeleteForm;

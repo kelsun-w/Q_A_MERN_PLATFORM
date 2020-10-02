@@ -68,7 +68,7 @@ class ProfileForm extends React.Component {
                         type='textarea'
                         component={renderField} />
                     <StyledButton type='submit' disabled={isUpdating}>
-                        <StyledSpinner />
+                        {isUpdating && <StyledSpinner />}
                         <span>SAVE CHANGES</span>
                     </StyledButton>
                 </StyledForm>

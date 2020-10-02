@@ -33,12 +33,37 @@ exports.updateUser = async (req, res, next) => {
     };
     update[key] = value;
   };
-  
+
   user.set(update);
   user
     .save()
     .then(() => res.json(user))
     .catch(err => next(err));
+};
+
+exports.passwordCheck = async (req, res, next) => {
+  const doer = await User.findById(req.body.id);
+  if (!doer) return res.status(404).json({ message: 'Doer No user found' });
+  if (!doer.admin) {
+    //Requestor is not admin. Password check required
+    const check = await bcrypt.compare(req.body.password, doer.password);
+    if (!check) return res.status(401).json({ message: 'Incorrect password. Try again' })
+  }
+  next()
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const object = await User.findById(req.params.user);
+  if (!object) return res.status(404).json({ message: 'No user found' });
+
+  User
+    .deleteOne({ _id: object.id })
+    .then(doc => {
+      return res.json(doc)
+    })
+    .catch(err => {
+      return res.status(500).json({ message: 'Something went wrong' })
+    })
 };
 
 exports.addAvatar = async (req, res, next) => {

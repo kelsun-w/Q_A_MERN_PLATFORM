@@ -10,7 +10,7 @@ const Button = styled.button.attrs({
   border: none;
   border-radius: 3px;
   padding: 8px 24px;
-  background-color: ${props => props.theme.accent};
+  background-color: ${props => props.danger ? props.theme.danger : props.theme.accent};
   cursor: pointer;
   color: #ffffff;
   outline: none;

@@ -122,10 +122,14 @@ export async function signup(username, password, email, studentNo, major) {
 
 export async function fetchToken(oldToken) {
   return await methods.get('getToken', oldToken);
-};
+}
 
 export async function updateUser(update, token) {
   return await methods.put('user', update, token);
+}
+
+export async function deleteUser(user, token) {
+  return await methods.post(`user/delete/${user.id}`, user, token)
 }
 
 export async function user_UploadImage(image, token) {
@@ -174,11 +178,11 @@ export async function castVote(id, vote, token) {
 
 export async function getCommunities(id) {
   return await methods.get(`communities/${id}`);
-};
+}
 
 export async function getCommunity(name) {
   return await methods.get(`community/${name}`);
-};
+}
 
 export async function sendJoinRequest(name, userid, token) {
   return await methods.get(`community/${name}/member/${userid}`, token);

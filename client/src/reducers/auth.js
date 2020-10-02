@@ -12,6 +12,8 @@ import {
   TOKENUPDATE_ERROR
 } from '../actions/auth';
 
+import { USER_DELETE_SUCCESS } from '../actions/user';
+
 const token = localStorage.getItem('token');
 const user = token && jwtDecode(token).user;
 
@@ -43,6 +45,7 @@ export default (state = initialState, action) => {
     case TOKENUPDATE_ERROR:
       return { ...state, loading: false };
 
+    case USER_DELETE_SUCCESS:
     case LOGOUT:
       return { ...state, token: null, user: null };
 

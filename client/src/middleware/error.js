@@ -38,7 +38,9 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_ERROR,
   IMAGE_UPLOAD_SUCCESS,
-  IMAGE_UPLOAD_ERROR
+  IMAGE_UPLOAD_ERROR,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_ERROR
 } from '../actions/user';
 
 import { hideErrorClearTimeout, showErrorWithTimeout } from '../actions/error';
@@ -61,6 +63,7 @@ export default store => next => action => {
     case TOKENUPDATE_SUCCESS:
     case USER_UPDATE_SUCCESS:
     case IMAGE_UPLOAD_SUCCESS:
+    case USER_DELETE_SUCCESS:
     case LOGOUT:
       if (store.getState().error) store.dispatch(hideErrorClearTimeout());
       break;
@@ -80,6 +83,7 @@ export default store => next => action => {
     case TOKENUPDATE_ERROR:
     case USER_UPDATE_ERROR:
     case IMAGE_UPLOAD_ERROR:
+    case USER_DELETE_ERROR:
       store.dispatch(showErrorWithTimeout(action.error));
       break;
 

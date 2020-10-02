@@ -17,6 +17,7 @@ router.post('/register', users.validate('register'), users.register);
 
 router.get('/getToken', jwtAuth, users.getToken);
 router.put('/user', jwtAuth, users.updateUser);
+router.post('/user/delete/:user', [jwtAuth, users.passwordCheck], users.deleteUser);
 router.param('post', posts.load);
 router.get('/posts', posts.list);
 router.get('/posts/:category', posts.listByCategory);

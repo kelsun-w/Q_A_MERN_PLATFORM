@@ -63,9 +63,10 @@ class AccountSetting extends React.Component {
                     <Button onClick={this.toggleMenu}>Change</Button>
                 </MenuOption>
                 {this.state.isOpen &&
-                    <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu} bottom>
+                    <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
                         <PasswordForm />
-                    </Modal>}
+                    </Modal>
+                }
             </>
         )
     };

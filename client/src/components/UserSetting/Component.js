@@ -13,14 +13,17 @@ const Wrapper = styled.div`
 class UserSetting extends React.Component {
 
     componentDidMount() {
+        console.log(this.props);
         if (!this.props.token) { this.props.history.push('/') }
     };
-    
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!this.props.token) { this.props.history.push('/') }
     };
 
     render() {
+        if(!this.props.token) return null;
+
         const { user, isDark, toggleDarkTheme } = this.props;
         const preference = {
             id: user.id,
@@ -33,13 +36,17 @@ class UserSetting extends React.Component {
                 <Route
                     exact path='/settings'
                     render={() => (
-                        <ProfileSetting {...user} />
+                        <ProfileSetting
+                            {...user}
+                        />
                     )}
                 />
                 <Route
                     exact path='/settings/preference'
                     render={() => (
-                        <PreferenceSetting  {...preference} />
+                        <PreferenceSetting
+                            {...preference}
+                        />
                     )}
                 />
             </Wrapper>

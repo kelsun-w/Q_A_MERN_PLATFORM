@@ -1,7 +1,8 @@
 import { getNewToken } from './auth';
 import {
     updateUser,
-    user_UploadImage
+    user_UploadImage,
+    deleteUser
 } from '../util/api';
 
 export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
@@ -46,5 +47,25 @@ export const imageUpload = (image) => async (dispatch, getState) => {
     } catch (error) {
         dispatch(imageUploadError(error));
         return false;
+    }
+};
+
+export const USER_DELETE_REQUEST = 'USER_DELETE_REQUEST';
+export const USER_DELETE_SUCCESS = 'USER_DELETE_SUCCESS';
+export const USER_DELETE_ERROR = 'USER_DELETE_ERROR';
+
+const userDeleteRequest = { type: USER_DELETE_REQUEST };
+const userDeleteSuccess = { type: USER_DELETE_SUCCESS };
+const userDeleteError = error => ({ type: USER_DELETE_ERROR, error });
+
+export const userDelete = (password = '') => async (dispatch, getState) => {
+    dispatch(userDeleteRequest);
+    try {
+        const { token, user } = getState().auth;
+        const payload = { id: user.id, ...password };
+        const res = await deleteUser(payload, token);
+        dispatch(userDeleteSuccess);
+    } catch (error) {
+        dispatch(userDeleteError(error));
     }
 };

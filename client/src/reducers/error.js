@@ -21,7 +21,8 @@ import {
 
 import {
   USER_UPDATE_ERROR,
-  IMAGE_UPLOAD_ERROR
+  IMAGE_UPLOAD_ERROR,
+  USER_DELETE_ERROR
 } from '../actions/user';
 
 import { HIDE_ERROR } from '../actions/error';
@@ -44,6 +45,7 @@ export default (state = initialState, action) => {
     case TOKENUPDATE_ERROR:
     case USER_UPDATE_ERROR:
     case IMAGE_UPLOAD_ERROR:
+    case USER_DELETE_ERROR:
       return action.error;
 
     case HIDE_ERROR:
