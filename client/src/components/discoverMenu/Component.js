@@ -16,7 +16,6 @@ const Heading = styled.h1`
     @media (max-width: 425px) {
         font-size: 20px;
     }
-
 `;
 
 const SubHeading = styled.h2`
@@ -91,7 +90,7 @@ class DiscoverMenu extends React.Component {
         list.map(item =>
             <Item>
                 <BGCover />
-                <Logo src={`http://localhost:8080/api/img/ca/${item.name}`} />
+                <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${item.name}`} />
                 <Title href={'/c/' + item.name}>{item.name}</Title>
                 <Description>{item.description}</Description>
                 <JoinButton onClick={null} joined={false} />

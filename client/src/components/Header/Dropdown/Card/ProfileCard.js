@@ -47,7 +47,7 @@ const Wrapper = styled.div`
 
 const Card = ({ user, onClick, active }) => (
     <Wrapper onClick={onClick} active={active}>
-        <ProfilePicture imageUrl={`http://localhost:8080/api/img/ua/${user.id}`} />
+        <ProfilePicture imageUrl={`${process.env.REACT_APP_IMG_URL_UA}/${user.id}`} />
         <ProfileDetail user={user} />
     </Wrapper>
 );

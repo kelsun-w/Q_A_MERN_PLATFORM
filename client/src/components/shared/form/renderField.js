@@ -1,17 +1,23 @@
 import React from 'react';
 import InputWrapper from './InputWrapper';
 import Label from './Label';
+import SubLabel from './SubLabel';
+import LabelWrapper from './LabelWrapper';
 import Error from './Error';
 import SelectWrapper from './SelectWrapper';
 import Input from './Input';
 import RadioGroup from './RadioGroup';
+import ImageInput from './Image';
 
 const VariableField = field => {
   switch (field.type) {
     case 'select':
       return (
         <InputWrapper>
-          <Label>{field.label}</Label>
+          <LabelWrapper>
+            <Label>{field.label}</Label>
+            <SubLabel>{field.sublabel}</SubLabel>
+          </LabelWrapper>
           {field.meta.touched && field.meta.error && (
             <Error>{field.meta.error}</Error>
           )}
@@ -33,7 +39,10 @@ const VariableField = field => {
     case 'textarea':
       return (
         <InputWrapper>
-          <Label>{field.label}</Label>
+          <LabelWrapper>
+            <Label>{field.label}</Label>
+            <SubLabel>{field.sublabel}</SubLabel>
+          </LabelWrapper>
           {field.meta.touched && field.meta.error && (
             <Error>{field.meta.error}</Error>
           )}
@@ -47,10 +56,30 @@ const VariableField = field => {
         </InputWrapper>
       );
 
+    case 'file':
+      return (
+        <InputWrapper>
+          <LabelWrapper>
+            <Label>{field.label}</Label>
+            <SubLabel>{field.sublabel}</SubLabel>
+          </LabelWrapper>
+          {field.meta.touched && field.meta.error && (
+            <Error>{field.meta.error}</Error>
+          )}
+          <ImageInput
+            field={field}
+            error={field.meta.touched && !!field.meta.error}
+          />
+        </InputWrapper>
+      );
+
     default:
       return (
         <InputWrapper>
-          <Label>{field.label}</Label>
+          <LabelWrapper>
+            <Label>{field.label}</Label>
+            <SubLabel>{field.sublabel}</SubLabel>
+          </LabelWrapper>
           {field.meta.touched && field.meta.error && (
             <Error>{field.meta.error}</Error>
           )}
