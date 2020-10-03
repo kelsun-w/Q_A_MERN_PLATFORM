@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { link } from '../../shared/helpers';
+import { link, smallFont, normalFont } from '../../shared/helpers';
 
 const Wrapper = styled.div`
     flex-direction: column;
@@ -15,17 +15,18 @@ const Wrapper = styled.div`
 
 const BGCover = styled.div`
     background-color: royalblue;
-    padding: 24px 0;
+    padding: 32px 0;
     border-radius: 18px 18px 0 0;
     width: 100%;
 `
 
 const DP = styled.img`
-    border-radius: 20%;
-    margin-top: -30px;
+    border: 1px solid ${props => props.theme.border};
+    border-radius: 20px;
+    margin-top: -55px;
     margin-left: 10px;
-    height: 60px;
-    width: 60px;
+    height: 88px;
+    width: 88px;
     object-fit: cover;
 `
 
@@ -36,13 +37,11 @@ const Content = styled.div`
 `
 
 const BoldText = styled.span`
-    font-size: 16px;
-    font-weight: 600;
+    ${normalFont}
 `
 
 const NormalText = styled.span`
-    font-size: 14px;
-    font-weight: 400;
+    ${smallFont};
     color: ${props => props.theme.mutedText};
     margin-left: 5px;
 `;
@@ -74,6 +73,8 @@ const ColumnFlex = styled.div`
 
 const SettingLink = styled(Link)`
     ${link}
+    font-size: 24px;
+    color: ${props => props.theme.icon};
     padding-right: 4px;
 `
 const ContentItem = styled.div`
@@ -100,7 +101,7 @@ const Profile = (props) => {
                 {
                     props.user.display_about &&
                     <ContentItem>
-                        <BoldText>About me</BoldText>
+                        <BoldText small>About me</BoldText>
                         <RowFlex>
                             <NormalText>{props.user.display_about}</NormalText>
                         </RowFlex>

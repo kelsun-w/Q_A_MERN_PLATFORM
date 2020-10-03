@@ -7,17 +7,17 @@ export const font = css`
 
 export const smallFont = css`
   ${font};
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 export const normalFont = css`
   ${font};
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 export const bigFont = css`
   ${font};
-  font-size: 22px;
+  font-size: 24px;
 `;
 
 export const wideFont = css`
