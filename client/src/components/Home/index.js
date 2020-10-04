@@ -8,6 +8,7 @@ import PostDetailContainer from '../PostDetail/Container';
 import Sidebar from '../Sidebar/Sidebar';
 import DiscoverMenu from '../discoverMenu/Container';
 import UserSetting from '../UserSetting/Container';
+import ModSetting from '../Moderation/Container';
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,6 +77,12 @@ const Home = () => (
         render={({ match, history }) => (
           <UserSetting history={history} />
         )}
+      />
+      <Route path='/mod/:community' render={
+        ({ match, history }) => (
+          <ModSetting id={match.params.community} history={history} path={match.path} />
+        )
+      }
       />
     </HomeMainSection>
   </Wrapper>

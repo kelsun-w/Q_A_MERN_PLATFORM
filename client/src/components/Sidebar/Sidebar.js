@@ -4,7 +4,8 @@ import SidebarCategoryListContainer from './CategoryList/Container';
 import CommunityDetailContainer from './CommunityDetail/Container';
 import { Route } from 'react-router-dom';
 import Profile from './Profile/Container';
-import SettingNav from './SettingSidebar';
+import SettingNav from './SidebarNav/Setting';
+import ModTools from './SidebarNav/Moderation';
 
 const Wrapper = styled.aside`
   display: flex;
@@ -33,6 +34,12 @@ const Sidebar = (props) => (
     />
     <Route path='/u/' component={Profile} />
     <Route path='/settings/' component={SettingNav} />
+    <Route path='/mod/:community' render={
+      ({ match }) => (
+        <ModTools url={match.url} />
+      )
+    }
+    />
   </Wrapper>
 );
 

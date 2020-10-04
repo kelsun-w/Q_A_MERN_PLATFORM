@@ -76,6 +76,8 @@ exports.addMember = async (req, res, next) => {
     try {
         const id = req.params.user;
         const user = await User.findById(id);
+        if (!user) res.status(404).json({ message: 'No such user exist' });
+
         const result = await user.community(req.community);
         res.status(200).json(result);
     } catch (err) {
@@ -85,8 +87,11 @@ exports.addMember = async (req, res, next) => {
 
 exports.modUser = async (req, res, next) => {
     try {
-        const user = req.params.user;
-        const community = await req.community.modUser(user);
+        const id = req.params.user;
+        const user = await User.findById(id);
+        if (!user) res.status(404).json({ message: 'No such user exist' });
+
+        const community = await req.community.modUser(user.id);
         res.status(200).json(community);
     } catch (err) {
         next(err);
@@ -95,8 +100,11 @@ exports.modUser = async (req, res, next) => {
 
 exports.banUser = async (req, res, next) => {
     try {
-        const user = req.params.user;
-        const community = await req.community.banUser(user);
+        const id = req.params.user;
+        const user = await User.findById(id);
+        if (!user) res.status(404).json({ message: 'No such user exist' });
+
+        const community = await req.community.banUser(user.id);
         res.status(200).json(community);
     } catch (err) {
         next(err);

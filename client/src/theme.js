@@ -20,7 +20,8 @@ const dark = {
   foreground: '#262626',
   activeBackground: '#333333',
   inputBackground: '#212121',
-  shadow: 'rgba(0, 0, 0, 0.4)'
+  shadow: 'rgba(0, 0, 0, 0.4)',
+  hover: '#343536'
 };
 
 const light = {
@@ -38,7 +39,8 @@ const light = {
   foreground: '#ffffff',
   activeBackground: '#fafafa',
   inputBackground: '#fcfcfc',
-  shadow: 'rgba(0, 0, 0, 0.05)'
+  shadow: 'rgba(0, 0, 0, 0.05)',
+  hover: '#edeff1'
 };
 
 const theme = isDark => (isDark ? dark : light);

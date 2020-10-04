@@ -89,6 +89,17 @@ communitySchema.pre('save', function (next) {
     next();
 });
 
+communitySchema.post('save', function (doc, next) {
+    doc
+        .populate('creator', 'username picture')
+        .populate('mods', 'username picture')
+        .populate('banned', 'username picture')
+        .execPopulate()
+        .then((doc) => {
+            next()
+        });
+});
+
 const Community = mongoose.model('Community', communitySchema);
 
 module.exports = Community;
