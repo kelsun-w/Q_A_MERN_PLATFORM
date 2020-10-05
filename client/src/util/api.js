@@ -187,3 +187,7 @@ export async function getCommunity(name) {
 export async function sendJoinRequest(name, userid, token) {
   return await methods.get(`community/${name}/member/${userid}`, token);
 }
+
+export async function sendModRequest(name, userid, token) {
+  return await methods.get(`community/${name}/mod/${userid}`, token);
+}

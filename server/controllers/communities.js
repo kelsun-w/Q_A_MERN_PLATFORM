@@ -4,14 +4,23 @@ const path = require('path');
 
 exports.load = async (req, res, next, id) => {
     try {
-        req.community = await Community.findOne({ name: id });
-        if (!req.community) return res.status(404).json({ message: 'community not found' });
+        const community = await Community.findOne({ name: id });
+        if (!community) return res.status(404).json({ message: 'community not found' });
+        //Cannot get document middleware population to work so using this hack
+        community
+            .populate('creator', 'username picture')
+            .populate('mods', 'username picture')
+            .populate('banned', 'username picture')
+            .execPopulate()
+            .then((doc) => {
+                req.community = doc;
+                next()
+            });
     } catch (err) {
         if (err.name === 'CastError')
             return res.status(400).json({ message: 'invalid community id' });
         return next(err);
     }
-    next();
 };
 
 exports.show = async (req, res) => {
@@ -87,12 +96,12 @@ exports.addMember = async (req, res, next) => {
 
 exports.modUser = async (req, res, next) => {
     try {
-        const id = req.params.user;
-        const user = await User.findById(id);
+        const username = req.params.user;
+        const user = await User.findOne({ username });
         if (!user) res.status(404).json({ message: 'No such user exist' });
 
-        const community = await req.community.modUser(user.id);
-        res.status(200).json(community);
+        const result = await req.community.modUser(user.id);
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }

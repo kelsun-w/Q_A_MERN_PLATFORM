@@ -50,12 +50,18 @@ communitySchema.methods.removeRule = function (id) {
  */
 communitySchema.methods.modUser = function (id) {
     const user = this.mods.find(mod => mod._id.equals(id));
+
+    var added;
     if (!user) {
         this.mods.push(id);
+        added = true;
     } else {
         this.mods.pull(user);
+        added = false;
     }
-    return this.save();
+    return this
+        .save()
+        .then(res => ({ success: added, community: res }));
 };
 
 /**

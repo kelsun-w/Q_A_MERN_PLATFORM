@@ -27,6 +27,7 @@ const ModalWrapper = styled.div`
     overflow-y: hidden;
     margin: auto;
     padding: 20px 26px;
+    min-width: 500px;
     border: 1px solid #343536;
     border-radius: 4px;
     background-color: ${props => props.theme.foreground};

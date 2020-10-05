@@ -26,8 +26,9 @@ import {
     faPlus,
     faBirthdayCake,
     faUserEdit,
-    faUser, 
-    faPen
+    faUser,
+    faPen, 
+    faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -58,5 +59,6 @@ library.add(
     faBirthdayCake,
     faUserEdit,
     faUser,
-    faPen
+    faPen,
+    faUserPlus
 );

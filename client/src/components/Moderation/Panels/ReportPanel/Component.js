@@ -13,7 +13,6 @@ import {
     StyledAnchor,
     StyledImage
 } from './util';
-import ModForm from './ModForm/Container';
 import Button from '../../shared/Button';
 import Header from '../../shared/Header';
 import Empty from '../../shared/Empty';
@@ -30,27 +29,10 @@ class ModeratorsPanel extends React.Component {
         };
     };
 
-    addMod = async (username) => {
-        const { id, list, handleSubmit } = this.props;
-
-        // const existing = false
-        // for (const key in list) {
-        //     if (list[key].username === username) {
-        //         existing = true;
-        //         break;
-        //     }
-        // }
-        // if (existing) 
-        //  //Show error notification
-
-        const result = await handleSubmit(id, username);
-        if (result) window.location.reload();
+    onClick = userid => {
+        const { handleSubmit, id } = this.props;
+        handleSubmit(id, userid);
     };
-
-    // leaveAsMod = async (username) {
-    //     //Leave mod role
-    //     //Redirect to home and don't allow user access to modtools
-    // }
 
     toggleMenu = (event) => {
         event.preventDefault();
@@ -71,7 +53,7 @@ class ModeratorsPanel extends React.Component {
                 {/* <FlexDate>
                     3 days ago
                 </FlexDate> */}
-                <FlexCommand onClick={(e) => this.props.handleSubmit(this.props.id, item.username)}>
+                <FlexCommand onClick={(e) => this.onClick(item.id)}>
                     <FontAwesomeIcon icon='trash' />
                 </FlexCommand>
             </ModToolBodyItem>
@@ -79,13 +61,13 @@ class ModeratorsPanel extends React.Component {
     );
 
     render() {
-        const { id, list, handleSubmit, user } = this.props;
+        const { id, list } = this.props;
         return (
             <>
                 <Header>Moderators</Header>
                 <PanelWrapper>
                     <ModToolHead>
-                        <ModToolHeadItem onClick={(e) => handleSubmit(id, user.username)}>
+                        <ModToolHeadItem>
                             <Button><FontAwesomeIcon icon='sign-out-alt' />leave as mod</Button>
                         </ModToolHeadItem>
                         <ModToolHeadItem onClick={this.toggleMenu}>
@@ -103,7 +85,7 @@ class ModeratorsPanel extends React.Component {
                 </PanelWrapper>
                 {this.state.isOpen &&
                     <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
-                        <ModForm callback={this.addMod} />
+                        Hi
                     </Modal>
                 }
             </>

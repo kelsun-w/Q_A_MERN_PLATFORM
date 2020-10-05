@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import withAuth from '../../util/withAuth';
 import {
-    fetchCommunity
+    fetchCommunity,
+    assignMod
 } from '../../actions/community';
 import ModerationComponent from './Component';
 
 const mapStateToProps = state => ({
     isFetching: state.community.isFetching,
-    community: state.community.community
+    community: state.community.community,
 });
 
 const mapDispatchToProps = {
-    fetchCommunity
+    fetchCommunity,
+    assignMod
 };
 
 const enhance = compose(

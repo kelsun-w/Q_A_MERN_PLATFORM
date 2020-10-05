@@ -4,7 +4,9 @@ import {
   FETCH_COMMUNITY_SUCCESS,
   FETCH_COMMUNITY_ERROR,
   MEMBER_COMMUNITY_SUCCESS,
-  MEMBER_COMMUNITY_ERROR
+  MEMBER_COMMUNITY_ERROR, 
+  ASSIGN_MOD_SUCCESS,
+  ASSIGN_MOD_ERROR
 } from '../actions/community';
 
 import {
@@ -51,6 +53,7 @@ export default store => next => action => {
     case FETCH_COMMUNITIES_SUCCESS:
     case FETCH_COMMUNITY_SUCCESS:
     case MEMBER_COMMUNITY_SUCCESS:
+    case ASSIGN_MOD_SUCCESS:
     case FETCH_POSTS_SUCCESS:
     case FETCH_POST_SUCCESS:
     case CREATE_POST_SUCCESS:
@@ -71,6 +74,7 @@ export default store => next => action => {
     case FETCH_COMMUNITIES_ERROR:
     case FETCH_COMMUNITY_ERROR:
     case MEMBER_COMMUNITY_ERROR:
+    case ASSIGN_MOD_ERROR:
     case FETCH_POSTS_ERROR:
     case FETCH_POST_ERROR:
     case CREATE_POST_ERROR:

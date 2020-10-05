@@ -50,14 +50,20 @@ userSchema.post('save', function (doc, next) {
  */
 userSchema.methods.community = async function (community) {
   const doc = this.communities.find(c => c.equals(community._id));
+
+  var joined; //did user join or leave community? 
   if (!doc) {
     community.addUser();
+    joined = true;
     this.communities.push(community._id);
   } else {
     community.removeUser();
+    joined = false;
     this.communities.pull(doc);
   }
-  return this.save();
+  return this
+    .save()
+    .then(res => ({ success: joined, user: res }));
 };
 
 userSchema.methods.isValidPassword = async function (password) {

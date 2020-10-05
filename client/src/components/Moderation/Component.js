@@ -19,7 +19,6 @@ class Moderation extends React.Component {
         const { id, community, fetchCommunity, token, history } = this.props;
         if (!token)
             history.push('/');
-
         if (!community || community.name !== id)
             fetchCommunity(id);
     };
@@ -31,8 +30,8 @@ class Moderation extends React.Component {
 
     render() {
         if (!this.props.token || !this.props.community) return null;
-        const { community, path } = this.props;
-
+        const { community: { name, banned, mods, rules }, user, path } = this.props;
+        const { assignMod } = this.props;
         return (
             <Wrapper>
                 {this.props.isFetching && <LoadingIndicator />}
@@ -40,31 +39,46 @@ class Moderation extends React.Component {
                     <Route
                         path={`${path}/about`}
                         render={() => (
-                            <AboutPanel id={community.id} />
+                            <AboutPanel
+                                id={name}
+                            />
                         )}
                     />
                     <Route
                         path={`${path}/reports`}
                         render={() => (
-                            <ReportPanel id={community.id} />
+                            <ReportPanel
+                                id={name}
+                            />
                         )}
                     />
                     <Route
                         path={`${path}/banned`}
                         render={() => (
-                            <BannedPanel id={community.id} list={community.banned} />
+                            <BannedPanel
+                                id={name}
+                                list={banned}
+                            />
                         )}
                     />
                     <Route
                         path={`${path}/moderators`}
                         render={() => (
-                            <ModeratorPanel id={community.id} list={community.mods} />
+                            <ModeratorPanel
+                                user={user}
+                                id={name}
+                                list={mods}
+                                handleSubmit={assignMod}
+                            />
                         )}
                     />
                     <Route
                         path={`${path}/rules`}
                         render={() => (
-                            <RulesPanel id={community.id} list={community.rules} />
+                            <RulesPanel
+                                id={name}
+                                list={rules}
+                            />
                         )}
                     />
                 </Switch>
