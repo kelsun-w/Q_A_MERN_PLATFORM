@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
-import Form from '../../../shared/form/Form';
-import renderField from '../../../shared/form/renderField';
-import SubmitButton from '../../../shared/form/SubmitButton';
-import LoadingIndicator from '../../../shared/LoadingIndicator/Spinner';
-import Header from '../../../shared/Header';
+import Form from '../../../../shared/form/Form';
+import renderField from '../../../../shared/form/renderField';
+import SubmitButton from '../../../../shared/form/SubmitButton';
+import LoadingIndicator from '../../../../shared/LoadingIndicator/Spinner';
+import Header from '../../../../shared/Header';
 
 const StyledForm = styled(Form)`
     max-width: 100%;

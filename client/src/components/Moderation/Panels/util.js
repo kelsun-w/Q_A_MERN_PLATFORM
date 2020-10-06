@@ -8,6 +8,8 @@ import {
 
 export const PanelWrapper = styled.div`
     padding: 8px;
+    ${normalFont};
+    color: ${props => props.theme.normalText};
 `;
 
 export const StyledImage = styled.img`
@@ -31,7 +33,7 @@ export const FlexCommand = styled.button`
     border: none;
     background: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
     font-size: 16px;
     :hover,
     :focus{

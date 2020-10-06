@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { smallFont, normalFont, overflow } from '../shared/helpers';
 
 const Wrapper = styled.div`
     position: relative;
@@ -9,13 +10,12 @@ const Wrapper = styled.div`
 `;
 
 const Collapsible = styled.div`
+    ${normalFont};
+    ${overflow};
     display: flex;
     align-items:center;
-    font-size: 14px;
-    font-weight: 500;
     cursor: pointer;
     width:100%;
-    word-break: break-word;
     padding-right: 20px;
 
     ::after {
@@ -40,10 +40,9 @@ const Collapsible = styled.div`
 `;
 
 const Content = styled.div`
-    display: ${({ show }) => show ? 'block' : 'none'};
-    font-size: 12px;
-    font-weight: 400;
+    ${smallFont};
     word-break: break-word;
+    display: ${({ show }) => show ? 'block' : 'none'};
     margin-top: 6px;
 `;
 
@@ -56,8 +55,8 @@ const Collapse = (props) => {
 
     return (
         <Wrapper>
-            <Collapsible show={isOpen} onClick={toggleContent} >{props.title}</Collapsible>
-            <Content show={isOpen}>{props.content}</Content>
+            <Collapsible show={isOpen} onClick={toggleContent} light>{(props.index + 1)}. {props.title}</Collapsible>
+            <Content show={isOpen} light>{props.content}</Content>
         </Wrapper>
     );
 }

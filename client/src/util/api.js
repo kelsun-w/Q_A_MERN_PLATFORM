@@ -184,10 +184,22 @@ export async function getCommunity(name) {
   return await methods.get(`community/${name}`);
 }
 
+export async function sendCommunityUpdateRequest(name, body, token) {
+  return await methods.put(`community/${name}`, body, token);
+}
+
 export async function sendJoinRequest(name, userid, token) {
   return await methods.get(`community/${name}/member/${userid}`, token);
 }
 
 export async function sendModRequest(name, userid, token) {
   return await methods.get(`community/${name}/mod/${userid}`, token);
+}
+
+export async function sendRuleAddRequest(name, body, token) {
+  return await methods.post(`community/${name}/rule`, body, token);
+}
+
+export async function sendRuleRemoveRequest(name, ruleid, token) {
+  return await methods.get(`community/${name}/rule/${ruleid}`, token);
 }

@@ -6,18 +6,18 @@ import {
     ModToolHeadItem,
     ModToolBody,
     ModToolBodyItem
-} from '../ModToolsUtil';
+} from '../../ModToolsUtil';
 import {
     PanelWrapper,
     FlexProfile,
     FlexCommand,
     StyledAnchor,
     StyledImage
-} from './util';
-import Button from '../../shared/Button';
-import Header from '../../shared/Header';
-import Empty from '../../shared/Empty';
-import { MOCK_DATA } from '../mock';
+} from '../util';
+import Button from '../../../../shared/Button';
+import Header from '../../../../shared/Header';
+import Empty from '../../../../shared/Empty';
+import { MOCK_DATA } from '../../mock';
 
 class BannedPanel extends React.Component {
 

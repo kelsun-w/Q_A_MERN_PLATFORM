@@ -3,6 +3,9 @@ import {
     getCommunity,
     sendJoinRequest,
     sendModRequest,
+    sendCommunityUpdateRequest,
+    sendRuleAddRequest,
+    sendRuleRemoveRequest,
 } from '../util/api';
 
 export const FETCH_COMMUNITIES_REQUEST = 'FETCH_COMMUNITIES_REQUEST';
@@ -67,6 +70,27 @@ export const joinCommunity = (name = '', userid = '') => async (dispatch, getSta
     }
 };
 
+export const UPDATE_COMMUNITY_REQUEST = 'COMMUNITY_UPDATE_REQUEST';
+export const UPDATE_COMMUNITY_SUCCESS = 'COMMUNITY_UPDATE_SUCCESS';
+export const UPDATE_COMMUNITY_ERROR = 'COMMUNITY_UPDATE_ERROR';
+
+const updateCommunityRequest = { type: UPDATE_COMMUNITY_REQUEST };
+const updateCommunitySuccess = community => ({ type: UPDATE_COMMUNITY_SUCCESS, community });
+const updateCommunityError = error => ({ type: UPDATE_COMMUNITY_ERROR, error });
+
+export const updateCommunity = (name = '', update = {}) => async (dispatch, getState) => {
+    dispatch(updateCommunityRequest);
+    try {
+        const { token } = getState().auth;
+        const community = await sendCommunityUpdateRequest(name, update, token);
+        dispatch(updateCommunitySuccess(community));
+        return true;
+    } catch (error) {
+        dispatch(updateCommunityError(error));
+        return false;
+    }
+};
+
 export const ASSIGN_MOD_REQUEST = 'ASSIGN_MOD_REQUEST';
 export const ASSIGN_MOD_SUCCESS = 'ASSIGN_MOD_SUCCESS';
 export const ASSIGN_MOD_ERROR = 'ASSIGN_MOD_ERROR';
@@ -84,6 +108,50 @@ export const assignMod = (name = '', userid = '') => async (dispatch, getState) 
         return true;
     } catch (error) {
         dispatch(assignModError(error));
+        return false;
+    }
+};
+
+export const ADD_RULE_REQUEST = 'ADD_RULE_REQUEST';
+export const ADD_RULE_SUCCESS = 'ADD_RULE_SUCCESS';
+export const ADD_RULE_ERROR = 'ADD_RULE_ERROR';
+
+const addRuleRequest = { type: ADD_RULE_REQUEST };
+const addRuleSuccess = ({ type: ADD_RULE_SUCCESS });
+const addRuleError = error => ({ type: ADD_RULE_ERROR, error });
+
+export const addRule = (name = '', rule = {}) => async (dispatch, getState) => {
+    dispatch(addRuleRequest);
+    try {
+        const { token } = getState().auth;
+        const result = await sendRuleAddRequest(name, rule, token);
+        dispatch(addRuleSuccess);
+        dispatch(fetchCommunity(name));
+        return true;
+    } catch (error) {
+        dispatch(addRuleError(error));
+        return false;
+    }
+};
+
+export const REMOVE_RULE_REQUEST = 'REMOVE_RULE_REQUEST';
+export const REMOVE_RULE_SUCCESS = 'REMOVE_RULE_SUCCESS';
+export const REMOVE_RULE_ERROR = 'REMOVE_RULE_ERROR';
+
+const removeRuleRequest = { type: REMOVE_RULE_REQUEST };
+const removeRuleSuccess = ({ type: REMOVE_RULE_SUCCESS });
+const removeRuleError = error => ({ type: REMOVE_RULE_ERROR, error });
+
+export const removeRule = (name = '', ruleid = '') => async (dispatch, getState) => {
+    dispatch(removeRuleRequest);
+    try {
+        const { token } = getState().auth;
+        const result = await sendRuleRemoveRequest(name, ruleid, token);
+        dispatch(removeRuleSuccess);
+        dispatch(fetchCommunity(name));
+        return true;
+    } catch (error) {
+        dispatch(removeRuleError(error));
         return false;
     }
 };

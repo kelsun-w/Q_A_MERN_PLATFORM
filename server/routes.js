@@ -35,6 +35,7 @@ router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
 
 router.param('community', communities.load);
 router.post('/community', jwtAuth, communities.create);
+router.put('/community/:community', jwtAuth, communities.update);
 router.get('/community/:community', communities.show);
 router.get('/communities', communities.listAll);
 router.post('/community/:community/rule', jwtAuth, communities.addRule);
@@ -56,12 +57,12 @@ module.exports = app => {
   app.use('/api', router);
 
   app.get('*', (req, res) => {
-    res.status(404).json({ message: 'not found' });
+    res.status(404).json({ message: 'No route found' });
   });
 
   app.use((err, req, res, next) => {
     if (err.type === 'entity.parse.failed') {
-      return res.status(400).json({ message: 'bad request' });
+      return res.status(400).json({ message: 'Bad request' });
     }
     next(err);
   });

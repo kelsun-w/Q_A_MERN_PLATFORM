@@ -1,12 +1,13 @@
 const Community = require('../models/community');
 const User = require('../models/user');
 const path = require('path');
+const { json } = require('express');
 
 exports.load = async (req, res, next, id) => {
     try {
         const community = await Community.findOne({ name: id });
         if (!community) return res.status(404).json({ message: 'community not found' });
-        //Cannot get document middleware population to work so using this hack
+        //Cannot get document middleware population to work so using this hack instead
         community
             .populate('creator', 'username picture')
             .populate('mods', 'username picture')
@@ -26,6 +27,40 @@ exports.load = async (req, res, next, id) => {
 exports.show = async (req, res) => {
     res.json(req.community);
 };
+
+exports.update = async (req, res, next) => {
+    let community = await req.community;
+
+    let update = {};
+    Object
+        .entries(req.body)
+        .forEach(([key, value]) => update = {
+            ...update,
+            [key]: value
+        });
+    community.set(update);
+    community
+        .save()
+        .then((doc) => res.json(doc))
+        .catch(err => next(err));
+};
+
+// exports.update = async (req, res) => {
+//     var community = req.community;
+
+//     let list = Object.entries(req.body);
+//     let update = {};
+//     for (var i = 0; i < list.length; i++) {
+//         const [key, value] = list[i];
+//         update[key] = value;
+//     };
+//     return res.json(update);
+//     community.set(update);
+//     community
+//         .save()
+//         .then((doc) => res.json(doc))
+//         .catch(err => next(err));
+// };
 
 exports.listAll = async (req, res, next) => {
     try {
@@ -74,8 +109,10 @@ exports.addRule = async (req, res, next) => {
 exports.removeRule = async (req, res, next) => {
     try {
         const rule = req.params.rule;
-        const community = await req.community.removeRule(rule);
-        res.status(200).json(community);
+        const result = await req.community.removeRule(rule);
+        console.log(result);
+        if (!result.success) return res.status(404).json(result);
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }

@@ -5,18 +5,18 @@ import {
     ModToolHeadItem,
     ModToolBody,
     ModToolBodyItem
-} from '../ModToolsUtil';
+} from '../../ModToolsUtil';
 import {
     PanelWrapper,
     FlexProfile,
     FlexCommand,
     StyledAnchor,
     StyledImage
-} from './util';
-import Button from '../../shared/Button';
-import Header from '../../shared/Header';
-import Empty from '../../shared/Empty';
-import { Modal } from '../../shared/Modal';
+} from '../../util';
+import Button from '../../../../shared/Button';
+import Header from '../../../../shared/Header';
+import Empty from '../../../../shared/Empty';
+import { Modal } from '../../../../shared/Modal';
 
 const EMPTY_MSG = "No moderators. Oh dear!";
 

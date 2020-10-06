@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import Component from './Component.js';
 import {
     assignMod
-} from '../../../actions/community';
+} from '../../../../../actions/community';
 
 const mapStateToProps = state => ({
     isUploading: state.user.uploading

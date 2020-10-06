@@ -37,9 +37,10 @@ communitySchema.methods.addRule = function (title, description) {
 
 communitySchema.methods.removeRule = function (id) {
     const rule = this.rules.id(id);
-    if (!rule) throw new Error('Rule not found');
+    if (!rule) return { success: false, message: 'Rule not found' };
+    
     rule.remove();
-    return this.save();
+    return this.save().then(() => ({ success: true }));
 };
 
 /**

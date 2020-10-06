@@ -2,7 +2,7 @@ import {
   FETCH_COMMUNITIES_ERROR,
   FETCH_COMMUNITY_ERROR,
   MEMBER_COMMUNITY_ERROR,
-  ASSIGN_MOD_ERROR
+  ASSIGN_MOD_ERROR, ADD_RULE_ERROR, REMOVE_RULE_ERROR
 } from '../actions/community';
 
 import {
@@ -36,6 +36,8 @@ export default (state = initialState, action) => {
     case FETCH_COMMUNITY_ERROR:
     case MEMBER_COMMUNITY_ERROR:
     case ASSIGN_MOD_ERROR:
+    case ADD_RULE_ERROR:
+    case REMOVE_RULE_ERROR:
     case FETCH_POSTS_ERROR:
     case FETCH_POST_ERROR:
     case CREATE_POST_ERROR:

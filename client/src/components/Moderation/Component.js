@@ -7,6 +7,8 @@ import BannedPanel from './Panels/Banned';
 import ModeratorPanel from './Panels/Moderators';
 import RulesPanel from './Panels/Rules';
 import LoadingIndicator from '../shared/LoadingIndicator/Spinner';
+import { addRule, removeRule } from '../../actions/community';
+import { updateCommunity } from '../../util/api';
 
 const Wrapper = styled.div`
     color: ${props => props.theme.normalText};
@@ -31,7 +33,12 @@ class Moderation extends React.Component {
     render() {
         if (!this.props.token || !this.props.community) return null;
         const { community: { name, banned, mods, rules }, user, path } = this.props;
-        const { assignMod } = this.props;
+        const {
+            assignMod,
+            updateCommunity,
+            addRule,
+            removeRule
+        } = this.props;
         return (
             <Wrapper>
                 {this.props.isFetching && <LoadingIndicator />}
@@ -78,6 +85,9 @@ class Moderation extends React.Component {
                             <RulesPanel
                                 id={name}
                                 list={rules}
+                                handleAdd={addRule}
+                                handleRemove={removeRule}
+                                handleUpdate={updateCommunity}
                             />
                         )}
                     />

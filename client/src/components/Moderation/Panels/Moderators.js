@@ -13,7 +13,7 @@ import {
     StyledAnchor,
     StyledImage
 } from './util';
-import ModForm from './ModForm/Container';
+import ModForm from './Forms/Mod/Container';
 import Button from '../../shared/Button';
 import Header from '../../shared/Header';
 import Empty from '../../shared/Empty';
@@ -33,6 +33,7 @@ class ModeratorsPanel extends React.Component {
     addMod = async (username) => {
         const { id, list, handleSubmit } = this.props;
 
+        ////If user is already in mod list. show error instead.
         // const existing = false
         // for (const key in list) {
         //     if (list[key].username === username) {
@@ -44,7 +45,7 @@ class ModeratorsPanel extends React.Component {
         //  //Show error notification
 
         const result = await handleSubmit(id, username);
-        if (result) window.location.reload();
+        if (result) this.toggleMenu();
     };
 
     // leaveAsMod = async (username) {
@@ -52,8 +53,7 @@ class ModeratorsPanel extends React.Component {
     //     //Redirect to home and don't allow user access to modtools
     // }
 
-    toggleMenu = (event) => {
-        event.preventDefault();
+    toggleMenu = () => {
         this.setState({
             isOpen: !this.state.isOpen
         })

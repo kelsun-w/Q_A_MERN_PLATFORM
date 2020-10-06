@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { overflow, smallFont, normalFont } from '../../shared/helpers';
 
 export const ModToolHead = styled.div`
+    ${overflow};
     display: flex;
     align-items: center;
     justify-content: flex-end;

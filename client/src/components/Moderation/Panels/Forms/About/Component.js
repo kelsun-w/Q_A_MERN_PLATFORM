@@ -6,9 +6,9 @@ import {
     ModToolHeadItem,
     ModToolBody,
     ModToolBodyItem
-} from '../ModToolsUtil';
-import Button from '../../shared/Button';
-import Header from '../../shared/Header';
+} from '../../ModToolsUtil';
+import Button from '../../../../shared/Button';
+import Header from '../../../..shared/Header';
 
 const PanelWrapper = styled.div`
     padding: 8px;

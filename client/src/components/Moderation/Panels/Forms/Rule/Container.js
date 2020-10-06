@@ -8,6 +8,8 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-    reduxForm({ form: 'modtools_assignMod' }),
+    reduxForm({
+        form: 'modtools_rule',
+    }),
     connect(mapStateToProps, null)
 )(Component);

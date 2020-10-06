@@ -4,7 +4,10 @@ import { compose } from 'redux';
 import withAuth from '../../util/withAuth';
 import {
     fetchCommunity,
-    assignMod
+    updateCommunity,
+    assignMod,
+    addRule,
+    removeRule,
 } from '../../actions/community';
 import ModerationComponent from './Component';
 
@@ -15,7 +18,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     fetchCommunity,
-    assignMod
+    updateCommunity,
+    assignMod,
+    addRule,
+    removeRule
 };
 
 const enhance = compose(
