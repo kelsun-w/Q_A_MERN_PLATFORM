@@ -161,15 +161,9 @@ exports.addAvatar = (req, res, next) => {
     req.community.picture = req.file.path;
     req.community
         .save()
-        .then(doc => {
-            res.status(200).json({
-                message: 'Updated',
-                doc
-            });
-        })
-        .catch(err => {
-            next(err);
-        })
+        .then(() => {
+            res.json({ message: 'Updated community avatar' });
+        });
 };
 
 exports.getAvatar = (req, res, next) => {

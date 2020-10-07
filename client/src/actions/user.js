@@ -46,6 +46,7 @@ export const imageUpload = (image) => async (dispatch, getState) => {
         return true;
     } catch (error) {
         dispatch(imageUploadError(error));
+        console.log(error);
         return false;
     }
 };

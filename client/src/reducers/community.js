@@ -17,10 +17,13 @@ import {
     ADD_RULE_REQUEST,
     REMOVE_RULE_REQUEST,
     ADD_RULE_ERROR,
-    REMOVE_RULE_ERROR
+    REMOVE_RULE_ERROR,
+    COMMUNITY_IMAGE_UPLOAD_REQUEST,
+    COMMUNITY_IMAGE_UPLOAD_SUCCESS,
+    COMMUNITY_IMAGE_UPLOAD_ERROR
 } from '../actions/community';
 
-const initialState = { isFetching: false, items: [] };
+const initialState = { isFetching: false, isUploading: false, items: [] };
 
 const updateItems = (success, community, items) => {
     if (!success) return items.filter(c => c.id !== community.id);
@@ -46,6 +49,9 @@ export default (state = initialState, action) => {
         case FETCH_COMMUNITIES_SUCCESS:
             return { ...state, isFetching: false, items: action.communities };
 
+        case COMMUNITY_IMAGE_UPLOAD_REQUEST:
+            return { ...state, isUploading: true };
+
         case FETCH_COMMUNITY_REQUEST:
         case MEMBER_COMMUNITY_REQUEST:
         case UPDATE_COMMUNITY_REQUEST:
@@ -53,6 +59,7 @@ export default (state = initialState, action) => {
         case ADD_RULE_REQUEST:
         case REMOVE_RULE_REQUEST:
             return { ...state, isFetching: true };
+
         case MEMBER_COMMUNITY_SUCCESS:
         case ASSIGN_MOD_SUCCESS:
             items = updateItems(action.success, action.community, state.items);
@@ -74,7 +81,12 @@ export default (state = initialState, action) => {
         case ASSIGN_MOD_ERROR:
         case ADD_RULE_ERROR:
         case REMOVE_RULE_ERROR:
-            return { ...state, isFetching: false }
+            return { ...state, isFetching: false };
+
+        case COMMUNITY_IMAGE_UPLOAD_SUCCESS:
+        case COMMUNITY_IMAGE_UPLOAD_ERROR:
+            return { ...state, isUploading: false };
+
         default:
             return state;
     }

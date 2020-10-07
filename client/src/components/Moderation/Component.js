@@ -7,8 +7,6 @@ import BannedPanel from './Panels/Banned';
 import ModeratorPanel from './Panels/Moderators';
 import RulesPanel from './Panels/Rules';
 import LoadingIndicator from '../shared/LoadingIndicator/Spinner';
-import { addRule, removeRule } from '../../actions/community';
-import { updateCommunity } from '../../util/api';
 
 const Wrapper = styled.div`
     color: ${props => props.theme.normalText};
@@ -26,18 +24,19 @@ class Moderation extends React.Component {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!this.props.token || prevProps.token !== this.props.token)
+        if (!this.props.token)
             this.props.history.push('/')
     };
 
     render() {
         if (!this.props.token || !this.props.community) return null;
-        const { community: { name, banned, mods, rules }, user, path } = this.props;
+        const { community: { name, banned, mods, rules, picture }, user, path } = this.props;
         const {
             assignMod,
             updateCommunity,
+            imageUpload,
             addRule,
-            removeRule
+            removeRule,
         } = this.props;
         return (
             <Wrapper>
@@ -48,6 +47,9 @@ class Moderation extends React.Component {
                         render={() => (
                             <AboutPanel
                                 id={name}
+                                picture={picture}
+                                handleUpdate={updateCommunity}
+                                handleUpload={imageUpload}
                             />
                         )}
                     />

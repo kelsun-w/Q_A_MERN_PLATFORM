@@ -5,6 +5,7 @@ import withAuth from '../../util/withAuth';
 import {
     fetchCommunity,
     updateCommunity,
+    imageUpload,
     assignMod,
     addRule,
     removeRule,
@@ -19,6 +20,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     fetchCommunity,
     updateCommunity,
+    imageUpload,
     assignMod,
     addRule,
     removeRule

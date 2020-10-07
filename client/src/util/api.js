@@ -136,6 +136,10 @@ export async function user_UploadImage(image, token) {
   return await methods.post('img/ua', image, token, true);
 }
 
+export async function community_UploadImage(id,image, token) {
+  return await methods.post(`img/ca/${id}`, image, token, true);
+}
+
 export async function getPosts(category) {
   return await methods.get(`posts/${category}`);
 }

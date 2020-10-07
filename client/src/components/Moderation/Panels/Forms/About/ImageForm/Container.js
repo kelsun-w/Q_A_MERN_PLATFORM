@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Component from './Component.js';
 import {
-    assignMod
-} from '../../../../../actions/community';
+    imageUpload
+} from '../../../../../../actions/community';
 
 const mapStateToProps = state => ({
-    isUploading: state.user.uploading
+    isUploading: state.community.isUploading
 });
 
 const mapDispatchToProps = {
-    assignMod
+    imageUpload
 };
 
 export default compose(
-    reduxForm({ form: 'usersetting_image' }),
+    reduxForm({ form: 'modtools_image' }),
     connect(mapStateToProps, mapDispatchToProps)
 )(Component);

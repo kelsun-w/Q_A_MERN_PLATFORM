@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     background-color: ${props => props.theme.foreground};
     color: ${props => props.theme.normalText};
     padding: 8px;
+    border-radius: 4px;
 `
 
 class UserSetting extends React.Component {

@@ -45,7 +45,6 @@ class AccountSetting extends React.Component {
             <>
                 <Header>Profile Details</Header>
                 <ProfileForm />
-                <Header >Profile Avatar and banner image</Header>
                 <ImageForm />
                 <Header >Account Details</Header>
                 <MenuOption>

@@ -6,7 +6,10 @@ import {
     sendCommunityUpdateRequest,
     sendRuleAddRequest,
     sendRuleRemoveRequest,
+    community_UploadImage
 } from '../util/api';
+
+import { getNewToken } from './auth';
 
 export const FETCH_COMMUNITIES_REQUEST = 'FETCH_COMMUNITIES_REQUEST';
 export const FETCH_COMMUNITIES_SUCCESS = 'FETCH_COMMUNITIES_SUCCESS';
@@ -84,9 +87,36 @@ export const updateCommunity = (name = '', update = {}) => async (dispatch, getS
         const { token } = getState().auth;
         const community = await sendCommunityUpdateRequest(name, update, token);
         dispatch(updateCommunitySuccess(community));
+        dispatch(getNewToken());
         return true;
     } catch (error) {
         dispatch(updateCommunityError(error));
+        return false;
+    }
+};
+
+export const COMMUNITY_IMAGE_UPLOAD_REQUEST = 'COMMUNITY_IMAGE_UPLOAD_REQUEST';
+export const COMMUNITY_IMAGE_UPLOAD_SUCCESS = 'COMMUNITY_IMAGE_UPLOAD_SUCCESS';
+export const COMMUNITY_IMAGE_UPLOAD_ERROR = 'COMMUNITY_IMAGE_UPLOAD_ERROR';
+
+const imageUploadRequest = { type: COMMUNITY_IMAGE_UPLOAD_REQUEST };
+const imageUploadSuccess = { type: COMMUNITY_IMAGE_UPLOAD_SUCCESS };
+const imageUploadError = error => ({ type: COMMUNITY_IMAGE_UPLOAD_ERROR, error });
+
+export const imageUpload = (name = '', image) => async (dispatch, getState) => {
+    dispatch(imageUploadRequest);
+    try {
+        let formData = new FormData();
+        formData.append('c_avatar', image, image.name);
+
+        const { token } = getState().auth;
+        const path = await community_UploadImage(name, formData, token);
+        dispatch(imageUploadSuccess);
+        dispatch(fetchCommunity(name));
+        return true;
+    } catch (error) {
+        dispatch(imageUploadError(error));
+        console.log(error);
         return false;
     }
 };

@@ -50,7 +50,7 @@ router.get('/communities/:user', communities.ListByUser);
 router.post('/img/ua', jwtAuth, handleUpload('u_avatar'), users.addAvatar);
 router.get('/img/ua/:user', users.getAvatar);
 
-router.post('/img/ca/:community', jwtAuth, upload.single('c_avatar'), communities.addAvatar);
+router.post('/img/ca/:community', jwtAuth, handleUpload('c_avatar'), communities.addAvatar);
 router.get('/img/ca/:community', communities.getAvatar);
 
 module.exports = app => {
