@@ -136,7 +136,7 @@ export async function user_UploadImage(image, token) {
   return await methods.post('img/ua', image, token, true);
 }
 
-export async function community_UploadImage(id,image, token) {
+export async function community_UploadImage(id, image, token) {
   return await methods.post(`img/ca/${id}`, image, token, true);
 }
 
@@ -206,4 +206,12 @@ export async function sendRuleAddRequest(name, body, token) {
 
 export async function sendRuleRemoveRequest(name, ruleid, token) {
   return await methods.get(`community/${name}/rule/${ruleid}`, token);
+}
+
+export async function sendAddBanRequest(name, body, token) {
+  return await methods.post(`community/${name}/ban`, body, token)
+}
+
+export async function sendRemoveBanRequest(name, userid, token) {
+  return await methods.get(`community/${name}/ban/${userid}`, token)
 }

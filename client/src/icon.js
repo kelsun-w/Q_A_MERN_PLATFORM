@@ -28,7 +28,8 @@ import {
     faUserEdit,
     faUser,
     faPen, 
-    faUserPlus
+    faUserPlus,
+    faUserSlash,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -60,5 +61,6 @@ library.add(
     faUserEdit,
     faUser,
     faPen,
-    faUserPlus
+    faUserPlus,
+    faUserSlash,
 );

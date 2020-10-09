@@ -5,7 +5,9 @@ import {
   ASSIGN_MOD_ERROR,
   ADD_RULE_ERROR,
   REMOVE_RULE_ERROR,
-  COMMUNITY_IMAGE_UPLOAD_ERROR
+  COMMUNITY_IMAGE_UPLOAD_ERROR,
+  ADD_BAN_ERROR,
+  REMOVE_BAN_ERROR,
 } from '../actions/community';
 
 import {
@@ -54,6 +56,8 @@ export default (state = initialState, action) => {
     case USER_UPDATE_ERROR:
     case IMAGE_UPLOAD_ERROR:
     case USER_DELETE_ERROR:
+    case ADD_BAN_ERROR:
+    case REMOVE_BAN_ERROR:
       return action.error;
 
     case HIDE_ERROR:

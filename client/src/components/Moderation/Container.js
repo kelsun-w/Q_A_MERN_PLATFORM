@@ -9,6 +9,8 @@ import {
     assignMod,
     addRule,
     removeRule,
+    addBan,
+    removeBan,
 } from '../../actions/community';
 import ModerationComponent from './Component';
 
@@ -23,7 +25,9 @@ const mapDispatchToProps = {
     imageUpload,
     assignMod,
     addRule,
-    removeRule
+    removeRule,
+    addBan,
+    removeBan,
 };
 
 const enhance = compose(

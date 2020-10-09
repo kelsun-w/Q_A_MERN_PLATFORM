@@ -37,6 +37,8 @@ class Moderation extends React.Component {
             imageUpload,
             addRule,
             removeRule,
+            addBan,
+            removeBan,
         } = this.props;
         return (
             <Wrapper>
@@ -67,6 +69,10 @@ class Moderation extends React.Component {
                             <BannedPanel
                                 id={name}
                                 list={banned}
+                                rules={rules}
+                                handleAdd={addBan}
+                                handleRemove={removeBan}
+                                handleUpdate={updateCommunity}
                             />
                         )}
                     />

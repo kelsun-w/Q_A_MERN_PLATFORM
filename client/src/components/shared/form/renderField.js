@@ -22,7 +22,7 @@ const VariableField = field => {
             <Error>{field.meta.error}</Error>
           )}
           <SelectWrapper>
-            <Input {...field.input} as='select' type='select'>
+            <Input {...field.input} as='select' type='select' disabled={field.disabled} >
               {field.children}
             </Input>
           </SelectWrapper>
@@ -52,6 +52,7 @@ const VariableField = field => {
             rows='6'
             error={field.meta.touched && !!field.meta.error}
             placeholder={field.label}
+            disabled={field.disabled}
           />
         </InputWrapper>
       );
@@ -69,6 +70,7 @@ const VariableField = field => {
           <ImageInput
             field={field}
             error={field.meta.touched && !!field.meta.error}
+            disabled={field.disabled}
           />
         </InputWrapper>
       );
@@ -89,6 +91,7 @@ const VariableField = field => {
             type={field.type}
             placeholder={field.label}
             autoComplete='off'
+            disabled={field.disabled}
           />
         </InputWrapper>
       );

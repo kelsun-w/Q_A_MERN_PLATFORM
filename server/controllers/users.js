@@ -38,7 +38,7 @@ exports.updateUser = async (req, res, next) => {
   user
     .save()
     .then(() => res.json(user))
-    .catch(err => next(err));
+    .catch(err => res.status(500).json({ message: 'Something went wrong while updating' }));
 };
 
 exports.passwordCheck = async (req, res, next) => {

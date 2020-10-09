@@ -11,7 +11,7 @@ exports.load = async (req, res, next, id) => {
         community
             .populate('creator', 'username picture')
             .populate('mods', 'username picture')
-            .populate('banned', 'username picture')
+            .populate('banned.user', 'username picture')
             .execPopulate()
             .then((doc) => {
                 req.community = doc;
@@ -42,7 +42,7 @@ exports.update = async (req, res, next) => {
     community
         .save()
         .then((doc) => res.json(doc))
-        .catch(err => next(err));
+        .catch(err => res.status(500).json({ message: 'Something went wrong while updating' }));
 };
 
 // exports.update = async (req, res) => {
@@ -144,14 +144,30 @@ exports.modUser = async (req, res, next) => {
     }
 };
 
-exports.banUser = async (req, res, next) => {
+exports.addUserBan = async (req, res, next) => {
+    try {
+        const username = req.body.user;
+        const user = await User.findOne({ username: username });
+        if (!user) res.status(404).json({ message: 'No such user exist' });
+        //replacing username in body with id
+        req.body.user = user.id;
+        const result = await req.community.addBan(req.body);
+        if (!result.success) return res.status(400).json(result);
+
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.removeUserBan = async (req, res, next) => {
     try {
         const id = req.params.user;
-        const user = await User.findById(id);
-        if (!user) res.status(404).json({ message: 'No such user exist' });
 
-        const community = await req.community.banUser(user.id);
-        res.status(200).json(community);
+        const result = await req.community.removeBan(id);
+        if (!result.success) return res.status(400).json(result);
+
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }

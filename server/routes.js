@@ -42,7 +42,8 @@ router.post('/community/:community/rule', jwtAuth, communities.addRule);
 router.get('/community/:community/rule/:rule', jwtAuth, communities.removeRule);
 router.get('/community/:community/member/:user', jwtAuth, communities.addMember);
 
-router.get('/community/:community/ban/:user', jwtAuth, communities.banUser);
+router.post('/community/:community/ban', jwtAuth, communities.addUserBan);
+router.get('/community/:community/ban/:user', jwtAuth, communities.removeUserBan);
 router.get('/community/:community/mod/:user', jwtAuth, communities.modUser);
 router.delete('/community/:community', jwtAuth, communities.destroy);
 router.get('/communities/:user', communities.ListByUser);

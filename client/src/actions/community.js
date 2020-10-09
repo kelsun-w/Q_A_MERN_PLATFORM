@@ -6,7 +6,9 @@ import {
     sendCommunityUpdateRequest,
     sendRuleAddRequest,
     sendRuleRemoveRequest,
-    community_UploadImage
+    community_UploadImage,
+    sendAddBanRequest,
+    sendRemoveBanRequest,
 } from '../util/api';
 
 import { getNewToken } from './auth';
@@ -182,6 +184,50 @@ export const removeRule = (name = '', ruleid = '') => async (dispatch, getState)
         return true;
     } catch (error) {
         dispatch(removeRuleError(error));
+        return false;
+    }
+};
+
+export const ADD_BAN_REQUEST = 'ADD_BAN_REQUEST';
+export const ADD_BAN_SUCCESS = 'ADD_BAN_SUCCESS';
+export const ADD_BAN_ERROR = 'ADD_BAN_ERROR';
+
+const addBanRequest = { type: ADD_BAN_REQUEST };
+const addBanSuccess = ({ type: ADD_BAN_SUCCESS });
+const addBanError = error => ({ type: ADD_BAN_ERROR, error });
+
+export const addBan = (name = '', body = {}) => async (dispatch, getState) => {
+    dispatch(addBanRequest);
+    try {
+        const { token } = getState().auth;
+        const result = await sendAddBanRequest(name, body, token);
+        dispatch(addBanSuccess);
+        dispatch(fetchCommunity(name));
+        return true;
+    } catch (error) {
+        dispatch(addBanError(error));
+        return false;
+    }
+};
+
+export const REMOVE_BAN_REQUEST = 'REMOVE_BAN_REQUEST';
+export const REMOVE_BAN_SUCCESS = 'REMOVE_BAN_SUCCESS';
+export const REMOVE_BAN_ERROR = 'REMOVE_BAN_ERROR';
+
+const removeBanRequest = { type: REMOVE_BAN_REQUEST };
+const removeBanSuccess = ({ type: REMOVE_BAN_SUCCESS });
+const removeBanError = error => ({ type: REMOVE_BAN_ERROR, error });
+
+export const removeBan = (name, userid = '') => async (dispatch, getState) => {
+    dispatch(removeBanRequest);
+    try {
+        const { token } = getState().auth;
+        const result = await sendRemoveBanRequest(name, userid, token);
+        dispatch(removeBanSuccess);
+        dispatch(fetchCommunity(name));
+        return true;
+    } catch (error) {
+        dispatch(removeBanError(error));
         return false;
     }
 };

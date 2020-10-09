@@ -14,7 +14,11 @@ import {
   ADD_RULE_SUCCESS,
   ADD_RULE_ERROR,
   REMOVE_RULE_SUCCESS,
-  REMOVE_RULE_ERROR
+  REMOVE_RULE_ERROR,
+  ADD_BAN_SUCCESS,
+  ADD_BAN_ERROR,
+  REMOVE_BAN_SUCCESS,
+  REMOVE_BAN_ERROR,
 } from '../actions/community';
 
 import {
@@ -66,6 +70,8 @@ export default store => next => action => {
     case ASSIGN_MOD_SUCCESS:
     case ADD_RULE_SUCCESS:
     case REMOVE_RULE_SUCCESS:
+    case ADD_BAN_SUCCESS:
+    case REMOVE_BAN_SUCCESS:
     case FETCH_POSTS_SUCCESS:
     case FETCH_POST_SUCCESS:
     case CREATE_POST_SUCCESS:
@@ -91,6 +97,8 @@ export default store => next => action => {
     case ASSIGN_MOD_ERROR:
     case ADD_RULE_ERROR:
     case REMOVE_RULE_ERROR:
+    case ADD_BAN_ERROR:
+    case REMOVE_BAN_ERROR:
     case FETCH_POSTS_ERROR:
     case FETCH_POST_ERROR:
     case CREATE_POST_ERROR:
