@@ -215,3 +215,19 @@ export async function sendAddBanRequest(name, body, token) {
 export async function sendRemoveBanRequest(name, userid, token) {
   return await methods.get(`community/${name}/ban/${userid}`, token)
 }
+
+export async function reportsFetchRequest(name, token) {
+  return await methods.get(`reports/${name}`, token);
+}
+
+export async function reportCreateRequest(body, token) {
+  return await methods.post(`/report`, body, token);
+}
+
+export async function reportUpdateRequest(reportID, update, token) {
+  return await methods.put(`report/${reportID}`, update, token);
+}
+
+export async function reportDeleteRequest(reportID, token) {
+  return await methods.delete(`report/${reportID}`, token);
+}

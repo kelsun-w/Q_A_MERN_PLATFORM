@@ -4,7 +4,7 @@ import { transition, wideFont } from './helpers';
 const Button = styled.button.attrs({
   allcaps: true
 })`
-  ${transition('filter', 'box-shadow')};
+  ${transition('filter', 'box-shadow', 'background-color')};
   ${wideFont};
   
   border: none;

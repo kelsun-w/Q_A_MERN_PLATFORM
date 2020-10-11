@@ -12,11 +12,20 @@ import {
     addBan,
     removeBan,
 } from '../../actions/community';
+
+import {
+    fetchReports,
+    createReport,
+    updateReport,
+    deleteReport
+} from '../../actions/reports';
+
 import ModerationComponent from './Component';
 
 const mapStateToProps = state => ({
     isFetching: state.community.isFetching,
     community: state.community.community,
+    reports: state.report.items
 });
 
 const mapDispatchToProps = {
@@ -28,6 +37,10 @@ const mapDispatchToProps = {
     removeRule,
     addBan,
     removeBan,
+    fetchReports,
+    createReport,
+    updateReport,
+    deleteReport
 };
 
 const enhance = compose(

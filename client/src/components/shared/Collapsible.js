@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const Collapsible = styled.div`
     ${normalFont};
-    ${overflow};
+    word-break: break-word;
     display: flex;
     align-items:center;
     cursor: pointer;

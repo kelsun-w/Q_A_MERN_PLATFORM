@@ -38,7 +38,7 @@ export const transition = (...props) => {
   let str = 'transition: ';
   props.forEach((item, index) => {
     str = str.concat(
-      `${item} 0.1s ease${index === props.length - 1 ? ';' : ', '}`
+      `${item} 0.2s ease${index === props.length - 1 ? ';' : ', '}`
     );
   });
   return str;

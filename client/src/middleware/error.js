@@ -57,6 +57,17 @@ import {
   USER_DELETE_ERROR
 } from '../actions/user';
 
+import {
+  FETCH_REPORTS_SUCCESS,
+  FETCH_REPORTS_ERROR,
+  CREATE_REPORT_SUCCESS,
+  CREATE_REPORT_ERROR,
+  UPDATE_REPORT_SUCCESS,
+  UPDATE_REPORT_ERROR,
+  DELETE_REPORT_SUCCESS,
+  DELETE_REPORT_ERROR
+} from '../actions/reports';
+
 import { hideErrorClearTimeout, showErrorWithTimeout } from '../actions/error';
 
 export default store => next => action => {
@@ -85,6 +96,10 @@ export default store => next => action => {
     case USER_UPDATE_SUCCESS:
     case IMAGE_UPLOAD_SUCCESS:
     case USER_DELETE_SUCCESS:
+    case FETCH_REPORTS_SUCCESS:
+    case CREATE_REPORT_SUCCESS:
+    case UPDATE_REPORT_SUCCESS:
+    case DELETE_REPORT_SUCCESS:
     case LOGOUT:
       if (store.getState().error) store.dispatch(hideErrorClearTimeout());
       break;
@@ -112,6 +127,10 @@ export default store => next => action => {
     case USER_UPDATE_ERROR:
     case IMAGE_UPLOAD_ERROR:
     case USER_DELETE_ERROR:
+    case FETCH_REPORTS_ERROR:
+    case CREATE_REPORT_ERROR:
+    case UPDATE_REPORT_ERROR:
+    case DELETE_REPORT_ERROR:
       store.dispatch(showErrorWithTimeout(action.error));
       break;
 

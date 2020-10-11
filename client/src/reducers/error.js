@@ -31,6 +31,13 @@ import {
   USER_DELETE_ERROR
 } from '../actions/user';
 
+import {
+  FETCH_REPORTS_ERROR,
+  CREATE_REPORT_ERROR,
+  UPDATE_REPORT_ERROR,
+  DELETE_REPORT_ERROR
+} from '../actions/reports';
+
 import { HIDE_ERROR } from '../actions/error';
 
 const initialState = null;
@@ -58,6 +65,10 @@ export default (state = initialState, action) => {
     case USER_DELETE_ERROR:
     case ADD_BAN_ERROR:
     case REMOVE_BAN_ERROR:
+    case FETCH_REPORTS_ERROR:
+    case UPDATE_REPORT_ERROR:
+    case CREATE_REPORT_ERROR:
+    case DELETE_REPORT_ERROR:
       return action.error;
 
     case HIDE_ERROR:

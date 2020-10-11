@@ -2,12 +2,14 @@ const users = require('./controllers/users');
 const posts = require('./controllers/posts');
 const comments = require('./controllers/comments');
 const communities = require('./controllers/communities');
+const reports = require('./controllers/reports');
 const { jwtAuth, postAuth, commentAuth, googleAuth } = require('./auth');
 const router = require('express').Router();
 const passport = require('passport');
 const config = require('./config');
-const { upload } = require('./storage');
 const { handleUpload } = require('./controllers/file');
+const { jwt } = require('./config');
+
 
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
@@ -48,11 +50,21 @@ router.get('/community/:community/mod/:user', jwtAuth, communities.modUser);
 router.delete('/community/:community', jwtAuth, communities.destroy);
 router.get('/communities/:user', communities.ListByUser);
 
+router.param('report', reports.load);
+router.post('/report', jwtAuth, reports.create);
+router.put('/report/:report', jwtAuth, reports.update);
+router.get('/report/:report', reports.show);
+router.get('/reports', reports.listAll);
+router.get('/reports/:community', reports.listByCommunity);
+router.delete('/report/:report', jwtAuth, reports.destroy);
+
+//File uploading and serving
 router.post('/img/ua', jwtAuth, handleUpload('u_avatar'), users.addAvatar);
 router.get('/img/ua/:user', users.getAvatar);
 
 router.post('/img/ca/:community', jwtAuth, handleUpload('c_avatar'), communities.addAvatar);
 router.get('/img/ca/:community', communities.getAvatar);
+// -----
 
 module.exports = app => {
   app.use('/api', router);

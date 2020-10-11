@@ -31,6 +31,7 @@ class Moderation extends React.Component {
     render() {
         if (!this.props.token || !this.props.community) return null;
         const { community: { name, banned, mods, rules, picture }, user, path } = this.props;
+        const { reports } = this.props;
         const {
             assignMod,
             updateCommunity,
@@ -39,6 +40,10 @@ class Moderation extends React.Component {
             removeRule,
             addBan,
             removeBan,
+            fetchReports,
+            createReport,
+            updateReport,
+            deleteReport
         } = this.props;
         return (
             <Wrapper>
@@ -60,6 +65,11 @@ class Moderation extends React.Component {
                         render={() => (
                             <ReportPanel
                                 id={name}
+                                list={reports}
+                                handleFetch={fetchReports}
+                                handleUpdate={updateReport}
+                                handleAdd={createReport}
+                                handleRemove={deleteReport}
                             />
                         )}
                     />

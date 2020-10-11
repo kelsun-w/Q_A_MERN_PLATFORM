@@ -2,18 +2,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Component from './Component.js';
-import {
-    assignMod
-} from '../../../../../actions/community';
 
 const mapStateToProps = state => ({
-    isUploading: state.user.uploading
+    isLoading: state.report.loading
 });
 
-const mapDispatchToProps = {
-};
-
 export default compose(
-    reduxForm({ form: 'modtools_addRule' }),
-    connect(mapStateToProps, mapDispatchToProps)
+    reduxForm({ form: 'modtools_reports' }),
+    connect(mapStateToProps, null)
 )(Component);
