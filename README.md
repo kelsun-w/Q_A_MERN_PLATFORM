@@ -70,8 +70,3 @@ $ npm test
 |/post/`:post`            |     POST    |    `Post`         | `401` OR `422`         |
 |/post/`:post`/`:comment` |     DELETE  |    `Post`         | `401`                  |
 |/user/`:user`            |     GET     |    `Array<Post>`  |                        |
-
- 
-## License
-
-This project is made available under the **MIT License**.
