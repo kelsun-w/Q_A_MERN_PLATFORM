@@ -47,14 +47,14 @@ const DropdownContent = ({ user, logout, toggleDarkTheme }) => (
             <FontAwesomeIcon icon='address-book' />
             <span>My Profile</span>
         </MenuOption>
-        <MenuOption destination='/message/inbox' overflow>
+        {/* <MenuOption destination='/message/inbox' overflow>
             <FontAwesomeIcon icon='comments' />
             <span>Messages</span>
-        </MenuOption>
-        <MenuOption destination='#' overflow>
+        </MenuOption> */}
+        {/* <MenuOption destination='#' overflow>
             <FontAwesomeIcon icon='bullhorn' />
             <span>Notifications</span>
-        </MenuOption>
+        </MenuOption> */}
         <MenuOption destination='/settings' >
             <FontAwesomeIcon icon='cog' />
             <span>Account Settings</span>

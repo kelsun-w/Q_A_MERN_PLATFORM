@@ -27,7 +27,8 @@ const ModalWrapper = styled.div`
     overflow-y: hidden;
     margin: auto;
     padding: 20px 26px;
-    min-width: 500px;
+    min-width: 400px;
+    max-width: 550px;
     border: 1px solid #343536;
     border-radius: 4px;
     background-color: ${props => props.theme.foreground};
@@ -50,6 +51,7 @@ export const ModalItem = styled(Link)`
     height: 50px;
     line-height: 50px;
     overflow: hidden;
+    word-break: break-word;
     color: ${props => props.theme.normalText};
     text-decoration: none;
 

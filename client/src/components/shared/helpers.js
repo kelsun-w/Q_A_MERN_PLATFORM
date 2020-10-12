@@ -71,6 +71,5 @@ export const link = props => css`
 export const overflow = css`
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   word-break: break-word;
 `;

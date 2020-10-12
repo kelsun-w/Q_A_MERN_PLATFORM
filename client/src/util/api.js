@@ -221,7 +221,7 @@ export async function reportsFetchRequest(name, token) {
 }
 
 export async function reportCreateRequest(body, token) {
-  return await methods.post(`/report`, body, token);
+  return await methods.post(`report`, body, token);
 }
 
 export async function reportUpdateRequest(reportID, update, token) {
