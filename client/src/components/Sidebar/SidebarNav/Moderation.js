@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import Header from '../../shared/Header';
 import NavLink from '../../shared/NavLink';
-import { normalFont, overflow } from '../../shared/helpers';
+import { normalFont, bigFont, overflow } from '../../shared/helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Wrapper = styled.nav`
   display: flex;
@@ -19,6 +20,17 @@ const Wrapper = styled.nav`
 const NavItem = styled(NavLink).attrs({ light: true })`
   ${overflow};
   ${normalFont};
+  
+  ${({ HOME }) => HOME ? `
+    font-size:18px;
+    display: flex;
+    align-items: center;
+    & :first-child{
+      margin-right: 5px;
+    }
+  `
+    : `none`}; 
+
   display: flex;
   padding: 4px 10px;
   width: 100%;
@@ -58,6 +70,9 @@ const SettingNavigation = props => (
     </NavItem>
     <NavItem exact to={`${props.url}/rules`} onMouseDown={(e) => e.preventDefault()} >
       Rules
+    </NavItem>
+    <NavItem HOME exact to={`/c/${props.communityName}`} onMouseDown={(e) => e.preventDefault()} >
+      <FontAwesomeIcon icon='chevron-circle-left' />Back to {props.communityName}
     </NavItem>
   </Wrapper>
 )

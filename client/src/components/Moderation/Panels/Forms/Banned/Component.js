@@ -52,7 +52,7 @@ class BanForm extends React.Component {
         HEADER = props.edit ? 'Ban Details : ' + props.initialValues.user : 'Ban a User';
         BTN_TEXT = props.edit ? 'Save Changes' : 'Ban User';
 
-        const selected = props.edit ? props.initialValues.offence : props.rules[0].title;
+        const selected = props.edit ? props.initialValues.offence : props.rules[0] && props.rules[0].title;
         this.state = {
             selectedOption: selected
         };
@@ -63,9 +63,18 @@ class BanForm extends React.Component {
     };
 
     onSubmit = async (values) => {
+        const { rules } = this.props;
         //Sincee select input's value isn't setting value, I'm using this hack.
-        if (!this.props.edit && !values.offence) values['offence'] = this.props.rules[0].title;
-        
+        if (!this.props.edit && !values.offence) {
+            var offence;
+            if (rules[0]) {
+                offence = rules[0].title;
+            } else {
+                offence = 'Unspecified Misconduct'
+            }
+            
+            values['offence'] = offence;
+        }
         const result = await this.props.callback({ ...values });
     };
 

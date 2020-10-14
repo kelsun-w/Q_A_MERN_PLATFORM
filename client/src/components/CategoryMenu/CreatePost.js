@@ -85,10 +85,10 @@ const BGImage = styled.img`
   }
 `
 
-const CategoryMenuCreatePost = () => (
+const CategoryMenuCreatePost = (props) => (
   <Wrapper to='/createpost'>
     <RowWrapper>
-      <ProfilePicture />
+      <ProfilePicture user={props.user} />
       <ColumnWrapper>
         <Header>Create Post</Header>
         <SubHeader>Ask a question or share something interesting</SubHeader>

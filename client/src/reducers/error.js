@@ -26,9 +26,12 @@ import {
 } from '../actions/auth';
 
 import {
+  USER_GET_ERROR,
   USER_UPDATE_ERROR,
+  USER_SAVEPOST_ERROR,
   IMAGE_UPLOAD_ERROR,
-  USER_DELETE_ERROR
+  USER_DELETE_ERROR,
+  USER_GETSAVEDPOSTS_ERROR
 } from '../actions/user';
 
 import {
@@ -61,6 +64,7 @@ export default (state = initialState, action) => {
     case SIGNUP_ERROR:
     case TOKENUPDATE_ERROR:
     case USER_UPDATE_ERROR:
+    case USER_SAVEPOST_ERROR:
     case IMAGE_UPLOAD_ERROR:
     case USER_DELETE_ERROR:
     case ADD_BAN_ERROR:
@@ -69,6 +73,8 @@ export default (state = initialState, action) => {
     case UPDATE_REPORT_ERROR:
     case CREATE_REPORT_ERROR:
     case DELETE_REPORT_ERROR:
+    case USER_GETSAVEDPOSTS_ERROR:
+    case USER_GET_ERROR:
       return action.error;
 
     case HIDE_ERROR:

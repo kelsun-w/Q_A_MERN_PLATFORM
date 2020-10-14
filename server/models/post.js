@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   body: { type: String, required: true },
-  created: { type: Date, default: Date.now}
+  created: { type: Date, default: Date.now }
 });
 
 commentSchema.set('toJSON', { getters: true });
@@ -20,7 +20,7 @@ const postSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   category: { type: String, required: true },
   score: { type: Number, default: 0 },
-  votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false}],
+  votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false }],
   comments: [commentSchema],
   created: { type: Date, default: Date.now },
   views: { type: Number, default: 0 },
@@ -78,7 +78,9 @@ postSchema.methods.removeComment = function (id) {
 };
 
 postSchema.pre(/^find/, function () {
-  this.populate('author').populate('comments.author');
+  this
+    .populate('author', 'username picture -communities -saved')
+    .populate('comments.author', 'username picture -communities -saved');
 });
 
 postSchema.pre('save', function (next) {
@@ -90,8 +92,8 @@ postSchema.pre('save', function (next) {
 postSchema.post('save', function (doc, next) {
   if (this.wasNew) this.vote(this.author._id, 1);
   doc
-    .populate('author')
-    .populate('comments.author')
+    .populate('author', 'username picture -communities -saved')
+    .populate('comments.author', 'username picture -communities -saved')
     .execPopulate()
     .then(() => next());
 });

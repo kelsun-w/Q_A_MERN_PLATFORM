@@ -11,7 +11,7 @@ const Menu = styled.nav`
 
 const CategoryMenu = props => (
   <Menu token={props.token ? true : false}>
-    {props.token && <CategoryMenuCreatePost />}
+    {props.token && <CategoryMenuCreatePost user={props.user} />}
   </Menu>
 );
 

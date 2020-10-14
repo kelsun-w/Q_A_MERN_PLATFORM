@@ -47,7 +47,7 @@ const StyledButton = styled(SubmitButton)`
 
 const HEADER = 'Report Post';
 const SUBHEADER1 = 'Does this post go against the community guidelines?';
-const SUBHEADER2 = 'Please let us know below:';
+const SUBHEADER2 = 'Let the community moderators know below:';
 const SELECT_LABEL = 'Select community rule broken by this post';
 const EMPTY_SELECT_VALUE = '--- no rules ---';
 const SELECT_VALUE = '--- select rule ---';
@@ -65,7 +65,7 @@ class ReportForm extends React.Component {
         if (!author || !values.offence || values.offence == SELECT_VALUE || values.offence == EMPTY_SELECT_VALUE)
             return;
 
-        let bodypreview = postContent.substr(0, 50);
+        let bodypreview = postContent.substr(0, 100);
         bodypreview += '...';
         const body = {
             offender: author && author.id,
@@ -78,7 +78,7 @@ class ReportForm extends React.Component {
                 preview: bodypreview
             }
         };
-        const result = this.props.createReport(community.name, body);
+        const result = createReport(community.name, body);
         if (result) this.props.onClose();
     }
 

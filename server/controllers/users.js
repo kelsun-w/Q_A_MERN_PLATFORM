@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const Post = require('../models/post');
 const config = require('../config');
 
 exports.getToken = async (req, res, next) => {
@@ -41,6 +42,13 @@ exports.updateUser = async (req, res, next) => {
     .catch(err => res.status(500).json({ message: 'Something went wrong while updating' }));
 };
 
+exports.getUser = async (req, res, next) => {
+  const user = await User.findOne({ username: req.params.user});
+  if (!user) return res.status(404).json({ message: 'No user found' });
+
+  return res.status(200).json({ success: true, user });
+};
+
 exports.passwordCheck = async (req, res, next) => {
   const doer = await User.findById(req.body.id);
   if (!doer) return res.status(404).json({ message: 'Doer No user found' });
@@ -51,6 +59,31 @@ exports.passwordCheck = async (req, res, next) => {
   }
   next()
 };
+
+exports.savePost = async (req, res, next) => {
+  try {
+    let user = await User.findOne({ _id: req.user.id });
+    if (!user) return json.status(404).json({ success: false, message: 'No such user found' });
+
+    const result = await user.savePost(req.post);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+exports.getSavedList = async (req, res, next) => {
+  try {
+    let user = await User.findOne({ _id: req.params.user }, 'saved -communities', (err, doc) => {
+      if (err) return next(err);
+      const result = doc.populate('saved',)
+      res.status(200).json({ success: true, doc: [...result.saved] });
+    });
+    if (!user) return json.status(404).json({ success: false, message: 'No such user found' });
+  } catch (err) {
+    next(err);
+  }
+}
 
 exports.deleteUser = async (req, res, next) => {
   const object = await User.findById(req.params.user);

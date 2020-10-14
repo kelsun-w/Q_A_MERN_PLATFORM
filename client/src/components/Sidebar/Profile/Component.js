@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { link, smallFont, normalFont } from '../../shared/helpers';
+import FullPageMessage from '../../shared/FullPageMessage';
 
 const Wrapper = styled.div`
     flex-direction: column;
@@ -28,6 +29,7 @@ const DP = styled.img`
     height: 88px;
     width: 88px;
     object-fit: cover;
+    background-color: #fff;
 `
 
 const Content = styled.div`
@@ -73,7 +75,7 @@ const ColumnFlex = styled.div`
 
 const SettingLink = styled(Link)`
     ${link}
-    font-size: 24px;
+    font-size: 18px;
     color: ${props => props.theme.icon};
     padding-right: 4px;
 `
@@ -81,62 +83,80 @@ const ContentItem = styled.div`
     padding: 6px 0;
 `
 
-const Profile = (props) => {
-    const ISOdate = new Date(props.user.joined);
-    return (
-        <Wrapper>
-            <BGCover />
-            <HeadFlex>
-                <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}`} />
-                <SettingLink to='/settings'><FontAwesomeIcon icon='user-edit' /></SettingLink>
-            </HeadFlex>
-            <Content>
-                <ContentItem>
-                    <BoldText>{props.user.display_name}
-                        <NormalText>
-                            @{props.user.username}
-                        </NormalText>
-                    </BoldText>
-                </ContentItem>
-                {
-                    props.user.display_about &&
+class Profile extends React.Component {
+
+    componentDidMount() {
+        const { username, getUser } = this.props;
+        getUser(username);
+    };
+
+    render() {
+        if (!this.props.fetchedUser)
+            return <FullPageMessage>
+                <FontAwesomeIcon icon='exclamation-triangle' />
+                <span>Could not load user</span>
+            </FullPageMessage>;
+
+        const { user, fetchedUser: { id, username, display_name, display_about, joined, score, email } } = this.props;
+        const ISOdate = new Date(joined);
+        return (
+            <Wrapper>
+                <BGCover />
+                <HeadFlex>
+                    <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${id}`} />
+                    {
+                        (user && user.id === id)
+                        && <SettingLink to='/settings'><FontAwesomeIcon icon='user-edit' /></SettingLink>
+                    }
+                </HeadFlex>
+                <Content>
                     <ContentItem>
-                        <BoldText small>About me</BoldText>
-                        <RowFlex>
-                            <NormalText>{props.user.display_about}</NormalText>
-                        </RowFlex>
+                        <BoldText>{display_name}
+                            <NormalText>
+                                @{username}
+                            </NormalText>
+                        </BoldText>
                     </ContentItem>
-                }
-                <ContentItem>
-                    <DetailInfo>
-                        <ColumnFlex>
-                            <BoldText>Points</BoldText>
+                    {
+                        display_about &&
+                        <ContentItem>
+                            <BoldText small>About me</BoldText>
                             <RowFlex>
-                                <FontAwesomeIcon icon='medal' />
-                                <NormalText>99</NormalText>
+                                <NormalText>{display_about}</NormalText>
                             </RowFlex>
-                        </ColumnFlex>
-                        <ColumnFlex>
-                            <BoldText>Joined on</BoldText>
-                            <RowFlex>
-                                <FontAwesomeIcon icon='birthday-cake' />
-                                <NormalText>
-                                    {ISOdate.getDate() + '-' + (ISOdate.getMonth() + 1) + '-' + ISOdate.getFullYear()}
-                                </NormalText>
-                            </RowFlex>
-                        </ColumnFlex>
-                    </DetailInfo>
-                </ContentItem>
-                <ContentItem>
-                    <Email>
-                        <NormalText>
-                            {props.user.email}
-                        </NormalText>
-                    </Email>
-                </ContentItem>
-            </Content>
-        </Wrapper>
-    );
+                        </ContentItem>
+                    }
+                    <ContentItem>
+                        <DetailInfo>
+                            <ColumnFlex>
+                                <BoldText>Points</BoldText>
+                                <RowFlex>
+                                    <FontAwesomeIcon icon='medal' />
+                                    <NormalText>{score}</NormalText>
+                                </RowFlex>
+                            </ColumnFlex>
+                            <ColumnFlex>
+                                <BoldText>Joined on</BoldText>
+                                <RowFlex>
+                                    <FontAwesomeIcon icon='birthday-cake' />
+                                    <NormalText>
+                                        {ISOdate.getDate() + '-' + (ISOdate.getMonth() + 1) + '-' + ISOdate.getFullYear()}
+                                    </NormalText>
+                                </RowFlex>
+                            </ColumnFlex>
+                        </DetailInfo>
+                    </ContentItem>
+                    <ContentItem>
+                        <Email>
+                            <NormalText>
+                                {email}
+                            </NormalText>
+                        </Email>
+                    </ContentItem>
+                </Content>
+            </Wrapper>
+        );
+    };
 };
 
 export default Profile;

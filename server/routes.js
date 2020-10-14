@@ -8,8 +8,6 @@ const router = require('express').Router();
 const passport = require('passport');
 const config = require('./config');
 const { handleUpload } = require('./controllers/file');
-const { jwt } = require('./config');
-
 
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
@@ -19,7 +17,10 @@ router.post('/register', users.validate('register'), users.register);
 
 router.get('/getToken', jwtAuth, users.getToken);
 router.put('/user', jwtAuth, users.updateUser);
+router.get('/getuser/:user', users.getUser);
+router.get('/getsave/:user', jwtAuth, users.getSavedList);
 router.post('/user/delete/:user', [jwtAuth, users.passwordCheck], users.deleteUser);
+
 router.param('post', posts.load);
 router.get('/posts', posts.list);
 router.get('/posts/:category', posts.listByCategory);
@@ -30,6 +31,7 @@ router.get('/post/:post/upvote', jwtAuth, posts.upvote);
 router.get('/post/:post/downvote', jwtAuth, posts.downvote);
 router.get('/post/:post/unvote', jwtAuth, posts.unvote);
 router.get('/user/:user', posts.listByUser);
+router.get('/save/:post', jwtAuth, users.savePost);
 
 router.param('comment', comments.load);
 router.post('/post/:post', [jwtAuth, comments.validate], comments.create);

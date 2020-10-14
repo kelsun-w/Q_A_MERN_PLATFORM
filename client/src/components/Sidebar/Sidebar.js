@@ -32,11 +32,14 @@ const Sidebar = (props) => (
         <CommunityDetailContainer category={match.params.category} />
       )}
     />
-    <Route path='/u/' component={Profile} />
+    <Route path='/u/:username'
+      render={({ match }) =>
+        <Profile username={match.params.username} />}
+    />
     <Route path='/settings/' component={SettingNav} />
     <Route path='/mod/:community' render={
       ({ match }) => (
-        <ModTools url={match.url} />
+        <ModTools url={match.url} communityName={match.params.community} />
       )
     }
     />

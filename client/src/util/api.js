@@ -136,6 +136,18 @@ export async function user_UploadImage(image, token) {
   return await methods.post('img/ua', image, token, true);
 }
 
+export async function user_SavePost(postId, token) {
+  return await methods.get(`save/${postId}`, token);
+}
+
+export async function user_GetSavedPosts(userid, token) {
+  return await methods.get(`getsave/${userid}`, token);
+}
+
+export async function fetchUser(userid, token) {
+  return await methods.get(`getuser/${userid}`, token);
+}
+
 export async function community_UploadImage(id, image, token) {
   return await methods.post(`img/ca/${id}`, image, token, true);
 }

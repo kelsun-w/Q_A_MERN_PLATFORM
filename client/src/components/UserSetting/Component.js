@@ -14,7 +14,6 @@ const Wrapper = styled.div`
 class UserSetting extends React.Component {
 
     componentDidMount() {
-        console.log(this.props);
         if (!this.props.token) { this.props.history.push('/') }
     };
 

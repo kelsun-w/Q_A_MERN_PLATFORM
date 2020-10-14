@@ -121,9 +121,9 @@ communitySchema.pre('save', function (next) {
 
 communitySchema.post('save', function (doc, next) {
     doc
-        .populate('creator', 'username picture')
-        .populate('mods', 'username picture')
-        .populate('banned.user', 'username picture')
+        .populate('creator', 'username picture -communities')
+        .populate('mods', 'username picture -communities')
+        .populate('banned.user', 'username picture -communities')
         .execPopulate()
         .then((doc) => {
             next()

@@ -68,6 +68,7 @@ export const joinCommunity = (name = '', userid = '') => async (dispatch, getSta
         const { success, user } = await sendJoinRequest(name, userid, token);
         const community = await getCommunity(name);
         dispatch(memberCommunitySuccess(success, community));
+        dispatch(getNewToken());
         return true;
     } catch (error) {
         dispatch(memberCommunityError(error));

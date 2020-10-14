@@ -58,11 +58,12 @@ class AboutPanel extends React.Component {
     };
 
     render() {
+        const { id, description, picture } = this.props;
         return (
             <Wrapper>
                 <Header>{HEADER1}</Header>
-                <AboutForm id={this.props.id} />
-                <ImageForm id={this.props.id} picture={this.props.picture} />
+                <AboutForm id={id} initialValues={{ description }} />
+                <ImageForm id={id} picture={picture} />
                 <Header danger>{HEADER2}</Header>
                 <MenuOption>
                     <MenuDetail>

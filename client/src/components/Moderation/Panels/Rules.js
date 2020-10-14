@@ -14,10 +14,11 @@ import {
 import Button from '../../shared/Button';
 import Header from '../../shared/Header';
 import RuleForm from './Forms/Rule/Container';
-import Empty from '../../shared/Empty';
+import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
 import { normalFont } from '../../shared/helpers';
-const EMPTY_MSG = "No rules here!";
+
+const EMPTY_MSG = "No rules here. Oh dear!";
 
 const RuleIndex = styled.span`
     ${normalFont};
@@ -107,7 +108,10 @@ class RulesPanel extends React.Component {
                     <ModToolBody>
                         {
                             list.length === 0 ?
-                                <Empty message={EMPTY_MSG} />
+                                <Empty>
+                                    <FontAwesomeIcon icon='clipboard-list' />
+                                    {EMPTY_MSG}
+                                </Empty>
                                 :
                                 this.mapList(list)
                         }

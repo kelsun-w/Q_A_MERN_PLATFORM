@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import PostVoteContainer from '../../Vote/Container';
 import { overflow } from '../../../shared/helpers';
 import FooterButton from './Button';
@@ -46,6 +46,12 @@ const Wrapper = styled.div`
   }
 `;
 
+const StyledSaveButton = styled(FooterButton)`
+  span {
+    color: yellow;
+  }
+`;
+
 class PostContentDetail extends React.Component {
 
   constructor(props) {
@@ -61,8 +67,14 @@ class PostContentDetail extends React.Component {
     })
   };
 
+  addToSave = e => {
+    const { postid, userSavePost } = this.props;
+    userSavePost(postid);
+  };
+
   render() {
-    const { postid, votes, score, category, commentCount, user, title, text, author } = this.props;
+    const { postid, votes, score, category, commentCount, user, title, text, author, saved } = this.props;
+
     return (
       <Wrapper>
         <PostVoteContainer row id={postid} votes={votes} score={score} />
@@ -71,20 +83,26 @@ class PostContentDetail extends React.Component {
           <span>{commentCount}</span>
           <span>comment{commentCount !== 1 ? 's' : null}</span>
         </FooterButton>
-        <FooterButton className="share" to={`/c/${category}/${postid}`} >
+        <FooterButton className="share" to='#' >
           <FontAwesomeIcon icon='share' />
           <span>Share</span>
         </FooterButton>
-        <FooterButton to={`/c/${category}/${postid}`} >
-          <FontAwesomeIcon icon='bookmark' />
-          <span>Save</span>
-        </FooterButton>
-        <FooterButton to='#' >
-          <span onClick={this.toggleMenu}>
-            <FontAwesomeIcon icon='flag' />
-            <span>Report</span>
-          </span>
-        </FooterButton>
+        {user &&
+          <>
+            <FooterButton to='#' activated={saved}>
+              <span onClick={this.addToSave}  >
+                {saved ? <FontAwesomeIcon icon='clipboard-check' /> : <FontAwesomeIcon icon='notes-medical' />}
+                {saved ? 'Saved' : 'Save'}
+              </span>
+            </FooterButton>
+            <FooterButton to='#' >
+              <span onClick={this.toggleMenu}>
+                <FontAwesomeIcon icon='flag' />
+                <span>Report</span>
+              </span>
+            </FooterButton>
+          </>
+        }
         {this.state.isOpen &&
           <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
             <ReportForm

@@ -1,17 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AboutPanel from './Panels/About';
 import ReportPanel from './Panels/Report';
 import BannedPanel from './Panels/Banned';
 import ModeratorPanel from './Panels/Moderators';
 import RulesPanel from './Panels/Rules';
 import LoadingIndicator from '../shared/LoadingIndicator/Spinner';
+import FullPageMessage from '../shared/FullPageMessage';
 
 const Wrapper = styled.div`
     color: ${props => props.theme.normalText};
     padding: 8px;
-`
+`;
 
 class Moderation extends React.Component {
 
@@ -30,8 +32,24 @@ class Moderation extends React.Component {
 
     render() {
         if (!this.props.token || !this.props.community) return null;
-        const { community: { name, banned, mods, rules, picture }, user, path } = this.props;
-        const { reports } = this.props;
+        const { community: { name, banned, mods, rules, picture, description }, user, path, reports } = this.props;
+
+        var isMod = false;
+        for (var i = 0; i < mods.length; i++) {
+            if (mods[i].id === user.id) {
+                isMod = true;
+                break;
+            }
+        }
+
+        if (!isMod)
+            return (
+                <FullPageMessage>
+                    <FontAwesomeIcon icon='exclamation-triangle' />
+                    <span>Sorry. Only moderators of {name} can access this section.</span>
+                </FullPageMessage>
+            );
+
         const {
             assignMod,
             updateCommunity,
@@ -57,6 +75,7 @@ class Moderation extends React.Component {
                                 picture={picture}
                                 handleUpdate={updateCommunity}
                                 handleUpload={imageUpload}
+                                description={description}
                             />
                         )}
                     />

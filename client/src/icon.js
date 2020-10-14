@@ -31,7 +31,17 @@ import {
     faPen,
     faUserPlus,
     faUserSlash,
-    faEye
+    faEye,
+    faExclamationTriangle,
+    faShieldAlt,
+    faUserShield,
+    faNotesMedical,
+    faClipboardCheck,
+    faGavel,
+    faClipboardList,
+    faHandPaper,
+    faChevronCircleLeft,
+    faWind
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -66,5 +76,15 @@ library.add(
     faPen,
     faUserPlus,
     faUserSlash,
-    faEye
+    faEye,
+    faExclamationTriangle,
+    faShieldAlt,
+    faUserShield,
+    faNotesMedical,
+    faClipboardCheck,
+    faGavel,
+    faClipboardList,
+    faHandPaper,
+    faChevronCircleLeft,
+    faWind
 );

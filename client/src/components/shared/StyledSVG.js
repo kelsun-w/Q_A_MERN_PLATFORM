@@ -4,7 +4,7 @@ import { transition } from './helpers';
 
 const StyledSVG = styled.svg`
     ${transition('fill')};
-    fill: ${props => props.theme.mutedText};
+    fill: ${props => props.theme.icon};
     width: 20px;
     height: 20px;
 `

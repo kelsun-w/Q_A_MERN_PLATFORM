@@ -49,12 +49,18 @@ import {
 } from '../actions/auth';
 
 import {
+  USER_GET_SUCCESS,
+  USER_GET_ERROR,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_ERROR,
+  USER_SAVEPOST_SUCCESS,
+  USER_SAVEPOST_ERROR,
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOAD_ERROR,
   USER_DELETE_SUCCESS,
-  USER_DELETE_ERROR
+  USER_DELETE_ERROR,
+  USER_GETSAVEDPOSTS_SUCCESS,
+  USER_GETSAVEDPOSTS_ERROR
 } from '../actions/user';
 
 import {
@@ -94,12 +100,15 @@ export default store => next => action => {
     case SIGNUP_SUCCESS:
     case TOKENUPDATE_SUCCESS:
     case USER_UPDATE_SUCCESS:
+    case USER_SAVEPOST_SUCCESS:
     case IMAGE_UPLOAD_SUCCESS:
     case USER_DELETE_SUCCESS:
     case FETCH_REPORTS_SUCCESS:
     case CREATE_REPORT_SUCCESS:
     case UPDATE_REPORT_SUCCESS:
     case DELETE_REPORT_SUCCESS:
+    case USER_GETSAVEDPOSTS_SUCCESS:
+    case USER_GET_SUCCESS:
     case LOGOUT:
       if (store.getState().error) store.dispatch(hideErrorClearTimeout());
       break;
@@ -125,12 +134,15 @@ export default store => next => action => {
     case SIGNUP_ERROR:
     case TOKENUPDATE_ERROR:
     case USER_UPDATE_ERROR:
+    case USER_SAVEPOST_ERROR:
     case IMAGE_UPLOAD_ERROR:
     case USER_DELETE_ERROR:
     case FETCH_REPORTS_ERROR:
     case CREATE_REPORT_ERROR:
     case UPDATE_REPORT_ERROR:
     case DELETE_REPORT_ERROR:
+    case USER_GETSAVEDPOSTS_ERROR:
+    case USER_GET_ERROR:
       store.dispatch(showErrorWithTimeout(action.error));
       break;
 

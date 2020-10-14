@@ -12,7 +12,7 @@ import {
     FlexCommand
 } from './util';
 import Header from '../../shared/Header';
-import Empty from '../../shared/Empty';
+import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
 import { normalFont } from '../../shared/helpers';
 import ReportForm from './Forms/Report/Container';
@@ -151,7 +151,10 @@ class ReportsPanel extends React.Component {
                     <ModToolBody>
                         {
                             filterList.length === 0 ?
-                                <Empty message={EMPTY_MSG} />
+                                <Empty>
+                                    <FontAwesomeIcon icon='flag' />
+                                    {EMPTY_MSG}
+                                </Empty>
                                 :
                                 this.mapList(filterList)
                         }

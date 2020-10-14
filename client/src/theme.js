@@ -7,6 +7,7 @@ const constants = {
 
 const dark = {
   ...constants,
+  invert: '#f4f6f8',
   primary: '#1E78D8',
   normalText: '#ffffff',
   mutedText: '#b0b8bf',
@@ -26,6 +27,7 @@ const dark = {
 
 const light = {
   ...constants,
+  invert: '#1b1b1b',
   primary: '#1E78D8',
   normalText: '#454f5b',
   mutedText: '#818e99',

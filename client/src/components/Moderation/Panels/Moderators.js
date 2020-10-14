@@ -16,7 +16,7 @@ import {
 import ModForm from './Forms/Mod/Container';
 import Button from '../../shared/Button';
 import Header from '../../shared/Header';
-import Empty from '../../shared/Empty';
+import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
 
 const EMPTY_MSG = "No moderators. Oh dear!";
@@ -95,7 +95,10 @@ class ModeratorsPanel extends React.Component {
                     <ModToolBody>
                         {
                             list.length === 0 ?
-                                <Empty message={EMPTY_MSG} />
+                                <Empty>
+                                    <FontAwesomeIcon icon='user-shield' />
+                                    {EMPTY_MSG}
+                                </Empty>
                                 :
                                 this.mapList(list)
                         }

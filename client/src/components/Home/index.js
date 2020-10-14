@@ -4,7 +4,8 @@ import { Route } from 'react-router-dom';
 import HomeMainSection from './MainSection';
 import CategoryMenuContainer from '../CategoryMenu/Container';
 import PostListContainer from '../PostList/Container';
-import PostDetailContainer from '../PostDetail/Container';
+import CommunityContainer from '../Community/Container';
+import UserProfile from '../UserProfile/Container';
 import Sidebar from '../Sidebar/Sidebar';
 import DiscoverMenu from '../discoverMenu/Container';
 import UserSetting from '../UserSetting/Container';
@@ -50,27 +51,16 @@ const Home = () => (
       )}
       />
       <Route
-        exact
-        path='/c/:category'
+        path='/c'
         render={({ match }) => (
-          <>
-            <CategoryMenuContainer />
-            <PostListContainer category={match.params.category} />
-          </>
+          <CommunityContainer match={match} />
         )}
       />
       <Route
         exact
         path='/u/:username'
         render={({ match }) => (
-          <PostListContainer username={match.params.username} />
-        )}
-      />
-      <Route
-        exact
-        path='/c/:category/:post'
-        render={({ match, history }) => (
-          <PostDetailContainer id={match.params.post} history={history} />
+          <UserProfile username={match.params.username} />
         )}
       />
       <Route path='/settings'

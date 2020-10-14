@@ -17,12 +17,14 @@ import {
 import Button from '../../shared/Button';
 import Header from '../../shared/Header';
 import BanForm from './Forms/Banned/Container';
-import Empty from '../../shared/Empty';
+import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
 
 const BanCommandWrapper = styled.span`
     margin-left: auto;
 `;
+
+const EMPTY_MSG = 'No banned users here';
 
 class BannedPanel extends React.Component {
 
@@ -107,7 +109,10 @@ class BannedPanel extends React.Component {
                     <ModToolBody>
                         {
                             list.length === 0 ?
-                                <Empty />
+                                <Empty>
+                                    <FontAwesomeIcon icon='gavel' />
+                                    {EMPTY_MSG}
+                                </Empty>
                                 :
                                 this.mapList(list)
                         }

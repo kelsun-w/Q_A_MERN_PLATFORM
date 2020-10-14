@@ -48,11 +48,10 @@ class ProfileForm extends React.Component {
     }
 
     render() {
-        const { isUpdating } = this.props;
+        const { isUpdating, pristine } = this.props;
         return (
             <wrapper>
                 <StyledForm
-                    form='userSetting_display'
                     onSubmit={this.props.handleSubmit(this.onSubmit)}
                 >
                     <Field
@@ -67,7 +66,7 @@ class ProfileForm extends React.Component {
                         sublabel={da_SubLabel}
                         type='textarea'
                         component={renderField} />
-                    <StyledButton type='submit' disabled={isUpdating}>
+                    <StyledButton type='submit' disabled={pristine || isUpdating}>
                         {isUpdating && <StyledSpinner />}
                         <span>SAVE CHANGES</span>
                     </StyledButton>

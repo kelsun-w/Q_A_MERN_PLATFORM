@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 const Detail = props => (
     <Wrapper>
         <NormalText>{props.user.username}</NormalText>
-        <MutedText>99 kudos</MutedText>
+        <MutedText>{props.user.score} points</MutedText>
     </Wrapper>
 )
 
