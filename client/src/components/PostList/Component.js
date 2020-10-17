@@ -40,14 +40,17 @@ class PostList extends React.Component {
   };
 
   mapPosts = () => {
-    const { savedPosts, posts } = this.props;
+    const { savedPosts, posts, user } = this.props;
+    var savelist = savedPosts ? savedPosts : user && user.saved;
+
     var postlist = posts && posts.map((post, index) => {
       let alreadySaved = false;
-      alreadySaved = savedPosts
-        && (savedPosts.find(p => p.id === post.id)) != null;
+      alreadySaved = savelist
+        && (savelist.find(p => p.id === post.id)) != null;
 
       return <PostListItem saved={alreadySaved} key={index} {...post} />
     });
+    
     if (!postlist || postlist.length === 0) {
       return <FullPageMessage>
         <FontAwesomeIcon icon='wind' />
@@ -59,13 +62,11 @@ class PostList extends React.Component {
 
   mapSavedPosts = () => {
     const { savedPosts } = this.props;
-    var savedlist = savedPosts && savedPosts.map((post, index) => {
-      let alreadySaved = false;
-      alreadySaved = savedPosts
-        && (savedPosts.find(p => p.id === post.id)) != null;
 
-      return <PostListItem saved={alreadySaved} key={index} {...post} />
+    var savedlist = savedPosts && savedPosts.map((post, index) => {
+      return <PostListItem saved key={index} {...post} />
     });
+
     if (!savedlist || savedlist.length === 0) {
       return <FullPageMessage>
         <FontAwesomeIcon icon='wind' />

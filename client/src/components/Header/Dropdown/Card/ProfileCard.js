@@ -45,11 +45,14 @@ const Wrapper = styled.div`
 
 `
 
-const Card = ({ user, onClick, active }) => (
-    <Wrapper onClick={onClick} active={active}>
-        <ProfilePicture imageUrl={`${process.env.REACT_APP_IMG_URL_UA}/${user.id}`} />
-        <ProfileDetail user={user} />
-    </Wrapper>
-);
+const Card = ({ user, onClick, active }) => {
+    const IMG_URL = user && user.picture ? `${process.env.REACT_APP_IMG_URL_UA}/${user.id}` : `${process.env.PUBLIC_URL}/images/userprofile.png`;
+    return (
+        <Wrapper onClick={onClick} active={active}>
+            <ProfilePicture imageUrl={IMG_URL} />
+            {user && <ProfileDetail user={user} />}
+        </Wrapper>
+    )
+};
 
 export default Card;

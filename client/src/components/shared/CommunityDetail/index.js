@@ -61,6 +61,7 @@ const MainDetail = (props) => {
         && (props.communities.find(c => c.name === props.name)) != null;
 
     const isMod = props.mods
+        && props.user
         && (props.mods.find(item => item.id === props.user.id) != null);
 
     return (

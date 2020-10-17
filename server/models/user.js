@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   admin: Boolean,
   communities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
   saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-  score: { type: Number, default: 0 },
+  score: { type: Number, default: 1 },
   display_name: String,
   display_about: String,
   picture: String,
@@ -88,6 +88,16 @@ userSchema.methods.savePost = async function (postToSave) {
     .save()
     .then(res => ({ success: added, message: 'Post ' + (added ? 'saved' : 'removed from saved list') + ' successfully' }));
 };
+
+userSchema.methods.scoreChange = async function (vote) {
+  if (Number.isInteger(vote)) {
+    this.score += vote;
+    return this.save();
+  } else {
+    throw new Error('Invalid vote amount type. Should be an interger value');
+  }
+
+}
 
 userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password);

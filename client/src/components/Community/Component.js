@@ -23,17 +23,18 @@ class CommunityPostList extends React.Component {
                     <span>{ERR_MSG}</span>
                 </FullPageEmpty>
             );
-
-        for (var i = 0; i < bannedList.length; i++) {
-            if (bannedList[i].user.id === this.props.user.id) {
-                return (
-                    <FullPageEmpty>
-                        <FontAwesomeIcon icon='hand-paper' />
-                        <div>{BAN_MSG}</div>
-                        <div>OFFENCE: {bannedList[i].offence}</div>
-                    </FullPageEmpty>
-                );
-            }
+        if (this.props.user) {
+            for (var i = 0; i < bannedList.length; i++) {
+                if (bannedList[i].user.id === this.props.user.id) {
+                    return (
+                        <FullPageEmpty>
+                            <FontAwesomeIcon icon='hand-paper' />
+                            <div>{BAN_MSG}</div>
+                            <div>OFFENCE: {bannedList[i].offence}</div>
+                        </FullPageEmpty>
+                    );
+                }
+            };
         };
         return (
             <Switch>

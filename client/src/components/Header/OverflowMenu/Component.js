@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const OverflowMenu = () => (
     <Wrapper>
-        <NavLink to='/createpost'>
+        <NavLink to='/createpost/link'>
             <FontAwesomeIcon icon='pen' size='lg' />
         </NavLink>
         {/* <NavLink to='#'>

@@ -152,6 +152,14 @@ export async function community_UploadImage(id, image, token) {
   return await methods.post(`img/ca/${id}`, image, token, true);
 }
 
+export async function searchUsers(query) {
+  return await methods.get(`search/user/query=${query}`);
+}
+
+export async function searchPosts(query) {
+  return await methods.get(`search/post/query=${query}`);
+}
+
 export async function getPosts(category) {
   return await methods.get(`posts/${category}`);
 }

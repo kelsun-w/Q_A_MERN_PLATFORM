@@ -42,10 +42,10 @@ class PreferenceSetting extends React.Component {
     render() {
         return (
             <>
-                <Header >Language</Header>
+                {/* <Header >Language</Header>
                 <MenuOption >
                     <LanguageSetting {...this.props} />
-                </MenuOption>
+                </MenuOption> */}
                 <Header >Theme</Header>
                 <MenuOption>
                     <ThemeSetting {...this.props} />

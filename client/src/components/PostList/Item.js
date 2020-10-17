@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import Post from '../Post';
 
 const Item = styled.li`
 
-  border: 1px solid ${props => props.theme.border};
+  border: ${props => props.noBorder ? `none` : `1px solid ${props.theme.border}`};
   border-radius: 4px;
   margin-bottom: 10px;
 
@@ -17,7 +17,7 @@ const Item = styled.li`
 `;
 
 const PostListItem = props => (
-  <Item>
+  <Item noBorder={props.noBorder} >
     <Post {...props} />
   </Item>
 );

@@ -43,10 +43,25 @@ exports.updateUser = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  const user = await User.findOne({ username: req.params.user});
+  const user = await User.findOne({ username: req.params.user });
   if (!user) return res.status(404).json({ message: 'No user found' });
 
   return res.status(200).json({ success: true, user });
+};
+
+exports.searchUsers = (req, res) => {
+  const query = req.params.query;
+
+  User
+    .find({ "username": new RegExp(query, 'i') },
+      function (error, list) {
+        if (error) return res.status(422).json({ success: false, error });
+
+        return res.json({ success: true, list });
+      })
+    .catch(err => {
+      res.status(500).json({ success: false, error: err });
+    });
 };
 
 exports.passwordCheck = async (req, res, next) => {

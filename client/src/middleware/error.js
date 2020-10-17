@@ -35,7 +35,9 @@ import {
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_ERROR,
   VOTE_SUCCESS,
-  VOTE_ERROR
+  VOTE_ERROR,
+  SEARCH_POSTS_SUCCESS,
+  SEARCH_POSTS_ERROR
 } from '../actions/posts';
 
 import {
@@ -60,7 +62,9 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_ERROR,
   USER_GETSAVEDPOSTS_SUCCESS,
-  USER_GETSAVEDPOSTS_ERROR
+  USER_GETSAVEDPOSTS_ERROR,
+  SEARCH_USERS_SUCCESS,
+  SEARCH_USERS_ERROR
 } from '../actions/user';
 
 import {
@@ -91,6 +95,7 @@ export default store => next => action => {
     case REMOVE_BAN_SUCCESS:
     case FETCH_POSTS_SUCCESS:
     case FETCH_POST_SUCCESS:
+    case SEARCH_POSTS_SUCCESS:
     case CREATE_POST_SUCCESS:
     case DELETE_POST_SUCCESS:
     case CREATE_COMMENT_SUCCESS:
@@ -109,6 +114,7 @@ export default store => next => action => {
     case DELETE_REPORT_SUCCESS:
     case USER_GETSAVEDPOSTS_SUCCESS:
     case USER_GET_SUCCESS:
+    case SEARCH_USERS_SUCCESS:
     case LOGOUT:
       if (store.getState().error) store.dispatch(hideErrorClearTimeout());
       break;
@@ -125,6 +131,7 @@ export default store => next => action => {
     case REMOVE_BAN_ERROR:
     case FETCH_POSTS_ERROR:
     case FETCH_POST_ERROR:
+    case SEARCH_POSTS_ERROR:
     case CREATE_POST_ERROR:
     case DELETE_POST_ERROR:
     case CREATE_COMMENT_ERROR:
@@ -143,6 +150,7 @@ export default store => next => action => {
     case DELETE_REPORT_ERROR:
     case USER_GETSAVEDPOSTS_ERROR:
     case USER_GET_ERROR:
+    case SEARCH_USERS_ERROR:
       store.dispatch(showErrorWithTimeout(action.error));
       break;
 

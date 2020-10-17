@@ -64,14 +64,14 @@ class AboutPanel extends React.Component {
                 <Header>{HEADER1}</Header>
                 <AboutForm id={id} initialValues={{ description }} />
                 <ImageForm id={id} picture={picture} />
-                <Header danger>{HEADER2}</Header>
+                {/* <Header danger>{HEADER2}</Header>
                 <MenuOption>
                     <MenuDetail>
                         <div>Delete Community</div>
                         <div>Request Deletion of community</div>
                     </MenuDetail>
                     <Button onClick={this.toggleMenu} danger>Request Delete</Button>
-                </MenuOption>
+                </MenuOption> */}
                 {this.state.isOpen &&
                     <Modal isOpen={this.state.isOpen} onClose={this.toggleMenu}>
                         <AboutForm />

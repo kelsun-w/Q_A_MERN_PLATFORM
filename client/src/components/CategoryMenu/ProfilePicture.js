@@ -8,6 +8,7 @@ const DP = styled.img`
     max-height: 45px;
     max-width: 45px;
     border: 1.5px solid #ddd;
+    margin-right: 8px;
 
     ${transition('transform')};
 `

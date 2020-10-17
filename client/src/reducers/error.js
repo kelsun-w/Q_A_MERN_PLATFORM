@@ -16,7 +16,8 @@ import {
   CREATE_POST_ERROR,
   DELETE_POST_ERROR,
   CREATE_COMMENT_ERROR,
-  VOTE_ERROR
+  VOTE_ERROR,
+  SEARCH_POSTS_ERROR
 } from '../actions/posts';
 
 import {
@@ -31,7 +32,8 @@ import {
   USER_SAVEPOST_ERROR,
   IMAGE_UPLOAD_ERROR,
   USER_DELETE_ERROR,
-  USER_GETSAVEDPOSTS_ERROR
+  USER_GETSAVEDPOSTS_ERROR,
+  SEARCH_USERS_ERROR
 } from '../actions/user';
 
 import {
@@ -75,6 +77,8 @@ export default (state = initialState, action) => {
     case DELETE_REPORT_ERROR:
     case USER_GETSAVEDPOSTS_ERROR:
     case USER_GET_ERROR:
+    case SEARCH_POSTS_ERROR:
+    case SEARCH_USERS_ERROR:
       return action.error;
 
     case HIDE_ERROR:

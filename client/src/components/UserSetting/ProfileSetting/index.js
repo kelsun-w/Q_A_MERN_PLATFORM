@@ -48,13 +48,13 @@ class AccountSetting extends React.Component {
                 <ProfileForm initialValues={{ display_name, display_about }} />
                 <ImageForm />
                 <Header >Account Details</Header>
-                <MenuOption>
+                {/* <MenuOption>
                     <MenuDetail>
                         <div>Email</div>
                         <div>{email}</div>
                     </MenuDetail>
                     <Button>Change</Button>
-                </MenuOption>
+                </MenuOption> */}
                 <MenuOption>
                     <MenuDetail>
                         <div>Password</div>

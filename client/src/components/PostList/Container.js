@@ -8,7 +8,7 @@ import PostList from './Component';
 export const mapStateToProps = state => ({
   posts: state.posts.items,
   isFetching: state.posts.isFetching,
-  savedPosts: state.user.list
+  savedPosts: state.user.savedList
 });
 const mapDispatchToProps = { fetchPosts, fetchProfile, userGetSavedPosts };
 

@@ -20,9 +20,11 @@ router.put('/user', jwtAuth, users.updateUser);
 router.get('/getuser/:user', users.getUser);
 router.get('/getsave/:user', jwtAuth, users.getSavedList);
 router.post('/user/delete/:user', [jwtAuth, users.passwordCheck], users.deleteUser);
+router.get('/search/user/query=:query', users.searchUsers);
 
 router.param('post', posts.load);
 router.get('/posts', posts.list);
+router.get('/search/post/query=:query', posts.searchPosts);
 router.get('/posts/:category', posts.listByCategory);
 router.get('/post/:post', posts.show);
 router.post('/posts', [jwtAuth, posts.validate], posts.create);

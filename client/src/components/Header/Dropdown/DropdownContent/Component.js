@@ -38,41 +38,36 @@ const Header = styled(MutedText)`
 
 const DropdownContent = ({ user, logout, toggleDarkTheme }) => (
     <Wrapper>
-        <Header>Personal</Header>
-        <MenuOption destination='/createpost' overflow>
-            <FontAwesomeIcon icon='pencil-alt' />
-            <span>Create Post</span>
-        </MenuOption>
-        <MenuOption destination={`/u/${user.username}`} >
-            <FontAwesomeIcon icon='address-book' />
-            <span>My Profile</span>
-        </MenuOption>
-        {/* <MenuOption destination='/message/inbox' overflow>
-            <FontAwesomeIcon icon='comments' />
-            <span>Messages</span>
-        </MenuOption> */}
-        {/* <MenuOption destination='#' overflow>
-            <FontAwesomeIcon icon='bullhorn' />
-            <span>Notifications</span>
-        </MenuOption> */}
-        <MenuOption destination='/settings' >
-            <FontAwesomeIcon icon='cog' />
-            <span>Account Settings</span>
-        </MenuOption>
-
+        {user &&
+            <>
+                <Header>Personal</Header>
+                <MenuOption destination='/createpost/link' overflow>
+                    <FontAwesomeIcon icon='pencil-alt' />
+                    <span>Create Post</span>
+                </MenuOption>
+                <MenuOption destination={`/u/${user.username}`} >
+                    <FontAwesomeIcon icon='address-book' />
+                    <span>My Profile</span>
+                </MenuOption>
+                <MenuOption destination='/settings' >
+                    <FontAwesomeIcon icon='cog' />
+                    <span>Account Settings</span>
+                </MenuOption>
+            </>
+        }
         <Header>View Setting</Header>
         <MenuOption destination='#' onClick={toggleDarkTheme} >
             <FontAwesomeIcon icon='moon' />
             <span>Darkmode</span>
         </MenuOption>
-        <MenuOption destination='#' onClick={toggleDarkTheme} >
+        {/* <MenuOption destination='#' onClick={toggleDarkTheme} >
             <FontAwesomeIcon icon='globe' />
             <span>Language</span>
-        </MenuOption>
+        </MenuOption> */}
         <Divider />
-        <MenuOption destination='#' onClick={logout}>
-            <FontAwesomeIcon icon='sign-out-alt' />
-            <span>Log out</span>
+        <MenuOption destination={user ? '#' : '/login'} onClick={logout}>
+            <FontAwesomeIcon icon={user ? 'sign-out-alt' : 'sign-in-alt'} />
+            <span>{user ? 'Log out' : 'Login/Sign up'}</span>
         </MenuOption>
     </Wrapper>
 );

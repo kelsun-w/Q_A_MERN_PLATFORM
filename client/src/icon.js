@@ -41,7 +41,10 @@ import {
     faClipboardList,
     faHandPaper,
     faChevronCircleLeft,
-    faWind
+    faWind,
+    faComment,
+    faLink,
+    faUsersSlash
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -86,5 +89,8 @@ library.add(
     faClipboardList,
     faHandPaper,
     faChevronCircleLeft,
-    faWind
+    faWind,
+    faComment,
+    faLink,
+    faUsersSlash
 );

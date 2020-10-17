@@ -1,100 +1,102 @@
 import React from 'react';
-import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components/macro';
 import ProfilePicture from './ProfilePicture';
-import { Header, SubHeader } from './Text';
-import { transition } from '../shared/helpers';
+import { Link } from 'react-router-dom';
+import { normalFont, link } from '../shared/helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from '../shared/Button';
 
-const Wrapper = styled(Link)`
-  display: block;
-  position: relative;
-  text-decoration:none;
-  height: 75px;
+const Wrapper = styled.div`
+  padding: 4px 32px 4px 16px;
   overflow: hidden;
   border: 1px solid ${props => props.theme.border};
-  border-radius: 4px 4px 0 0;
-  background-color: #fff;
-  
-  :hover,
-  :focus  {
-    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.6);
-    outline: none;
-    
-    img:nth-child(1){
-      transform: translateX(0.2vw);
-    }
+  border-radius: 4px;
+  background-color: ${props => props.theme.foreground};
+  color: ${props => props.theme.normalText};
 
-    img:nth-child(2){
-      transform: translateX(-0.4vw);
-      filter: blur(0.25px);
-    }
-
-    span {
-      transform: translateX(0.3vw);
-    }
-  } 
-
-  
-  @media (max-width: 410px){
-    span:nth-child(1){
-        font-weight: bolder;
-        color: rgba(0,0,0,0.6);
-    }
-    span:nth-child(2){
-        display: none;
-    }
-
-    img:nth-child(1){
-      display:none;
-    }
-  }
-  
   @media (max-width: 768px) {
-    padding: 0 10px;
+    padding: 8px 10px;
     border-radius: 0;
-    img:nth-child(2){
-      right: 3vw;
-    }
   }
 `
 
 const RowWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px 8px;
 `
 
 const ColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  
-`
-
-const BGImage = styled.img`
-  position: absolute;
-  right: 0;
-  top:0;
-  bottom:0;
-  max-height: 100%;
-  
-  ${transition('transform')};
-
-  :focus {
-    outline: none;
-    border: 0;
+  & > * {
+    margin: 4px 0;
   }
 `
 
+const StyledInput = styled.input`
+  width: 100%;
+  height: 36px;
+  background-color: ${props => props.theme.inputBackground};
+  border: 1px solid ${props => props.theme.border};
+  border-radius: 8px;
+  ${normalFont};
+  padding: 4px 8px;
+`
+
+const StyledLink = styled(Link)`
+  ${link};
+  ${({ WIDE }) => WIDE ? `width: 100%` : ``};
+`
+
+const StyledButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  color: ${props => props.theme.normalText};
+  background-color: ${props => props.theme.activeBackground};
+  border: 1px solid ${props => props.theme.border};
+  min-width: 100px;
+  margin: 0 5px;
+  padding: 6px 12px;
+  ${normalFont};
+  font-size: 14px;
+  & > :first-child {
+    font-size: 18px;
+    margin-right: 5px;
+    color: ${props => props.theme.icon};
+  };
+
+  :hover,
+  :focus{
+      box-shadow: 0 0 0 0.5px ${props => props.theme.invert + '4d'};
+  }
+`;
+
+const INPUT_TEXT = `What's your question?`;
+
 const CategoryMenuCreatePost = (props) => (
-  <Wrapper to='/createpost'>
-    <RowWrapper>
-      <ProfilePicture user={props.user} />
-      <ColumnWrapper>
-        <Header>Create Post</Header>
-        <SubHeader>Ask a question or share something interesting</SubHeader>
-      </ColumnWrapper>
-    </RowWrapper>
-    <BGImage src={process.env.PUBLIC_URL + '/images/group-cropped.jpg'} />
+  <Wrapper>
+    <ColumnWrapper>
+      <RowWrapper>
+        <ProfilePicture user={props.user} />
+        <StyledLink WIDE to='/createpost/text'>
+          <StyledInput placeholder={INPUT_TEXT} />
+        </StyledLink>
+      </RowWrapper>
+      <RowWrapper>
+        <StyledLink to='/createpost/text'>
+          <StyledButton >
+            <FontAwesomeIcon icon='comment' />
+            <span>Create a Text Post</span>
+          </StyledButton>
+        </StyledLink>
+        <StyledLink to='/createpost/link'>
+          <StyledButton>
+            <FontAwesomeIcon icon='link' />
+            <span>Post a Link</span>
+          </StyledButton>
+        </StyledLink>
+      </RowWrapper>
+    </ColumnWrapper>
   </Wrapper>
 );
 

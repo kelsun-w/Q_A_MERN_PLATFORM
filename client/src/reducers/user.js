@@ -17,6 +17,9 @@ import {
     USER_GETSAVEDPOSTS_REQUEST,
     USER_GETSAVEDPOSTS_SUCCESS,
     USER_GETSAVEDPOSTS_ERROR,
+    SEARCH_USERS_REQUEST,
+    SEARCH_USERS_SUCCESS,
+    SEARCH_USERS_ERROR
 } from '../actions/user';
 
 const initialState = { updating: false, uploading: false };
@@ -35,6 +38,13 @@ export default (state = initialState, action) => {
         case USER_GET_ERROR:
             return { ...state, fetching: false };
 
+        case SEARCH_USERS_REQUEST:
+            return { ...state, fetching: true };
+        case SEARCH_USERS_SUCCESS:
+            return { ...state, fetching: false, searchList: action.users };
+        case SEARCH_USERS_ERROR:
+            return { ...state, fetching: false };
+
         case USER_UPDATE_SUCCESS:
         case USER_SAVEPOST_SUCCESS:
         case USER_DELETE_SUCCESS:
@@ -45,9 +55,9 @@ export default (state = initialState, action) => {
             return { ...state, updating: false };
 
         case USER_GETSAVEDPOSTS_REQUEST:
-            return { ...state, fetching: true, list: null };
+            return { ...state, fetching: true, savedList: null };
         case USER_GETSAVEDPOSTS_SUCCESS:
-            return { ...state, fetching: false, list: action.posts };
+            return { ...state, fetching: false, savedList: action.posts };
         case USER_GETSAVEDPOSTS_ERROR:
             return { ...state, fetching: false };
 

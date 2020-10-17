@@ -6,6 +6,7 @@ import {
     user_SavePost,
     user_GetSavedPosts,
     deleteUser,
+    searchUsers
 } from '../util/api';
 
 export const USER_GET_REQUEST = 'USER_GET_REQUEST';
@@ -25,6 +26,24 @@ export const getUser = (userid = '') => async (dispatch, getState) => {
     } catch (error) {
         dispatch(getUserError(error));
     }
+};
+
+export const SEARCH_USERS_REQUEST = 'SEARCH_USERS_REQUEST';
+export const SEARCH_USERS_SUCCESS = 'SEARCH_USERS_SUCCESS';
+export const SEARCH_USERS_ERROR = 'SEARCH_USERS_ERROR';
+
+const searchUsersRequest = { type: SEARCH_USERS_REQUEST };
+const searchUsersSuccess = users => ({ type: SEARCH_USERS_SUCCESS, users });
+const searchUsersError = error => ({ type: SEARCH_USERS_ERROR, error });
+
+export const attemptSearchUsers = (query = '') => async dispatch => {
+  dispatch(searchUsersRequest);
+  try {
+    const result = await searchUsers(query);
+    dispatch(searchUsersSuccess(result.list));
+  } catch (error) {
+    dispatch(searchUsersError(error));
+  }
 };
 
 export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';

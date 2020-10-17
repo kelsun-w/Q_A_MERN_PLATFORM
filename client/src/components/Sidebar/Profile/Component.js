@@ -97,13 +97,16 @@ class Profile extends React.Component {
                 <span>Could not load user</span>
             </FullPageMessage>;
 
-        const { user, fetchedUser: { id, username, display_name, display_about, joined, score, email } } = this.props;
+        const { user, fetchedUser: { id, username, picture, display_name, display_about, joined, score, email } } = this.props;
+
+        const IMG_URL = picture ? `${process.env.REACT_APP_IMG_URL_UA}/${id}` : `${process.env.PUBLIC_URL}/images/userprofile.png`;
+
         const ISOdate = new Date(joined);
         return (
             <Wrapper>
                 <BGCover />
                 <HeadFlex>
-                    <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${id}`} />
+                    <DP src={IMG_URL} />
                     {
                         (user && user.id === id)
                         && <SettingLink to='/settings'><FontAwesomeIcon icon='user-edit' /></SettingLink>
