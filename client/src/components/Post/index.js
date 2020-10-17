@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   height: auto;
   background-color: ${props => props.theme.foreground};
+  border-radius: 4px;
 `;
 
 const Post = ({ id, votes, score, comments, full, ...content }) => (
@@ -16,7 +17,6 @@ const Post = ({ id, votes, score, comments, full, ...content }) => (
       showFullPost={full}
       id={id}
       commentCount={comments ? comments.length : 0}
-      id={id} 
       votes={votes} 
       score={score}
       {...content}

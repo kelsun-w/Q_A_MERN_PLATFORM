@@ -41,20 +41,20 @@ class AccountSetting extends React.Component {
     };
 
     render() {
+        const { display_name, display_about, email } = this.props;
         return (
             <>
                 <Header>Profile Details</Header>
-                <ProfileForm />
-                <Header >Profile Avatar and banner image</Header>
+                <ProfileForm initialValues={{ display_name, display_about }} />
                 <ImageForm />
                 <Header >Account Details</Header>
-                <MenuOption>
+                {/* <MenuOption>
                     <MenuDetail>
                         <div>Email</div>
-                        <div>{this.props.email}</div>
+                        <div>{email}</div>
                     </MenuDetail>
                     <Button>Change</Button>
-                </MenuOption>
+                </MenuOption> */}
                 <MenuOption>
                     <MenuDetail>
                         <div>Password</div>

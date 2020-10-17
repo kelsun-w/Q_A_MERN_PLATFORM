@@ -5,6 +5,9 @@ import {
   FETCH_POST_REQUEST,
   FETCH_POST_SUCCESS,
   FETCH_POST_ERROR,
+  SEARCH_POSTS_REQUEST,
+  SEARCH_POSTS_SUCCESS,
+  SEARCH_POSTS_ERROR,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
@@ -42,6 +45,13 @@ export default (state = initialState, action) => {
     case FETCH_POST_SUCCESS:
       return { ...state, isFetching: false, post: action.post };
     case FETCH_POST_ERROR:
+      return { ...state, isFetching: false };
+
+    case SEARCH_POSTS_REQUEST:
+      return { ...state, isFetching: true };
+    case SEARCH_POSTS_SUCCESS:
+      return { ...state, isFetching: false, items: action.posts };
+    case SEARCH_POSTS_ERROR:
       return { ...state, isFetching: false };
 
     case CREATE_POST_REQUEST:

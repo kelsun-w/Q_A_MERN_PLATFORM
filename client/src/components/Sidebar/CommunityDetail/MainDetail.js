@@ -17,6 +17,7 @@ class MainDetail extends React.Component {
                 description={community.description}
                 created={community.created}
                 members={community.members}
+                mods={community.mods}
                 onClick={this.join}
                 communities={communities}
                 user={user}

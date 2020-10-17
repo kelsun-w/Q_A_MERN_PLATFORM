@@ -9,24 +9,38 @@ import ErrorNotificationContainer from '../ErrorNotification/Container';
 import LoginFormContainer from '../LoginForm/Container';
 import SignupFormContainer from '../SignupForm/Container';
 import CreatePostFormContainer from '../CreatePostForm/Container';
+import SearchContainer from '../Search/Container';
 import Home from '../Home';
 
 const App = props => (
-    <ThemeProvider theme={theme(props.dark)}>
-      <Router history={history}>
-        <>
-          <GlobalStyle />
-          <Route component={HeaderContainer} />
-          <Route component={ErrorNotificationContainer} />
-          <Switch>
-            <Route path='/login' component={LoginFormContainer} />
-            <Route path='/signup' component={SignupFormContainer} />
-            <Route path='/createpost' component={CreatePostFormContainer} />
-            <Route path='/' component={Home} />
-          </Switch>
-        </>
-      </Router>
-    </ThemeProvider>
+  <ThemeProvider theme={theme(props.dark)}>
+    <Router history={history}>
+      <>
+        <GlobalStyle />
+        <Route
+          render={({ history }) =>
+            <HeaderContainer history={history} />
+          }
+        />
+        <Route component={ErrorNotificationContainer} />
+        <Switch>
+          <Route path='/login' component={LoginFormContainer} />
+          <Route path='/signup' component={SignupFormContainer} />
+          <Route path='/createpost/:type'
+            render={({ match, history }) =>
+              <CreatePostFormContainer history={history} initialValues={{ type: match.params.type }} />
+            }
+          />
+          <Route
+            path='/search/:query'
+            render={({ match }) =>
+              <SearchContainer query={match.params.query} />}
+          />
+          <Route path='/' component={Home} />
+        </Switch>
+      </>
+    </Router>
+  </ThemeProvider>
 );
 
 export default App;

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 import withAuth from '../../util/withAuth';
-import { fetchCommunities } from '../../actions/community';
+import { fetchCommunities, joinCommunity } from '../../actions/community';
 import Component from './Component';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = ({
-    fetchCommunities
+    fetchCommunities,
+    joinCommunity
 });
 
 const enhance = compose(

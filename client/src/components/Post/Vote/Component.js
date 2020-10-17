@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   text-align: center;
   color: ${props => props.theme.normalText};
   background-color: ${props => props.theme.inputBackground};
+  margin-left: 2px;
 
   @media(max-width: 768px){
           display: none;

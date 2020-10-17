@@ -37,6 +37,21 @@ exports.listByCategory = async (req, res) => {
   res.json(posts);
 };
 
+exports.searchPosts = (req, res) => {
+  const query = "\\b" + req.params.query + "\\b";
+
+  Post
+    .find({ "title": new RegExp(query, 'i') },
+      function (error, list) {
+        if (error) return res.status(422).json({ success: false, error });
+
+        return res.json({ success: true, list });
+      })
+    .catch(err => {
+      res.status(500).json({ success: false, error: err });
+    });
+}
+
 exports.listByUser = async (req, res) => {
   const username = req.params.user;
   const author = await User.findOne({ username });

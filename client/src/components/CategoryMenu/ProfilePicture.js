@@ -8,12 +8,13 @@ const DP = styled.img`
     max-height: 45px;
     max-width: 45px;
     border: 1.5px solid #ddd;
+    margin-right: 8px;
 
     ${transition('transform')};
 `
 
 const Picture = (props) => (
-    <DP src={process.env.PUBLIC_URL + '/images/default_dp.jpg'} />
+    <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}`} />
 )
 
 export default Picture;

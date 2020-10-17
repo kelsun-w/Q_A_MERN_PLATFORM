@@ -7,17 +7,17 @@ export const font = css`
 
 export const smallFont = css`
   ${font};
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 export const normalFont = css`
   ${font};
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 export const bigFont = css`
   ${font};
-  font-size: 22px;
+  font-size: 24px;
 `;
 
 export const wideFont = css`
@@ -38,7 +38,7 @@ export const transition = (...props) => {
   let str = 'transition: ';
   props.forEach((item, index) => {
     str = str.concat(
-      `${item} 0.1s ease${index === props.length - 1 ? ';' : ', '}`
+      `${item} 0.2s ease${index === props.length - 1 ? ';' : ', '}`
     );
   });
   return str;
@@ -71,5 +71,5 @@ export const link = props => css`
 export const overflow = css`
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-word;
 `;

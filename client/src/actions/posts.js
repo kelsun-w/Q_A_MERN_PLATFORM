@@ -2,12 +2,17 @@ import {
   getPosts,
   getProfile,
   getPost,
+  searchPosts,
   createPost,
   deletePost,
   createComment,
   deleteComment,
   castVote
 } from '../util/api';
+
+import {
+  getNewToken
+} from './auth';
 
 export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
@@ -52,6 +57,24 @@ export const fetchPost = id => async dispatch => {
     dispatch(fetchPostSuccess(post));
   } catch (error) {
     dispatch(fetchPostError(error));
+  }
+};
+
+export const SEARCH_POSTS_REQUEST = 'SEARCH_POSTS_REQUEST';
+export const SEARCH_POSTS_SUCCESS = 'SEARCH_POSTS_SUCCESS';
+export const SEARCH_POSTS_ERROR = 'SEARCH_POSTS_ERROR';
+
+const searchPostsRequest = { type: SEARCH_POSTS_REQUEST };
+const searchPostsSuccess = posts => ({ type: SEARCH_POSTS_SUCCESS, posts });
+const searchPostsError = error => ({ type: SEARCH_POSTS_ERROR, error });
+
+export const attemptSearchPosts = (query = '') => async dispatch => {
+  dispatch(searchPostsRequest);
+  try {
+    const result = await searchPosts(query);
+    dispatch(searchPostsSuccess(result.list));
+  } catch (error) {
+    dispatch(searchPostsError(error));
   }
 };
 
@@ -149,6 +172,7 @@ export const attemptVote = (id, vote) => async (dispatch, getState) => {
     const { token } = getState().auth;
     const post = await castVote(id, vote, token);
     dispatch(voteSuccess(post));
+    dispatch(getNewToken());
   } catch (error) {
     dispatch(voteError(error));
   }

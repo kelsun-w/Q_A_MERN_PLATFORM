@@ -20,7 +20,6 @@ const Wrapper = styled(Link)`
 
   span {
     color: ${props => props.theme.mutedText};
-    font-weight: 500;
   }
   
   :hover, :focus{

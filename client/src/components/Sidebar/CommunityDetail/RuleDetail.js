@@ -32,7 +32,7 @@ const Header = styled.div`
 
 class RuleDetail extends React.Component {
     mapItems = (list) => (
-        list.map((item, index) => <Collapsible key={index} title={item.title} content={item.description} />)
+        list.map((item, index) => <Collapsible key={index} index={index} title={item.title} content={item.description} />)
     );
 
     render() {
@@ -41,7 +41,7 @@ class RuleDetail extends React.Component {
             <Wrapper>
                 <Header>Community Rules</Header>
                 <Contents>
-                    {(!rules || rules.length === 0) ? <Empty message="Welcome to the wild west of the internetz. There are no rules here."/> : this.mapItems(this.props.rules)}
+                    {(!rules || rules.length === 0) ? <Empty message="Welcome to the wild west of the internetz. There are no rules here." /> : this.mapItems(this.props.rules)}
                 </Contents>
             </Wrapper>
         )

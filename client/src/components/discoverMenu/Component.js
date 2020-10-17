@@ -86,16 +86,26 @@ class DiscoverMenu extends React.Component {
         fetchCommunities('');
     };
 
+    join = (community, userid) => {
+        const { joinCommunity } = this.props;
+        joinCommunity(community, userid);
+    }
+
     mapItems = (list) => (
-        list.map(item =>
-            <Item>
-                <BGCover />
-                <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${item.name}`} />
-                <Title href={'/c/' + item.name}>{item.name}</Title>
-                <Description>{item.description}</Description>
-                <JoinButton onClick={null} joined={false} />
-            </Item>
-        )
+        list.map(item => {
+            const alreadyJoined = this.props.user.communities
+                && (this.props.user.communities.find(c => c.name === item.name) != null);
+
+            return (
+                <Item>
+                    <BGCover />
+                    <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${item.name}`} />
+                    <Title href={'/c/' + item.name}>{item.name}</Title>
+                    <Description>{item.description}</Description>
+                    <JoinButton onClick={(e) => this.join(item.name, this.props.user.id)} joined={alreadyJoined} />
+                </Item>
+            )
+        })
     );
 
     render() {

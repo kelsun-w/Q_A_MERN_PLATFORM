@@ -33,7 +33,8 @@ const NavItem = styled(NavLink).attrs({ light: true })`
   }
 
   &.active {
-    background-color: ${props => props.theme.border};
+    background-color: ${props => props.theme.hover};
+    color: ${props => props.theme.accent};
     ::after {
       opacity: 1;
     }

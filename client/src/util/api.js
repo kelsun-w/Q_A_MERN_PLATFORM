@@ -136,6 +136,30 @@ export async function user_UploadImage(image, token) {
   return await methods.post('img/ua', image, token, true);
 }
 
+export async function user_SavePost(postId, token) {
+  return await methods.get(`save/${postId}`, token);
+}
+
+export async function user_GetSavedPosts(userid, token) {
+  return await methods.get(`getsave/${userid}`, token);
+}
+
+export async function fetchUser(userid, token) {
+  return await methods.get(`getuser/${userid}`, token);
+}
+
+export async function community_UploadImage(id, image, token) {
+  return await methods.post(`img/ca/${id}`, image, token, true);
+}
+
+export async function searchUsers(query) {
+  return await methods.get(`search/user/query=${query}`);
+}
+
+export async function searchPosts(query) {
+  return await methods.get(`search/post/query=${query}`);
+}
+
 export async function getPosts(category) {
   return await methods.get(`posts/${category}`);
 }
@@ -184,6 +208,46 @@ export async function getCommunity(name) {
   return await methods.get(`community/${name}`);
 }
 
+export async function sendCommunityUpdateRequest(name, body, token) {
+  return await methods.put(`community/${name}`, body, token);
+}
+
 export async function sendJoinRequest(name, userid, token) {
   return await methods.get(`community/${name}/member/${userid}`, token);
+}
+
+export async function sendModRequest(name, userid, token) {
+  return await methods.get(`community/${name}/mod/${userid}`, token);
+}
+
+export async function sendRuleAddRequest(name, body, token) {
+  return await methods.post(`community/${name}/rule`, body, token);
+}
+
+export async function sendRuleRemoveRequest(name, ruleid, token) {
+  return await methods.get(`community/${name}/rule/${ruleid}`, token);
+}
+
+export async function sendAddBanRequest(name, body, token) {
+  return await methods.post(`community/${name}/ban`, body, token)
+}
+
+export async function sendRemoveBanRequest(name, userid, token) {
+  return await methods.get(`community/${name}/ban/${userid}`, token)
+}
+
+export async function reportsFetchRequest(name, token) {
+  return await methods.get(`reports/${name}`, token);
+}
+
+export async function reportCreateRequest(body, token) {
+  return await methods.post(`report`, body, token);
+}
+
+export async function reportUpdateRequest(reportID, update, token) {
+  return await methods.put(`report/${reportID}`, update, token);
+}
+
+export async function reportDeleteRequest(reportID, token) {
+  return await methods.delete(`report/${reportID}`, token);
 }

@@ -53,23 +53,15 @@ const OptionGroup = styled.div`
   align-items: stretch;
 `;
 
-const Header = ({ user, logout }) => (
+const Header = ({ user, logout, history }) => (
   <Wrapper>
     <MainGroup>
       <HeaderLogo />
-      <SearchBar placeholder='🔎 Search something' />
+      <SearchBar history={history} />
     </MainGroup>
     <OptionGroup>
-      {user ? (
-        <>
-          <OverflowMenu />
-          <Dropdown user={user} />
-        </>
-      ) : (
-          <>
-            <HeaderNavLink to='/login'>Join Us</HeaderNavLink>
-          </>
-        )}
+      {user && <OverflowMenu />}
+      <Dropdown user={user} />
     </OptionGroup>
   </Wrapper>
 );

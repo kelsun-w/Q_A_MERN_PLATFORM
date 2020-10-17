@@ -32,7 +32,6 @@ const mapStateToProps = state => ({
   isFetching: state.posts.isFetching,
   post: state.posts.newPost,
   form: state.form.createPost,
-  communities: state.community.items
 });
 
 const mapDispatchToProps = { attemptCreatePost };
@@ -40,7 +39,7 @@ const mapDispatchToProps = { attemptCreatePost };
 const enhance = compose(
   reduxForm({
     form: 'createPost',
-    initialValues: { category: null, type: 'link' },
+    initialValues: { category: null },
     validate
   }),
   withAuth,
