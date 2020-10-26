@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { smallFont } from './helpers';
+import { normalFont } from './helpers';
 
 const Wrapper = styled.div`
-  ${smallFont};
+  ${normalFont};
 
   position: relative;
   display: flex;
@@ -23,6 +23,9 @@ const Wrapper = styled.div`
   & > :first-child {
     margin-bottom: 20px;
     font-size: 80px;
+    max-width: 200px;
+    max-height:200px;
+    object-fit: cover;
   };
 
   @media (max-width: 768px) {
