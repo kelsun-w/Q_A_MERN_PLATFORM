@@ -60,9 +60,10 @@ const MainDetail = (props) => {
     const alreadyJoined = props.communities
         && (props.communities.find(c => c.name === props.name)) != null;
 
-    const isMod = props.mods
-        && props.user
-        && (props.mods.find(item => item.id === props.user.id) != null);
+    const isMod = props.user && props.user.admin ||
+        (props.mods
+            && props.user
+            && (props.mods.find(item => item.id === props.user.id) != null));
 
     const IMG_URL = props.hasPicture ? `${process.env.REACT_APP_IMG_URL_CA}/${props.name}` : `${process.env.PUBLIC_URL}/images/communityprofile.png`;
 

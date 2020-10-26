@@ -34,13 +34,10 @@ class Moderation extends React.Component {
         if (!this.props.token || !this.props.community) return null;
         const { community: { name, banned, mods, rules, picture, description }, user, path, reports } = this.props;
 
-        var isMod = false;
-        for (var i = 0; i < mods.length; i++) {
-            if (mods[i].id === user.id) {
-                isMod = true;
-                break;
-            }
-        }
+        const isMod = user && user.admin ||
+            (mods
+                && user
+                && (mods.find(item => item.id === user.id) != null));
 
         if (!isMod)
             return (
