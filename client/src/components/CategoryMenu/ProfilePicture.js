@@ -13,8 +13,10 @@ const DP = styled.img`
     ${transition('transform')};
 `
 
-const Picture = (props) => (
-    <DP src={`${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}`} />
-)
+const Picture = ({ user }) => {
+    const IMG_URL = user && user.picture ? `${process.env.REACT_APP_IMG_URL_UA}/${user.id}` : `${process.env.PUBLIC_URL}/images/userprofile.png`;
+
+    return <DP src={IMG_URL} />
+};
 
 export default Picture;

@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 `
 
 const BGCover = styled.div`
-    background-color: royalblue;
+    background-color: ${props => props.theme.primary};
     padding: 32px 0;
     border-radius: 18px 18px 0 0;
     width: 100%;

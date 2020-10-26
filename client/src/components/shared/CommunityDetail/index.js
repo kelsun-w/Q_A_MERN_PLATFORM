@@ -64,11 +64,13 @@ const MainDetail = (props) => {
         && props.user
         && (props.mods.find(item => item.id === props.user.id) != null);
 
+    const IMG_URL = props.hasPicture ? `${process.env.REACT_APP_IMG_URL_CA}/${props.name}` : `${process.env.PUBLIC_URL}/images/communityprofile.png`;
+
     return (
         <Wrapper>
             <Title>
                 <HeaderLink to={`/c/${props.name}`}>
-                    <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${props.name}`} />
+                    <Logo src={IMG_URL} />
                     <span>{props.name}</span>
                 </HeaderLink>
                 {isMod && <ModLink to={`/mod/${props.name}/about`}><FontAwesomeIcon icon='shield-alt' /></ModLink>}

@@ -49,7 +49,7 @@ const Item = styled.div`
 `
 
 const BGCover = styled.div`
-    background-color: royalblue;
+    background-color: ${props => props.theme.primary};
     padding: 18px 0;
     border-radius: 18px 18px 0 0;
     width: 100%;
@@ -96,10 +96,12 @@ class DiscoverMenu extends React.Component {
             const alreadyJoined = this.props.user.communities
                 && (this.props.user.communities.find(c => c.name === item.name) != null);
 
+            const IMG_URL = item && item.picture ? `${process.env.REACT_APP_IMG_URL_CA}/${item.name}` : `${process.env.PUBLIC_URL}/images/communityprofile.png`;
+
             return (
                 <Item>
                     <BGCover />
-                    <Logo src={`${process.env.REACT_APP_IMG_URL_CA}/${item.name}`} />
+                    <Logo src={IMG_URL} />
                     <Title href={'/c/' + item.name}>{item.name}</Title>
                     <Description>{item.description}</Description>
                     <JoinButton onClick={(e) => this.join(item.name, this.props.user.id)} joined={alreadyJoined} />

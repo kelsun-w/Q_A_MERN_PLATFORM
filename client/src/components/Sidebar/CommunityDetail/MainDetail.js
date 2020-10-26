@@ -13,6 +13,7 @@ class MainDetail extends React.Component {
         if (!community) return null;
         return (
             <CommunityDetail
+                hasPicture={community.picture}
                 name={community.name}
                 description={community.description}
                 created={community.created}

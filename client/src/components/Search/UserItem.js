@@ -40,17 +40,23 @@ const DisplayImage = styled.img`
     border: 1.5px solid #ccc;
 `;
 
-const UserItem = (props) => (
-    <Wrapper to={`/u/${props.user.username}`}>
-        <DisplayImage
-            src={`${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}`}
-            alt='profile image'
-        />
-        <div>
-            <DisplayName>{props.user.username}</DisplayName>
-            <DisplayScore>{`${props.user.score} kudos`}</DisplayScore>
-        </div>
-    </Wrapper>
-);
+const UserItem = (props) => {
+    const IMG_URL = props.hasPicture ?
+        `${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}` :
+        `${process.env.PUBLIC_URL}/images/userprofile.png`;
+
+    return (
+        <Wrapper to={`/u/${props.user.username}`}>
+            <DisplayImage
+                src={IMG_URL}
+                alt='profile image'
+            />
+            <div>
+                <DisplayName>{props.user.username}</DisplayName>
+                <DisplayScore>{`${props.user.score} kudos`}</DisplayScore>
+            </div>
+        </Wrapper>
+    );
+};
 
 export default UserItem;

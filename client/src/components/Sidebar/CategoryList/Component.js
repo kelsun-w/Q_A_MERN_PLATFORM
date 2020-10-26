@@ -27,9 +27,10 @@ class SidebarCategoryList extends React.Component {
   };
 
   mapCategories = categories =>
-    categories.map((category, index) => (
-      <SidebarCategoryListItem key={index} category={category.name} logo={`${process.env.REACT_APP_IMG_URL_CA}/${category.name}`} />
-    ));
+    categories.map((category, index) => {
+      const IMG_URL = category && category.picture ? `${process.env.REACT_APP_IMG_URL_CA}/${category.name}` : `${process.env.PUBLIC_URL}/images/communityprofile.png`;
+      return <SidebarCategoryListItem key={index} category={category.name} logo={IMG_URL} />
+    });
 
   render() {
     if (!this.props.communities)
