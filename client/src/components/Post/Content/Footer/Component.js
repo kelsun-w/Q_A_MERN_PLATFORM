@@ -83,10 +83,10 @@ class PostContentDetail extends React.Component {
           <span>{commentCount}</span>
           <span>comment{commentCount !== 1 ? 's' : null}</span>
         </FooterButton>
-        <FooterButton className="share" to='#' >
+        {/* <FooterButton className="share" to='#' >
           <FontAwesomeIcon icon='share' />
           <span>Share</span>
-        </FooterButton>
+        </FooterButton> */}
         {user &&
           <>
             <FooterButton to='#' activated={saved}>
