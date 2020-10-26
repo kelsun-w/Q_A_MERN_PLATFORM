@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Collapsible from '../../shared/Collapsible';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { wideFont } from '../../shared/helpers';
 import Empty from '../../shared/Empty';
 
@@ -41,7 +42,9 @@ class RuleDetail extends React.Component {
             <Wrapper>
                 <Header>Community Rules</Header>
                 <Contents>
-                    {(!rules || rules.length === 0) ? <Empty message="Welcome to the wild west of the internetz. There are no rules here." /> : this.mapItems(this.props.rules)}
+                    {(!rules || rules.length === 0) ?
+                        <Empty message="...No rules" />
+                        : this.mapItems(this.props.rules)}
                 </Contents>
             </Wrapper>
         )

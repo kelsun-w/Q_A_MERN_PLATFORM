@@ -6,7 +6,7 @@ const ErrorNotificationMessage = styled.div`
 
   position: relative;
   display: inline-block;
-  padding: 12px 32px;
+  padding: 18px 40px;
   background-color: #ffffff;
   color: ${props => props.theme.error};
   border-radius: 2px;
