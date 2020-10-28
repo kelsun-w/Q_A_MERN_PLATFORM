@@ -24,6 +24,6 @@ module.exports = {
     callbackURL: '/auth/google/callback'
   },
   corsOptions : {
-    origin: 'http://localhost:3000'
+    origin: '*'
   }
 };

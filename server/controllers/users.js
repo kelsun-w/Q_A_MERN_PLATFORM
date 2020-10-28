@@ -3,7 +3,6 @@ const { body, validationResult } = require('express-validator/check');
 const { login, createAuthToken } = require('../auth');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const Post = require('../models/post');
 const config = require('../config');
 
 exports.getToken = async (req, res, next) => {
@@ -14,7 +13,8 @@ exports.getToken = async (req, res, next) => {
 };
 
 exports.updateUser = async (req, res, next) => {
-  let user = await User.findById(req.user.id);
+  let id = (req.user && req.user.id) || req.params.id;
+  let user = await User.findById(id);
 
   let list = Object.entries(req.body);
   let update = {};
@@ -272,4 +272,14 @@ exports.validate = method => {
   return errors;
 };
 
+exports.getAll = async (req, res, next) => {
+  const users = await User.find().sort('username');
+  res.json({ data: users });
+};
 
+exports.getById = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) res.status(404).json({ message: 'User not found' });
+
+  res.json({ data: user });
+};

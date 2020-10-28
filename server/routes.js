@@ -8,12 +8,14 @@ const router = require('express').Router();
 const passport = require('passport');
 const config = require('./config');
 const { handleUpload } = require('./controllers/file');
+const Community = require('./models/community');
 
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
 
 router.post('/login', users.validate(), users.login);
 router.post('/register', users.validate('register'), users.register);
+
 
 router.get('/getToken', jwtAuth, users.getToken);
 router.put('/user', jwtAuth, users.updateUser);
@@ -69,6 +71,24 @@ router.get('/img/ua/:user', users.getAvatar);
 router.post('/img/ca/:community', jwtAuth, handleUpload('c_avatar'), communities.addAvatar);
 router.get('/img/ca/:community', communities.getAvatar);
 // -----
+
+//Admin api --------------------------------------------------------------
+router.get('/admin/users', users.getAll);
+router.get('/admin/users/:id', users.getById);
+router.post('/admin/users', users.validate('register'), users.register);
+router.put('/admin/users/:id', users.updateUser);
+router.delete('/admin/users/:user', users.deleteUser);
+
+router.get('/admin/posts', posts.getAll);
+router.get('/admin/posts/:post', posts.getById);
+router.delete('/admin/posts/:post', posts.destroy);
+
+router.get('/admin/communities', communities.getAllById);
+router.get('/admin/communities/:id', communities.getById);
+router.post('/admin/communities', communities.createByAdmin);
+router.put('/admin/communities/:id', communities.updateById);
+router.delete('/admin/communities/:id', communities.deleteById);
+// -----------------------------------------------------------------------
 
 module.exports = app => {
   app.use('/api', router);

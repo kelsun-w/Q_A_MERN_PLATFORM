@@ -158,3 +158,13 @@ exports.destroy = async (req, res) => {
   await req.post.remove();
   res.json({ message: 'success' });
 };
+
+exports.getAll = async (req, res, next) => {
+  const posts = await Post.find().sort('-score');
+  res.json({ data: posts });
+};
+
+/** @description Get a post by it's ID field. Difference between getById() and show() is show() increments view of post by 1 each time it's called.*/
+exports.getById = async (req, res, next) => {
+  res.json({ data: req.post });
+};

@@ -41,7 +41,7 @@ const DisplayImage = styled.img`
 `;
 
 const UserItem = (props) => {
-    const IMG_URL = props.hasPicture ?
+    const IMG_URL = props.user && props.user.picture ?
         `${process.env.REACT_APP_IMG_URL_UA}/${props.user.id}` :
         `${process.env.PUBLIC_URL}/images/userprofile.png`;
 

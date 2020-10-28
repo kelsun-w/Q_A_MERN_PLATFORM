@@ -96,6 +96,23 @@ exports.create = async (req, res, next) => {
     }
 };
 
+exports.createByAdmin = async (req, res, next) => {
+    try {
+        const { username, name, description } = req.body;
+        const creator = await User.findOne({ username });
+        if (!creator) return res.status(404).json({ message: 'No such user found' })
+
+        const community = await Community.create({
+            creator: creator.id,
+            name,
+            description
+        });
+        res.json({ data: community });
+    } catch (err) {
+        next(err);
+    }
+};
+
 exports.addRule = async (req, res, next) => {
     try {
         const { title, description } = req.body;
@@ -188,5 +205,53 @@ exports.getAvatar = (req, res, next) => {
 
 exports.destroy = async (req, res) => {
     await req.community.remove();
+    res.json({ message: 'success' });
+};
+
+exports.getAllById = async (req, res, next) => {
+    const list = await Community.find().sort('-name');
+    res.json({ data: list });
+};
+
+exports.getById = async (req, res, next) => {
+    const result = await Community.findById(req.params.id);
+    if (!result) return res.status(404).json({ message: 'No such community found' });
+    result
+        .populate('creator', 'username picture email')
+        .populate('mods', 'username picture email')
+        .populate('banned.user', 'username picture email')
+        .execPopulate()
+        .then((doc) => {
+            res.json({ data: doc });
+        });
+};
+
+exports.updateById = async (req, res, next) => {
+    const community = await Community.findById(req.params.id);
+    if (!community) return res.status(404).json({ message: 'No such community found' });
+
+    let update = {};
+    Object
+        .entries(req.body)
+        .forEach(([key, value]) => update = {
+            ...update,
+            [key]: value
+        });
+
+    community.set(update);
+    community
+        .save()
+        .then((doc) => res.json({ data: doc }))
+        .catch(err => {
+            console.log(err.message);
+            return res.status(500).json({ message: 'Something went wrong while updating' })
+        });
+};
+
+exports.deleteById = async (req, res) => {
+    const community = await Community.findById(req.params.id);
+    if (!community) return res.status(404).json({ message: 'No such community found' });
+
+    await community.remove();
     res.json({ message: 'success' });
 };
