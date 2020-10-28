@@ -91,6 +91,9 @@ class Profile extends React.Component {
     };
 
     render() {
+        if (this.props.isFetching)
+            return null
+
         if (!this.props.fetchedUser)
             return <FullPageMessage>
                 <FontAwesomeIcon icon='exclamation-triangle' />
