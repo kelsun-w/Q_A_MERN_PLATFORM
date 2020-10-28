@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import {
     ModToolHead,
     ModToolHeadItem,
@@ -9,7 +10,8 @@ import {
 } from '../ModToolsUtil';
 import {
     PanelWrapper,
-    FlexCommand
+    FlexCommand,
+    FlexDate
 } from './util';
 import Header from '../../shared/Header';
 import Empty from '../../shared/FullPageMessage';
@@ -37,6 +39,14 @@ const ReportTitle = styled.span`
 
 const ReportCommandWrapper = styled.span`
     margin-left: auto;
+`;
+
+const StyledRow = styled.div`
+    display: flex;
+    align-items: center;
+    & > * {
+        margin-right: 4px;
+    }
 `;
 
 const EMPTY_MSG = "No reports here!";
@@ -104,11 +114,13 @@ class ReportsPanel extends React.Component {
     mapList = list => (
         list.map((item, index) => (
             <ModToolBodyItem>
-                <ReportIndex light>{++index}.</ReportIndex>
-                <ReportTitle light>Post ID #{item.post.postid}</ReportTitle>
-                {/* <FlexDate>
-                    3 days ago
-                </FlexDate> */}
+                <StyledRow>
+                    <ReportIndex light>{++index}.</ReportIndex>
+                    <ReportTitle light>Post ID #{item.post.postid}</ReportTitle>
+                    <FlexDate>
+                        Submitted {moment(item.created).fromNow()}
+                    </FlexDate>
+                </StyledRow>
                 <ReportCommandWrapper>
                     <FlexCommand onClick={(e) => this.toggleMenu({ ...item })} >
                         <FontAwesomeIcon icon='eye' />

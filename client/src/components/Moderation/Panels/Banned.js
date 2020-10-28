@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import {
     ModToolHead,
     ModToolHeadItem,
@@ -11,6 +12,7 @@ import {
     PanelWrapper,
     FlexProfile,
     FlexCommand,
+    FlexDate,
     StyledAnchor,
     StyledImage
 } from './util';
@@ -19,6 +21,14 @@ import Header from '../../shared/Header';
 import BanForm from './Forms/Banned/Container';
 import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
+
+const StyledRow = styled.div`
+    display: flex;
+    align-items: center;
+    & > * {
+        margin-right: 4px;
+    }
+`;
 
 const BanCommandWrapper = styled.span`
     margin-left: auto;
@@ -69,15 +79,17 @@ class BannedPanel extends React.Component {
     mapList = list => (
         list.map(item => (
             <ModToolBodyItem>
-                <FlexProfile>
-                    <StyledAnchor href={`/u/${item.user.username}`}>
-                        <StyledImage src={`${process.env.REACT_APP_IMG_URL_UA}/${item.user.id}`} />
-                        {item.user.username}
-                    </StyledAnchor>
-                </FlexProfile>
-                {/* <FlexDate>
-                    3 days ago
-                </FlexDate> */}
+                <StyledRow>
+                    <FlexProfile>
+                        <StyledAnchor href={`/u/${item.user.username}`}>
+                            <StyledImage src={`${process.env.REACT_APP_IMG_URL_UA}/${item.user.id}`} />
+                            {item.user.username}
+                        </StyledAnchor>
+                    </FlexProfile>
+                    <FlexDate>
+                    <span>...Added {moment(item.created).fromNow()}</span>
+                    </FlexDate>
+                </StyledRow>
                 <BanCommandWrapper>
                     <FlexCommand onClick={(e) => this.toggleMenu(true, { ...item, user: item.user.username })} > {/*changing to username for form*/}
                         <FontAwesomeIcon icon='pen' />

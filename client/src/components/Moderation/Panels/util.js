@@ -25,8 +25,11 @@ export const FlexProfile = styled.div`
     min-width: 220px;
 `;
 
-// const FlexDate = styled.div`
-// `;
+export const FlexDate = styled.div`
+    ${smallFont};
+    font-weight: lighter;
+    color: #ccc;
+`;
 
 export const FlexCommand = styled.button`
     ${link};

@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     ModToolHead,
@@ -10,6 +11,7 @@ import {
     PanelWrapper,
     FlexProfile,
     FlexCommand,
+    FlexDate,
     StyledAnchor,
     StyledImage
 } from './util';
@@ -18,6 +20,14 @@ import Button from '../../shared/Button';
 import Header from '../../shared/Header';
 import Empty from '../../shared/FullPageMessage';
 import { Modal } from '../../shared/Modal';
+
+const StyledRow = styled.div`
+    display: flex;
+    align-items: center;
+    & > * {
+        margin-right: 4px;
+    }
+`;
 
 const EMPTY_MSG = "No moderators. Oh dear!";
 
@@ -62,15 +72,17 @@ class ModeratorsPanel extends React.Component {
     mapList = list => (
         list.map(item => (
             <ModToolBodyItem>
-                <FlexProfile>
-                    <StyledAnchor href={`/u/${item.username}`}>
-                        <StyledImage src={`${process.env.REACT_APP_IMG_URL_UA}/${item.id}`} />
-                        {item.username}
-                    </StyledAnchor>
-                </FlexProfile>
-                {/* <FlexDate>
-                    3 days ago
-                </FlexDate> */}
+                <StyledRow>
+                    <FlexProfile>
+                        <StyledAnchor href={`/u/${item.username}`}>
+                            <StyledImage src={`${process.env.REACT_APP_IMG_URL_UA}/${item.id}`} />
+                            {item.username}
+                        </StyledAnchor>
+                    </FlexProfile>
+                    {/* <FlexDate>
+                        added3 days ago
+                    </FlexDate> */}
+                </StyledRow>
                 <FlexCommand onClick={(e) => this.props.handleSubmit(this.props.id, item.username)}>
                     <FontAwesomeIcon icon='trash' />
                 </FlexCommand>
