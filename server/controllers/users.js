@@ -75,6 +75,16 @@ exports.passwordCheck = async (req, res, next) => {
   next()
 };
 
+exports.passwordCheckDelete = async (req, res, next) => {
+  const doer = await User.findById(req.body.id);
+  if (!doer) return res.status(404).json({ message: 'Doer No user found' });
+
+  const check = await bcrypt.compare(req.body.password, doer.password);
+  if (!check) return res.status(401).json({ message: 'Incorrect password. Try again' })
+  
+  next()
+};
+
 exports.savePost = async (req, res, next) => {
   try {
     let user = await User.findOne({ _id: req.user.id });

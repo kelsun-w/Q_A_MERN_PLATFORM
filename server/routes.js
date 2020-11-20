@@ -21,7 +21,7 @@ router.get('/getToken', jwtAuth, users.getToken);
 router.put('/user', jwtAuth, users.updateUser);
 router.get('/getuser/:user', users.getUser);
 router.get('/getsave/:user', jwtAuth, users.getSavedList);
-router.post('/user/delete/:user', [jwtAuth, users.passwordCheck], users.deleteUser);
+router.post('/user/delete/:user', [jwtAuth, users.passwordCheckDelete], users.deleteUser);
 router.get('/search/user/query=:query', users.searchUsers);
 
 router.param('post', posts.load);

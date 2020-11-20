@@ -33,13 +33,13 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre(/^find/, function () {
-  this.populate('communities', 'name');
+  this.populate('communities', 'name picture');
   this.populate('saved', '-comments');
 });
 
 userSchema.post('save', function (doc, next) {
   doc
-    .populate('communities', 'name')
+    .populate('communities', 'name picture')
     .populate('saved', '-comments')
     .execPopulate()
     .then(() => next());
