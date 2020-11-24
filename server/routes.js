@@ -8,14 +8,12 @@ const router = require('express').Router();
 const passport = require('passport');
 const config = require('./config');
 const { handleUpload } = require('./controllers/file');
-const Community = require('./models/community');
 
 router.get('/auth/google', googleAuth);
 router.get(config.google.callbackURL, passport.authenticate('google', { session: false }), users.restrictEmail);
 
 router.post('/login', users.validate(), users.login);
 router.post('/register', users.validate('register'), users.register);
-
 
 router.get('/getToken', jwtAuth, users.getToken);
 router.put('/user', jwtAuth, users.updateUser);
@@ -39,7 +37,12 @@ router.get('/save/:post', jwtAuth, users.savePost);
 
 router.param('comment', comments.load);
 router.post('/post/:post', [jwtAuth, comments.validate], comments.create);
+router.get('/post/:post/:comment/upvote', jwtAuth, comments.upvote);
+router.get('/post/:post/:comment/downvote', jwtAuth, comments.downvote);
+router.get('/post/:post/:comment/unvote', jwtAuth, comments.unvote);
 router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
+router.post('/post/:post/:commentid', [jwtAuth, comments.validate], comments.addChild);
+router.delete('/post/:post/:parentid/:comment', [jwtAuth, commentAuth], comments.removeChild);
 
 router.param('community', communities.load);
 router.post('/community', jwtAuth, communities.create);

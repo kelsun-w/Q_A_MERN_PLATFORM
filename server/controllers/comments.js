@@ -1,8 +1,9 @@
 const { body, validationResult } = require('express-validator/check');
+const Comment = require('../models/comment');
 
 exports.load = async (req, res, next, id) => {
   try {
-    req.comment = await req.post.comments.id(id);
+    req.comment = await Comment.findById(id);
     if (!req.comment) return next(new Error('comment not found'));
   } catch (err) {
     return next(err);
@@ -25,6 +26,56 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.destroy = async (req, res, next) => {
+  try {
+    const post = await req.post.removeComment(req.params.comment);
+    res.json(post);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.upvote = async (req, res) => {
+  const comment = await req.comment.vote(req.user.id, 1);
+  res.json(comment);
+};
+
+exports.downvote = async (req, res) => {
+  const comment = await req.comment.vote(req.user.id, -1);
+  res.json(comment);
+};
+
+exports.unvote = async (req, res) => {
+  const comment = await req.comment.vote(req.user.id, 0);
+  res.json(comment);
+};
+
+exports.addChild = async (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    const errors = result.array({ onlyFirstError: true });
+    return res.status(422).json({ errors });
+  }
+
+  try {
+    const result = await req.post.addCommentChild(req.user.id, req.body.comment, req.params.commentid);
+    if (!result.success) return res.status(500).json({ message: 'Something went wrong' });
+
+    res.status(201).json(result.doc);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.removeChild = async (req, res, next) => {
+  try {
+    const post = await req.post.removeCommentChild(req.params.parentid, req.params.comment);
+    res.json(post);
+  } catch (err) {
+    next(err);
+  }
+}
+
 exports.validate = [
   body('comment')
     .exists()
@@ -37,11 +88,3 @@ exports.validate = [
     .withMessage('must be at most 2000 characters long')
 ];
 
-exports.destroy = async (req, res, next) => {
-  try {
-    const post = await req.post.removeComment(req.params.comment);
-    res.json(post);
-  } catch (err) {
-    next(err);
-  }
-};

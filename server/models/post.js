@@ -1,19 +1,8 @@
 const mongoose = require('mongoose');
+const { authorize } = require('passport');
 const Schema = mongoose.Schema;
 const User = require('./user');
-
-const commentSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  body: { type: String, required: true },
-  created: { type: Date, default: Date.now }
-});
-
-commentSchema.set('toJSON', { getters: true });
-//mongoose allows function to transform the returned object.
-commentSchema.options.toJSON.transform = (doc, ret) => {
-  delete ret._id;
-  return ret;
-};
+const Comment = require('./comment');
 
 const postSchema = new Schema({
   title: { type: String, required: true },
@@ -22,7 +11,7 @@ const postSchema = new Schema({
   category: { type: String, required: true },
   score: { type: Number, default: 0 },
   votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false }],
-  comments: [commentSchema],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   created: { type: Date, default: Date.now },
   views: { type: Number, default: 0 },
   type: { type: String, default: 'link', required: true },
@@ -70,23 +59,60 @@ postSchema.methods.vote = async function (user, vote) {
   return this.save();
 };
 
-postSchema.methods.addComment = function (author, body) {
-  this.comments.push({ author, body });
+postSchema.methods.addComment = async function (author, body) {
+  const newComment = await Comment.create({
+    author,
+    body
+  })
+  this.comments.push(newComment._id);
   return this.save();
 };
 
-postSchema.methods.removeComment = function (id) {
-  //For an array document, we can find sub-documents based on _id field with the .id() method
-  const comment = this.comments.id(id);
+postSchema.methods.removeComment = function (commentId) {
+  const comment = this.comments.find(item => item.equals(commentId));
   if (!comment) throw new Error('Comment not found');
-  comment.remove();
+  comment.destroy();
   return this.save();
 };
+
+postSchema.methods.addCommentChild = async function (authorId, body, commentId) {
+  let exists = this.comments.find(item => item.equals(commentId));
+  let comment = await Comment.findById(commentId);
+  if (!exists && !comment) return { success: false };
+  let child = await Comment.create({
+    author: authorId,
+    body
+  });
+  
+  comment.addChild(child._id);
+  return this
+    .save()
+    .then(doc => (
+      {
+        success: true,
+        doc
+      }
+    ));
+};
+
+postSchema.methods.removeCommentChild = function (parentCommentId, childCommentId) {
+  const comment = this.comments.find(item => item.equals(parentCommentId));
+  if (!comment) throw new Error('Comment does not exist');
+
+  comment.removeChild(childCommentId);
+  return this.save();
+}
 
 postSchema.pre(/^find/, function () {
   this
     .populate('author', 'username picture -communities -saved')
-    .populate('comments.author', 'username picture -communities -saved');
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'author',
+        select: 'username picture -communities -saved'
+      }
+    })
 });
 
 postSchema.pre('save', function (next) {
@@ -98,10 +124,16 @@ postSchema.pre('save', function (next) {
 //For example, when creating the document, on success, they'll get a populated object BUT not when they GET.
 postSchema.post('save', function (doc, next) {
   if (this.wasNew) this.vote(this.author._id, 1);
-  
+
   doc
     .populate('author', 'username picture -communities -saved')
-    .populate('comments.author', 'username picture -communities -saved')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'author',
+        select: 'username picture -communities -saved'
+      }
+    })
     .execPopulate()
     .then(() => next());
 });
