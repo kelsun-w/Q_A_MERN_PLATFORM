@@ -7,6 +7,13 @@ const CategoryList = styled.nav`
   flex-direction: column;
 `;
 
+const SidebarHeading = styled.div`
+  color: ${props => props.theme.normalText};
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 0px 4px 8px;
+`;
+
 class SidebarCategoryList extends React.Component {
 
   loadCategories = () => {
@@ -38,6 +45,7 @@ class SidebarCategoryList extends React.Component {
     return (
       <CategoryList>
         <SidebarCategoryListItem category='all' logo='home' />
+        {this.props.user && <SidebarHeading>Community following:</SidebarHeading>}
         {this.mapCategories(this.props.communities)}
         {this.props.user && <SidebarCategoryListItem category='discover more' logo='plus' />}
       </CategoryList>
