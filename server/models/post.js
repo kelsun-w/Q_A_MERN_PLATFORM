@@ -83,7 +83,7 @@ postSchema.methods.addCommentChild = async function (authorId, body, commentId) 
     author: authorId,
     body
   });
-  
+
   comment.addChild(child._id);
   return this
     .save()
@@ -104,6 +104,7 @@ postSchema.methods.removeCommentChild = function (parentCommentId, childCommentI
 }
 
 postSchema.pre(/^find/, function () {
+  console.log('find')
   this
     .populate('author', 'username picture -communities -saved')
     .populate({
@@ -111,6 +112,16 @@ postSchema.pre(/^find/, function () {
       populate: {
         path: 'author',
         select: 'username picture -communities -saved'
+      }
+    })
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'children',
+        populate: {
+          path: 'author',
+          select: 'username picture -communities -saved'
+        }
       }
     })
 });
@@ -124,15 +135,23 @@ postSchema.pre('save', function (next) {
 //For example, when creating the document, on success, they'll get a populated object BUT not when they GET.
 postSchema.post('save', function (doc, next) {
   if (this.wasNew) this.vote(this.author._id, 1);
-
+  console.log('save')
   doc
     .populate('author', 'username picture -communities -saved')
     .populate({
       path: 'comments',
-      populate: {
-        path: 'author',
-        select: 'username picture -communities -saved'
-      }
+      populate: [
+        {
+          path: 'author',
+          select: 'username picture -communities -saved'
+        },
+        {
+          path: 'children',
+          populate: {
+            path: 'author',
+            select: 'username picture -communities -saved'
+          }
+        }]
     })
     .execPopulate()
     .then(() => next());

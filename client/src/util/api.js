@@ -184,8 +184,16 @@ export async function createComment(post, comment, token) {
   return await methods.post(`post/${post}`, comment, token);
 }
 
+export async function createSubComment(postid, parentCommentId, comment, token) {
+  return await methods.post(`post/${postid}/${parentCommentId}`, comment, token);
+}
+
 export async function deleteComment(post, comment, token) {
   return await methods.delete(`post/${post}/${comment}`, token);
+}
+
+export async function deleteSubComment(post, parentId, childId, token) {
+  return await methods.delete(`post/${post}/${parentId}/${childId}`, token);
 }
 
 export async function castVote(id, vote, token) {
@@ -198,6 +206,18 @@ export async function castVote(id, vote, token) {
   const voteType = voteTypes[vote];
 
   return await methods.get(`post/${id}/${voteType}`, token);
+}
+
+export async function castCommentVote(postId, commentId, vote, token) {
+  const voteTypes = {
+    '1': 'upvote',
+    '0': 'unvote',
+    '-1': 'downvote'
+  };
+
+  const voteType = voteTypes[vote];
+
+  return await methods.get(`post/${postId}/${commentId}/${voteType}`, token);
 }
 
 export async function getCommunities(id) {

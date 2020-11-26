@@ -17,18 +17,27 @@ import {
   CREATE_COMMENT_REQUEST,
   CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_ERROR,
+  CREATE_SUBCOMMENT_REQUEST,
+  CREATE_SUBCOMMENT_SUCCESS,
+  CREATE_SUBCOMMENT_ERROR,
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_ERROR,
+  DELETE_SUBCOMMENT_REQUEST,
+  DELETE_SUBCOMMENT_SUCCESS,
+  DELETE_SUBCOMMENT_ERROR,
   VOTE_REQUEST,
   VOTE_SUCCESS,
-  VOTE_ERROR
+  VOTE_ERROR,
+  VOTE_COMMENT_REQUEST,
+  VOTE_COMMENT_SUCCESS,
+  VOTE_COMMENT_ERROR
 } from '../actions/posts';
 
 const initialState = { isFetching: false, items: [] };
 
-const updateItems = (post, items) =>
-  items.map(i => (i.id === post.id ? post : i));
+const updateItems = (updatedItem, items) =>
+  items.map(i => (i.id === updatedItem.id ? updatedItem : i));
 
 let items;
 export default (state = initialState, action) => {
@@ -76,11 +85,26 @@ export default (state = initialState, action) => {
     case CREATE_COMMENT_ERROR:
       return { ...state, isCommenting: false };
 
+    case CREATE_SUBCOMMENT_REQUEST:
+      return { ...state, isCommenting: true };
+    case CREATE_SUBCOMMENT_SUCCESS:
+      return { ...state, isCommenting: false, post: action.post };
+    case CREATE_SUBCOMMENT_ERROR:
+      return { ...state, isCommenting: false };
+
     case DELETE_COMMENT_REQUEST:
       return { ...state, isDeleting: true };
     case DELETE_COMMENT_SUCCESS:
       return { ...state, isDeleting: false, post: action.post };
     case DELETE_COMMENT_ERROR:
+      return { ...state, isDeleting: false };
+
+
+    case DELETE_SUBCOMMENT_REQUEST:
+      return { ...state, isDeleting: true };
+    case DELETE_SUBCOMMENT_SUCCESS:
+      return { ...state, isDeleting: false, post: action.post };
+    case DELETE_SUBCOMMENT_ERROR:
       return { ...state, isDeleting: false };
 
     case VOTE_REQUEST:
@@ -94,6 +118,19 @@ export default (state = initialState, action) => {
         post: action.post
       };
     case VOTE_ERROR:
+      return { ...state, isVoting: false };
+
+    case VOTE_COMMENT_REQUEST:
+      return { ...state, isVoting: true };
+    case VOTE_COMMENT_SUCCESS:
+      items = updateItems(action.post, state.items);
+      return {
+        ...state,
+        isVoting: false,
+        items,
+        post: action.post
+      };
+    case VOTE_COMMENT_ERROR:
       return { ...state, isVoting: false };
 
     default:

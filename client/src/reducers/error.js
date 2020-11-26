@@ -15,8 +15,11 @@ import {
   FETCH_POST_ERROR,
   CREATE_POST_ERROR,
   DELETE_POST_ERROR,
+  DELETE_SUBCOMMENT_ERROR,
   CREATE_COMMENT_ERROR,
+  CREATE_SUBCOMMENT_ERROR,
   VOTE_ERROR,
+  VOTE_COMMENT_ERROR,
   SEARCH_POSTS_ERROR
 } from '../actions/posts';
 
@@ -61,7 +64,9 @@ export default (state = initialState, action) => {
     case CREATE_POST_ERROR:
     case DELETE_POST_ERROR:
     case CREATE_COMMENT_ERROR:
+    case CREATE_SUBCOMMENT_ERROR:
     case VOTE_ERROR:
+    case VOTE_COMMENT_ERROR:
     case LOGIN_ERROR:
     case SIGNUP_ERROR:
     case TOKENUPDATE_ERROR:
@@ -79,6 +84,7 @@ export default (state = initialState, action) => {
     case USER_GET_ERROR:
     case SEARCH_POSTS_ERROR:
     case SEARCH_USERS_ERROR:
+    case DELETE_SUBCOMMENT_ERROR:
       return action.error;
 
     case HIDE_ERROR:

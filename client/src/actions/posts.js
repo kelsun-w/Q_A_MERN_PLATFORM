@@ -6,8 +6,11 @@ import {
   createPost,
   deletePost,
   createComment,
+  createSubComment,
   deleteComment,
-  castVote
+  deleteSubComment,
+  castVote,
+  castCommentVote
 } from '../util/api';
 
 import {
@@ -138,6 +141,26 @@ export const attemptCreateComment = comment => async (dispatch, getState) => {
   }
 };
 
+export const CREATE_SUBCOMMENT_REQUEST = 'CREATE_SUBCOMMENT_REQUEST';
+export const CREATE_SUBCOMMENT_SUCCESS = 'CREATE_SUBCOMMENT_SUCCESS';
+export const CREATE_SUBCOMMENT_ERROR = 'CREATE_SUBCOMMENT_ERROR';
+
+const createSubCommentRequest = { type: CREATE_SUBCOMMENT_REQUEST };
+const createSubCommentSuccess = post => ({ type: CREATE_SUBCOMMENT_SUCCESS, post });
+const createSubCommentError = error => ({ type: CREATE_SUBCOMMENT_ERROR, error });
+
+export const attemptCreateSubComment = (parentCommentId, commentBody) => async (dispatch, getState) => {
+  dispatch(createSubCommentRequest);
+  try {
+    const { id: post } = getState().posts.post;
+    const { token } = getState().auth;
+    const result = await createSubComment(post, parentCommentId, commentBody, token);
+    dispatch(createSubCommentSuccess(result));
+  } catch (error) {
+    dispatch(createSubCommentError(error));
+  }
+};
+
 export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
 export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 export const DELETE_COMMENT_ERROR = 'DELETE_COMMENT_ERROR';
@@ -158,6 +181,26 @@ export const attemptDeleteComment = comment => async (dispatch, getState) => {
   }
 };
 
+export const DELETE_SUBCOMMENT_REQUEST = 'DELETE_SUBCOMMENT_REQUEST';
+export const DELETE_SUBCOMMENT_SUCCESS = 'DELETE_SUBCOMMENT_SUCCESS';
+export const DELETE_SUBCOMMENT_ERROR = 'DELETE_SUBCOMMENT_ERROR';
+
+const deleteSubCommentRequest = { type: DELETE_SUBCOMMENT_REQUEST };
+const deleteSubCommentSuccess = post => ({ type: DELETE_SUBCOMMENT_SUCCESS, post });
+const deleteSubCommentError = error => ({ type: DELETE_SUBCOMMENT_ERROR, error });
+
+export const attemptDeleteSubComment = (parentId, childId) => async (dispatch, getState) => {
+  dispatch(deleteSubCommentRequest);
+  try {
+    const { id: post } = getState().posts.post;
+    const { token } = getState().auth;
+    const json = await deleteSubComment(post, parentId, childId, token);
+    dispatch(deleteSubCommentSuccess(json));
+  } catch (error) {
+    dispatch(deleteSubCommentError(error));
+  }
+};
+
 export const VOTE_REQUEST = 'VOTE_REQUEST';
 export const VOTE_SUCCESS = 'VOTE_SUCCESS';
 export const VOTE_ERROR = 'VOTE_ERROR';
@@ -175,5 +218,25 @@ export const attemptVote = (id, vote) => async (dispatch, getState) => {
     dispatch(getNewToken());
   } catch (error) {
     dispatch(voteError(error));
+  }
+};
+
+export const VOTE_COMMENT_REQUEST = 'VOTE_COMMENT_REQUEST';
+export const VOTE_COMMENT_SUCCESS = 'VOTE_COMMENT_SUCCESS';
+export const VOTE_COMMENT_ERROR = 'VOTE_COMMENT_ERROR';
+
+const voteCommentRequest = { type: VOTE_COMMENT_REQUEST };
+const voteCommentSuccess = post => ({ type: VOTE_COMMENT_SUCCESS, post });
+const voteCommentError = error => ({ type: VOTE_COMMENT_ERROR, error });
+
+export const attemptCommentVote = (postId, commentId, vote) => async (dispatch, getState) => {
+  dispatch(voteCommentRequest);
+  try {
+    const { token } = getState().auth;
+    const result = await castCommentVote(postId, commentId, vote, token);
+    dispatch(voteCommentSuccess(result));
+    dispatch(getNewToken());
+  } catch (error) {
+    dispatch(voteCommentError(error));
   }
 };

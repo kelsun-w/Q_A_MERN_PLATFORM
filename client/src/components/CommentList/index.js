@@ -3,8 +3,10 @@ import styled from 'styled-components/macro';
 import CommentListItem from './Item';
 
 const List = styled.ul`
-  margin-top: 16px;
+  margin-top: 8px;
   list-style: none;
+  background-color: ${props => props.theme.shadow};
+  padding: 12px 16px 2px 0px;
 `;
 
 const mapComments = comments =>
@@ -13,7 +15,7 @@ const mapComments = comments =>
   ));
 
 const sortComments = comments =>
-  comments.sort((a, b) => new Date(b.created) - new Date(a.created));
+  comments.sort((a, b) => b.score - a.score);
 
 const CommentList = ({ comments }) =>
   comments && <List>{mapComments(sortComments(comments))}</List>;

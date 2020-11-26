@@ -22,7 +22,8 @@ const dark = {
   activeBackground: '#333333',
   inputBackground: '#212121',
   shadow: 'rgba(0, 0, 0, 0.4)',
-  hover: '#343536'
+  hover: '#343536',
+  
 };
 
 const light = {

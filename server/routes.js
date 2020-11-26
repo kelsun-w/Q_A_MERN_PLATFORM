@@ -37,9 +37,9 @@ router.get('/save/:post', jwtAuth, users.savePost);
 
 router.param('comment', comments.load);
 router.post('/post/:post', [jwtAuth, comments.validate], comments.create);
-router.get('/post/:post/:comment/upvote', jwtAuth, comments.upvote);
-router.get('/post/:post/:comment/downvote', jwtAuth, comments.downvote);
-router.get('/post/:post/:comment/unvote', jwtAuth, comments.unvote);
+router.get('/post/:postid/:comment/upvote', jwtAuth, comments.upvote);
+router.get('/post/:postid/:comment/downvote', jwtAuth, comments.downvote);
+router.get('/post/:postid/:comment/unvote', jwtAuth, comments.unvote);
 router.delete('/post/:post/:comment', [jwtAuth, commentAuth], comments.destroy);
 router.post('/post/:post/:commentid', [jwtAuth, comments.validate], comments.addChild);
 router.delete('/post/:post/:parentid/:comment', [jwtAuth, commentAuth], comments.removeChild);

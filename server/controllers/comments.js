@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator/check');
 const Comment = require('../models/comment');
+const Post = require('../models/post');
 
 exports.load = async (req, res, next, id) => {
   try {
@@ -37,17 +38,20 @@ exports.destroy = async (req, res, next) => {
 
 exports.upvote = async (req, res) => {
   const comment = await req.comment.vote(req.user.id, 1);
-  res.json(comment);
+  const post = await Post.findById(req.params.postid);
+  res.status(201).json(post);
 };
 
 exports.downvote = async (req, res) => {
   const comment = await req.comment.vote(req.user.id, -1);
-  res.json(comment);
+  const post = await Post.findById(req.params.postid);
+  res.status(201).json(post);
 };
 
 exports.unvote = async (req, res) => {
   const comment = await req.comment.vote(req.user.id, 0);
-  res.json(comment);
+  const post = await Post.findById(req.params.postid);
+  res.status(201).json(post);
 };
 
 exports.addChild = async (req, res, next) => {

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FullPageMessage from '../shared/FullPageMessage';
 import PostListItem from './Item';
 import LoadingIndicatorBox from '../shared/LoadingIndicator/Box';
-import Empty from '../shared/Empty';
 
 const List = styled.ul`
   list-style: none;
